@@ -2,8 +2,8 @@ import { VetorTopRoxo } from "../../../assets/Icons";
 
 export function Section5Form() {
   return (
-    <div className="relative bg-cinza-200">
-      <div className="absolute top-0 w-full z-10">
+    <div className="relative bg-cinza-200 z-10">
+      <div className="absolute top-0 w-full z-20">
         <VetorTopRoxo />
       </div>
       <div className="relative max-w-5xl mx-auto w-full px-4 py-32 z-30 grid grid-cols-2 gap-10">

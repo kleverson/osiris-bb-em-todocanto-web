@@ -12,7 +12,7 @@ export function Footer() {
         </div>
       </div>
       <div className="bg-azul-bb">
-        <div className="flex flex-wrap justify-center gap-10 text-sm items-center py-12 text-white">
+        <div className="flex flex-wrap justify-center gap-10 text-sm items-center py-8 text-white">
           <p>
             <strong>© 2025 Banco do Brasil.</strong> Todos os direitos
             reservados.

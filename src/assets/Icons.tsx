@@ -582,3 +582,19 @@ export function VetorBallonWithPink() {
     </svg>
   );
 }
+export function VetorTopRoxo() {
+  return (
+    <svg
+      width="100%"
+      height="100%"
+      viewBox="0 0 1920 164"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M1991.08 163.632C1058.01 177.271 266.87 -195.34 -109 149.642V-120H1459.69C1459.69 -120 2924.16 149.993 1991.08 163.632Z"
+        fill="#735CC6"
+      />
+    </svg>
+  );
+}

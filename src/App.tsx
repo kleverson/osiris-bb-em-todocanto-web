@@ -4,6 +4,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Home } from "./pages/Home";
 import { Logged } from "./pages/Logged";
 import { Finalistas } from "./pages/Finalistas";
+import { AoVivo } from "./pages/AoVivo";
 
 function App() {
   return (
@@ -23,6 +24,14 @@ function App() {
             element={
               <ProtectedRoute requireAuth={false}>
                 <Finalistas />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ao-vivo"
+            element={
+              <ProtectedRoute requireAuth={false}>
+                <AoVivo />
               </ProtectedRoute>
             }
           />

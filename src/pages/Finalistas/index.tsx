@@ -1,18 +1,18 @@
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
-import { BannerLogged } from "./sections/BannerLogged";
 import { PerguntasFaq } from "../../components/PerguntasFaq";
-import { VoteNasMelhores } from "./sections/VoteNasMelhores";
+import { FinalistasTodoCanto } from "./sections/FinalistasTodoCanto";
+import { BannerFinalistas } from "./sections/BannerFinalistas";
 
-export function Logged() {
+export function Finalistas() {
   return (
     <div>
       <Header />
       <div className="logged-container">
         <div className="logged-bg-unified"></div>
         <div className="relative z-10">
-          <BannerLogged />
-          <VoteNasMelhores />
+          <BannerFinalistas />
+          <FinalistasTodoCanto />
         </div>
       </div>
       <PerguntasFaq />

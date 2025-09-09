@@ -1,4 +1,4 @@
-import { LogoBBEmTodoCanto } from "../assets/Icons";
+import { LogoBBEmTodoCanto } from "../../../assets/Icons";
 
 export function BannerLogged() {
   return (

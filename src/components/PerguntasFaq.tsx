@@ -39,7 +39,7 @@ export function PerguntasFaq() {
   return (
     <div className="relative bg-amarelo-bb">
       <div className="absolute top-0 w-full z-10">
-        <VetorTopBranco />
+        <VetorTopBranco color="#465eff " />
       </div>
       <div className="relative max-w-6xl mx-auto w-full px-4 pb-16 pt-28 z-30 grid grid-cols-2 gap-10">
         <div>

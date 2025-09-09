@@ -598,7 +598,7 @@ export function VetorTopRoxo() {
     </svg>
   );
 }
-export function VetorTopBranco() {
+export function VetorTopBranco({ color = "#F4F4F6" }) {
   return (
     <svg
       width="100%"
@@ -609,7 +609,7 @@ export function VetorTopBranco() {
     >
       <path
         d="M960 79.6405C1544.87 79.6405 2019 18.9786 2019 -55.8517C2019 -130.682 1544.87 -191.344 960 -191.344C375.13 -191.344 -99 -130.682 -99 -55.8517C-99 18.9786 375.13 79.6405 960 79.6405Z"
-        fill="#F4F4F6"
+        fill={color}
       />
     </svg>
   );

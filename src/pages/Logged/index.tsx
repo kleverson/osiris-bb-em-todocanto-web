@@ -8,8 +8,8 @@ export function Logged() {
   return (
     <div>
       <Header />
-      <div className="home-container">
-        <div className="home-bg-unified"></div>
+      <div className="logged-container">
+        <div className="logged-bg-unified"></div>
         <div className="relative z-10">
           <BannerLogged />
           <VoteNasMelhores />

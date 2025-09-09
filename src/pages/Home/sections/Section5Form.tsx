@@ -8,7 +8,7 @@ export function Section5Form() {
       </div>
       <div className="relative max-w-5xl mx-auto w-full px-4 py-32 z-30 grid grid-cols-2 gap-10">
         <div className="space-y-5">
-          <h2 className="text-3xl lg:text-5xl text-azul-bb font-bold">
+          <h2 className="text-3xl lg:text-5xl text-azul-bb font-bold font-bb-titulos">
             Mostre seu talento musical
           </h2>
           <p className="text-xl text-cinza-600">

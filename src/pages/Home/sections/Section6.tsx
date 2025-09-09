@@ -43,7 +43,7 @@ export function Section6() {
       </div>
       <div className="relative max-w-6xl mx-auto w-full px-4 pb-16 pt-28 z-30 grid grid-cols-2 gap-10">
         <div>
-          <h2 className="text-6xl text-azul-bb font-extrabold border-b-2 border-azul-bb pb-10">
+          <h2 className="text-6xl text-azul-bb font-extrabold border-b-2 border-azul-bb pb-10 font-bb-titulos">
             Perguntas? Temos a resposta.
           </h2>
           <p className="py-10 font-bold text-lg">

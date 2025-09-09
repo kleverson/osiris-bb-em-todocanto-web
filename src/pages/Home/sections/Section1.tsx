@@ -7,7 +7,7 @@ export function Section1() {
         <div>
           <LogoBBEmTodoCanto />
           <div className="space-y-6 mt-8 lg:ml-20">
-            <h2 className="text-3xl lg:text-5xl font-black text-azul-bb">
+            <h2 className="text-3xl lg:text-5xl font-black text-azul-bb font-bb-titulos">
               Brilhe. Encante. <br />
               Faça parte
             </h2>

@@ -10,7 +10,9 @@
   --color-cinza-400: #cecece;
   --color-cinza-600: #7b7f8b;
   --color-cinza-700: #333333;
-  /* --default-font-family: "PetrobrasSans", sans-serif; */
+  --default-font-family: "BancoDoBrasilTextos", "Arial", "Helvetica",
+    "sans-serif";
+  --font-bb-titulos: "BancoDoBrasilTitulos", "Arial", "Helvetica", "sans-serif";
 }
 
 .home-container {
@@ -38,3 +40,170 @@
   src: url("/fonts/PetrobrasSans_Lt.ttf") format("truetype"),
     url("/fonts/PetrobrasSans_Lt.woff2") format("woff2");
 } */
+
+@font-face {
+  font-family: "BancoDoBrasilTextos";
+  font-weight: 100;
+  src: url("./assets/fonts/BancoDoBrasilTextos-Light.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTextos-Light-web.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTextos";
+  font-weight: 100;
+  font-style: italic;
+  src: url("./assets/fonts/BancoDoBrasilTextos-LightIt.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTextos-LightIt-web.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTextos";
+  font-style: italic;
+  src: url("./assets/fonts/BancoDoBrasilTextos-Italic.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTextos-Italic-web.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTextos";
+  font-weight: 300;
+  src: url("./assets/fonts/BancoDoBrasilTextos-Regular.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTextos-Regular-web.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTextos";
+  font-weight: 400;
+  src: url("./assets/fonts/BancoDoBrasilTextos-Medium.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTextos-Medium-web.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTextos";
+  font-weight: 400;
+  font-style: italic;
+  src: url("./assets/fonts/BancoDoBrasilTextos-MediumIt.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTextos-MediumIt-web.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTextos";
+  font-weight: 700;
+  src: url("./assets/fonts/BancoDoBrasilTextos-Bold.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTextos-Bold-web.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTextos";
+  font-weight: 700;
+  font-style: italic;
+  src: url("./assets/fonts/BancoDoBrasilTextos-BoldIt.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTextos-BoldIt-web.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTextos";
+  font-weight: 700;
+  src: url("./assets/fonts/BancoDoBrasilTextos-Bold.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTextos-Bold-web.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTextos";
+  font-weight: 900;
+  src: url("./assets/fonts/BancoDoBrasilTextos-XBold.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTextos-XBold-web.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTextos";
+  font-weight: 900;
+  font-style: italic;
+  src: url("./assets/fonts/BancoDoBrasilTextos-XBoldIt.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTextos-XBoldIt-web.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTitulos";
+  font-weight: 100;
+  src: url("./assets/fonts/BancoDoBrasilTitulos-Light.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTitulos-Light-web.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTitulos";
+  font-weight: 100;
+  font-style: italic;
+  src: url("./assets/fonts/BancoDoBrasilTitulos-LightIt.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTitulos-LightIt-web.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTitulos";
+  font-style: italic;
+  src: url("./assets/fonts/BancoDoBrasilTitulos-Italic.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTitulos-Italic-web.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTitulos";
+  font-weight: 300;
+  src: url("./assets/fonts/BancoDoBrasilTitulos-Regular.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTitulos-Regular-web.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTitulos";
+  font-weight: 400;
+  src: url("./assets/fonts/BancoDoBrasilTitulos-Medium.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTitulos-Medium-web.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTitulos";
+  font-weight: 400;
+  font-style: italic;
+  src: url("./assets/fonts/BancoDoBrasilTitulos-MediumIt.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTitulos-MediumIt-web.ttf")
+      format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTitulos";
+  font-weight: 700;
+  src: url("./assets/fonts/BancoDoBrasilTitulos-Bold.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTitulos-Bold-web.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTitulos";
+  font-weight: 700;
+  font-style: italic;
+  src: url("./assets/fonts/BancoDoBrasilTitulos-BoldIt.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTitulos-BoldIt-web.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTitulos";
+  font-weight: 700;
+  src: url("./assets/fonts/BancoDoBrasilTitulos-Bold.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTitulos-Bold-web.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTitulos";
+  font-weight: 900;
+  src: url("./assets/fonts/BancoDoBrasilTitulos-XBold.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTitulos-XBold-web.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BancoDoBrasilTitulos";
+  font-weight: 900;
+  font-style: italic;
+  src: url("./assets/fonts/BancoDoBrasilTitulos-XBoldIt.woff") format("woff"),
+    url("./assets/fonts/BancoDoBrasilTitulos-XBoldIt-web.ttf")
+      format("truetype");
+}

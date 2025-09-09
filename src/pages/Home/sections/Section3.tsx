@@ -8,7 +8,7 @@ export function Section3() {
       </div>
       <div className="max-w-6xl mx-auto w-full px-4 grid grid-cols-1 lg:grid-cols-2 items-center gap-10">
         <div className="z-20">
-          <h2 className="text-3xl lg:text-5xl text-amarelo-bb font-black">
+          <h2 className="text-3xl lg:text-5xl text-amarelo-bb font-black font-bb-titulos">
             Concorra a 50 mil <br />
             pontos Livelo
           </h2>

@@ -4,7 +4,7 @@ export function Section2() {
       <div className="max-w-7xl mx-auto w-full px-4 grid grid-cols-1 lg:grid-cols-2 items-center py-5 gap-8">
         <div className="hidden lg:block"></div>
         <div className="space-y-6 lg:pt-28">
-          <h2 className="text-3xl lg:text-5xl text-amarelo-bb">
+          <h2 className="text-3xl lg:text-5xl text-amarelo-bb font-bb-titulos">
             <strong>O palco é seu,</strong>
             <br />
             veja como concorrer

@@ -11,7 +11,7 @@ export function Section4() {
       </div>
       <div className="relative max-w-6xl mx-auto w-full px-4 py-10">
         <div className="relative z-30 flex flex-col">
-          <h2 className="text-3xl lg:text-5xl text-rosa-600 text-center font-black">
+          <h2 className="text-3xl lg:text-5xl text-rosa-600 text-center font-black font-bb-titulos">
             Veja como vai funcionar
           </h2>
           <div className="grid grid-cols-3 gap-10 mt-32">
@@ -69,7 +69,7 @@ export function Section4() {
         </div>
         <div className="relative max-w-6xl mx-auto w-full px-4 z-20 grid grid-cols-1 lg:grid-cols-2 gap-10 pt-32 pb-10">
           <div className="space-y-6">
-            <h2 className="text-5xl text-azul-bb">
+            <h2 className="text-5xl text-azul-bb font-bb-titulos">
               Conheça a <br />
               <strong>equipe técnica</strong>
             </h2>

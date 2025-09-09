@@ -5,6 +5,7 @@ import { Home } from "./pages/Home";
 import { Logged } from "./pages/Logged";
 import { Finalistas } from "./pages/Finalistas";
 import { AoVivo } from "./pages/AoVivo";
+import { Votar } from "./pages/Votar";
 
 function App() {
   return (
@@ -32,6 +33,14 @@ function App() {
             element={
               <ProtectedRoute requireAuth={false}>
                 <AoVivo />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/votar"
+            element={
+              <ProtectedRoute requireAuth={false}>
+                <Votar />
               </ProtectedRoute>
             }
           />

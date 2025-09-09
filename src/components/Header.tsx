@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { LogoHeaderBB } from "../assets/Icons";
 import { useAuth } from "../contexts/AuthContext";
 
@@ -7,9 +8,9 @@ export function Header() {
   return (
     <header className="w-full bg-azul-600 text-white flex justify-between h-14">
       <div className="flex items-start ml-10 z-10">
-        <div className="w-24 h-w-24">
+        <Link to="/" className="w-24 h-w-24">
           <LogoHeaderBB />
-        </div>
+        </Link>
         <button className="px-6 h-full hover:bg-azul-bb/10 cursor-pointer duration-300 uppercase font-bold text-sm">
           o concurso
         </button>

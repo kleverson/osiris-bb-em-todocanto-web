@@ -6,7 +6,7 @@ export function FormTalentoMusicalStep1({
   setStep: (step: number) => void;
 }) {
   return (
-    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid grid-cols-2 gap-10">
+    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid md:grid-cols-2 gap-10">
       <div className="space-y-10">
         <h2 className="text-3xl lg:text-5xl text-azul-bb font-bold font-bb-titulos">
           Transforme <br />
@@ -17,7 +17,7 @@ export function FormTalentoMusicalStep1({
           Envie seu vídeo de apresentação e concorra a até 50 mil pontos Livelo.
         </p>
       </div>
-      <form className="border-l-2 pl-10 border-azul-bb/50 flex gap-5 flex-col">
+      <form className="md:border-l-2 md:pl-10 border-azul-bb/50 flex gap-5 flex-col">
         <label className="flex flex-col gap-2">
           <span className="text-cinza-600 font-medium">Matrícula</span>
           <input
@@ -57,7 +57,7 @@ export function FormTalentoMusicalStep2({
   setStep: (step: number) => void;
 }) {
   return (
-    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid grid-cols-2 gap-10">
+    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid md:grid-cols-2 gap-10">
       <div className="space-y-5">
         <div className="flex gap-3 items-center mb-16">
           <span className="w-7 h-7 rounded-full bg-azul-bb flex items-center justify-center text-xs font-bold text-white">
@@ -78,7 +78,7 @@ export function FormTalentoMusicalStep2({
           Preencha os seus dados para dar início à inscrição.
         </p>
       </div>
-      <form className="border-l-2 pl-10 border-azul-bb/50 flex gap-5 flex-col">
+      <form className="md:border-l-2 md:pl-10 border-azul-bb/50 flex gap-5 flex-col">
         <label className="flex flex-col gap-2">
           <span className="text-cinza-600 font-medium">Nome completo</span>
           <input
@@ -129,7 +129,7 @@ export function FormTalentoMusicalStep3({
   setStep: (step: number) => void;
 }) {
   return (
-    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid grid-cols-2 gap-10">
+    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid md:grid-cols-2 gap-10">
       <div className="space-y-5">
         <div className="flex gap-3 items-center mb-16">
           <span className="w-7 h-7 rounded-full bg-verde-500 flex items-center justify-center text-xs font-bold text-azul-bb">
@@ -150,7 +150,7 @@ export function FormTalentoMusicalStep3({
           Grave a sua apresentação ou da sua banda e envie o vídeo pra gente
         </p>
       </div>
-      <form className="border-l-2 px-10 border-cinza-400 flex gap-5 flex-col max-h-96 overflow-y-auto">
+      <form className="md:border-l-2 md:px-10 border-cinza-400 flex gap-5 flex-col md:max-h-96 overflow-y-auto">
         <label className="flex flex-col gap-2">
           <span className="text-cinza-600 font-medium">
             Escolha a categoria
@@ -300,7 +300,7 @@ export function FormTalentoMusicalStep4({
   setStep: (step: number) => void;
 }) {
   return (
-    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid grid-cols-2 gap-10">
+    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid md:grid-cols-2 gap-10">
       <div className="space-y-5">
         <div className="flex gap-3 items-center mb-16">
           <span className="w-7 h-7 rounded-full bg-verde-500 flex items-center justify-center text-xs font-bold text-azul-bb">
@@ -322,7 +322,7 @@ export function FormTalentoMusicalStep4({
           BB. Cada voto deixa você mais perto da vitória.
         </p>
       </div>
-      <form className="border-l-2 pl-10 border-azul-bb/50 flex gap-5 flex-col">
+      <form className="md:border-l-2 md:pl-10 border-azul-bb/50 flex gap-5 flex-col">
         <div className="grid grid-cols-2 items-center gap-5 bg-white p-10">
           <img
             src="https://picsum.photos/200/300"
@@ -374,7 +374,7 @@ export function FormTalentoMusicalStep4({
 
 export function FormTalentoMusicalStep5() {
   return (
-    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid grid-cols-2 gap-10">
+    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid md:grid-cols-2 gap-10">
       <div className="space-y-5">
         <h2 className="text-3xl lg:text-5xl text-azul-bb font-bold font-bb-titulos">
           Inscrição concluída com sucesso
@@ -389,7 +389,7 @@ export function FormTalentoMusicalStep5() {
           <strong>Boa sorte!</strong>
         </p>
       </div>
-      <form className="border-l-2 pl-10 border-azul-bb/50 flex gap-5 flex-col">
+      <form className="md:border-l-2 md:pl-10 border-azul-bb/50 flex gap-5 flex-col">
         <div className="grid grid-cols-2 items-center gap-5 bg-white p-10">
           <img
             src="https://picsum.photos/200/300"

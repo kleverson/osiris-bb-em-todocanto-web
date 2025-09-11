@@ -14,10 +14,10 @@ export function Section4() {
           <h2 className="text-3xl lg:text-5xl text-amarelo-bb text-center font-black font-bb-titulos">
             Veja como vai funcionar
           </h2>
-          <div className="grid grid-cols-3 gap-10">
+          <div className="grid md:grid-cols-3 gap-10">
             <div className="space-y-4">
               <div className="flex items-center gap-6 text-amarelo-bb">
-                <span className="w-[88px] h-[88px] rounded-full flex items-center justify-center border-4 border-amarelo-bb text-5xl font-extrabold">
+                <span className="w-16 h-16 md:w-[88px] md:h-[88px] rounded-full flex items-center justify-center border-4 border-amarelo-bb 4xl md:text-5xl font-extrabold">
                   1
                 </span>
                 <div className="flex flex-col">
@@ -37,7 +37,7 @@ export function Section4() {
             </div>
             <div className="space-y-4">
               <div className="flex items-center gap-6 text-amarelo-bb">
-                <span className="w-[88px] h-[88px] rounded-full flex items-center justify-center border-4 border-amarelo-bb text-5xl font-extrabold">
+                <span className="w-16 h-16 md:w-[88px] md:h-[88px] rounded-full flex items-center justify-center border-4 border-amarelo-bb text-4xl md:text-5xl font-extrabold">
                   2
                 </span>
                 <div className="flex flex-col">
@@ -57,7 +57,7 @@ export function Section4() {
             </div>
             <div className="space-y-4">
               <div className="flex items-center gap-6 text-amarelo-bb">
-                <span className="w-[88px] h-[88px] rounded-full flex items-center justify-center border-4 border-amarelo-bb text-5xl font-extrabold">
+                <span className="w-16 h-16 md:w-[88px] md:h-[88px] rounded-full flex items-center justify-center border-4 border-amarelo-bb text-4xl md:text-5xl font-extrabold">
                   3
                 </span>
                 <div className="flex flex-col">

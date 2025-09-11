@@ -25,10 +25,10 @@ export function Section1() {
               </div>
             </div>
           ) : (
-            <div className="w-[320px] h-[320px] lg:w-[568px] lg:h-[568px] relative">
+            <div className="w-full lg:w-[568px] lg:h-[568px] relative">
               <Contator />
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center space-y-4">
-                <h3 className="text-xl lg:text-3xl font-black text-amarelo-bb">
+                <h3 className="text-2xl lg:text-3xl font-black text-amarelo-bb">
                   Faltam apenas
                 </h3>
                 <div className="flex gap-2">

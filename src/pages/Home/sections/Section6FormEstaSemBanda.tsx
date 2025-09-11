@@ -307,13 +307,13 @@ export function Section6FormEstaSemBanda() {
         <VetorBottomEstaSemBanda />
       </div>
       <div className="relative max-w-7xl mx-auto w-full px-4 py-28 pb-44 z-30">
-        <div className="flex justify-between items-end">
+        <div className="flex flex-col md:flex-row gap-5 justify-between md:items-end">
           <div className="flex flex-col gap-6">
-            <h2 className="text-5xl font-extrabold font-bb-titulos text-azul-bb">
+            <h2 className="text-5xl font-extrabold font-bb-titulos text-white md:text-azul-bb">
               Está sem <br />
               banda?
             </h2>
-            <p className="text-2xl text-azul-bb">
+            <p className="text-2xl text-white md:text-azul-bb font-light">
               A gente te ajuda a encontrar <br />
               quem está faltando.
             </p>
@@ -374,7 +374,7 @@ export function Section6FormEstaSemBanda() {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-4 gap-5 py-20">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 py-20">
           {musicosParaMostrar.map((musico) => (
             <div
               key={musico.id}
@@ -395,12 +395,12 @@ export function Section6FormEstaSemBanda() {
             </div>
           ))}
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex flex-wrap gap-5 justify-between items-center">
           <button className="bg-amarelo-bb px-5 py-2 rounded-sm text-azul-bb font-bold uppercase">
             publicar no mural
           </button>
           <button className="text-amarelo-bb text-xl">Mostrar tudo</button>
-          <div className="flex gap-10 items-center text-white font-light">
+          <div className="flex gap-10 items-center text-white font-light ml-auto">
             <span>
               Mostrando {indiceInicio + 1}-
               {Math.min(indiceFim, musicosFiltrados.length)} de{" "}

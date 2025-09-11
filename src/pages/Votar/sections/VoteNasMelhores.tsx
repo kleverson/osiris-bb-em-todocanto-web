@@ -178,7 +178,7 @@ export function VoteNasMelhores() {
   return (
     <div className="flex justify-center items-center py-32">
       <div className="max-w-7xl mx-auto w-full px-4 flex flex-col gap-16">
-        <div className="flex justify-between items-center gap-5">
+        <div className="flex flex-col md:flex-row justify-between md:items-center gap-5">
           <h2 className="text-4xl font-extrabold font-bb-titulos text-amarelo-bb">
             Vote nas melhores apresentações
           </h2>

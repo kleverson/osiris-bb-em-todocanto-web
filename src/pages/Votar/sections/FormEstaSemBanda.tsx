@@ -307,7 +307,7 @@ export function FormEstaSemBanda() {
         <VetorBottomEstaSemBanda />
       </div>
       <div className="relative max-w-7xl mx-auto w-full px-4 py-28 pb-44 z-30">
-        <div className="flex justify-between items-end">
+        <div className="flex flex-col md:flex-row justify-between md:items-end">
           <div className="flex flex-col gap-6">
             <h2 className="text-5xl font-extrabold font-bb-titulos text-azul-bb">
               Está sem <br />
@@ -374,7 +374,7 @@ export function FormEstaSemBanda() {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-4 gap-5 py-20">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 py-20">
           {musicosParaMostrar.map((musico) => (
             <div
               key={musico.id}
@@ -395,14 +395,14 @@ export function FormEstaSemBanda() {
             </div>
           ))}
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex flex-wrap justify-between items-center gap-5">
           <button className="bg-azul-bb px-5 py-2 rounded-sm text-white font-bold uppercase cursor-pointer">
             publicar no mural
           </button>
           <button className="text-azul-bb text-xl cursor-pointer">
             Mostrar tudo
           </button>
-          <div className="flex gap-10 items-center text-azul-bb font-light">
+          <div className="flex gap-10 items-center text-azul-bb font-light ml-auto">
             <span>
               Mostrando {indiceInicio + 1}-
               {Math.min(indiceFim, musicosFiltrados.length)} de{" "}

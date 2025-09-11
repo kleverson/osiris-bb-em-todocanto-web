@@ -1044,7 +1044,11 @@ export function CompartilharIcon() {
   );
 }
 
-export function VetorTopEstaSemBanda() {
+export function VetorTopEstaSemBanda({
+  color = "#F4F4F6",
+}: {
+  color?: string;
+}) {
   return (
     <svg
       width="100%"
@@ -1055,7 +1059,7 @@ export function VetorTopEstaSemBanda() {
     >
       <path
         d="M1920 316.457L1910.36 311.19C1410.5 -458.544 527.5 520 0 150.5V0H1920V316.457Z"
-        fill="#F4F4F6"
+        fill={color}
       />
       <path
         d="M300.567 424.044C574.462 366.406 848.536 381.178 814.009 217.105C779.482 53.0321 529.456 -33.2506 255.56 24.3874C-18.335 82.0255 -208.82 321.256 -174.293 485.329C-139.766 649.402 26.6712 481.682 300.567 424.044Z"

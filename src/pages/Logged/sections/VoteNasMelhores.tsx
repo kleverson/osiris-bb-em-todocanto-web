@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 interface Apresentacao {
   id: number;
@@ -16,6 +16,8 @@ export function VoteNasMelhores() {
   const [filtroAtivo, setFiltroAtivo] = useState<"Todos" | "Solo" | "Banda">(
     "Todos"
   );
+  const [paginaAtual, setPaginaAtual] = useState(1);
+  const itensPorPagina = 8;
 
   const apresentacoes: Apresentacao[] = [
     {
@@ -128,44 +130,61 @@ export function VoteNasMelhores() {
     },
   ];
 
-  const apresentacoesFiltradas = apresentacoes.filter((apresentacao) => {
-    if (filtroAtivo === "Todos") return true;
-    return apresentacao.tipo === filtroAtivo;
-  });
+  const apresentacoesFiltradas = useMemo(() => {
+    return apresentacoes.filter((apresentacao) => {
+      const passaFiltroTipo =
+        filtroAtivo === "Todos" || apresentacao.tipo === filtroAtivo;
+
+      return passaFiltroTipo;
+    });
+  }, [apresentacoes, filtroAtivo]);
+
+  const totalPaginas = Math.ceil(
+    apresentacoesFiltradas.length / itensPorPagina
+  );
+  const indiceInicio = (paginaAtual - 1) * itensPorPagina;
+  const indiceFim = indiceInicio + itensPorPagina;
 
   const apresentacoesParaMostrar = mostrarTodos
     ? apresentacoesFiltradas
-    : apresentacoesFiltradas.slice(0, 6);
+    : apresentacoesFiltradas.slice(indiceInicio, indiceFim);
 
-  const temMaisItens = apresentacoesFiltradas.length > 6;
+  const calcularPaginasVisiveis = () => {
+    const maxPaginas = 7;
+    let inicio = Math.max(1, paginaAtual - Math.floor(maxPaginas / 2));
+    let fim = Math.min(totalPaginas, inicio + maxPaginas - 1);
+
+    if (fim - inicio + 1 < maxPaginas) {
+      inicio = Math.max(1, fim - maxPaginas + 1);
+    }
+
+    return Array.from({ length: fim - inicio + 1 }, (_, i) => inicio + i);
+  };
+
+  const paginasVisiveis = calcularPaginasVisiveis();
+
+  // Resetar página quando filtros mudarem
+  const handleFiltroChange = (novoFiltro: "Todos" | "Solo" | "Banda") => {
+    setFiltroAtivo(novoFiltro);
+    setPaginaAtual(1);
+    setMostrarTodos(false);
+  };
+
+  const handleMostrarTodos = () => {
+    setMostrarTodos(!mostrarTodos);
+    setPaginaAtual(1);
+  };
 
   return (
     <div className="flex justify-center items-center py-32">
       <div className="max-w-7xl mx-auto w-full px-4 flex flex-col gap-16">
-        <h2 className="text-5xl font-extrabold font-bb-titulos text-amarelo-bb">
-          Vote nas melhores apresentações
-        </h2>
         <div className="flex justify-between items-center gap-5">
-          <div className="bg-white px-4 py-2 rounded-t-sm overflow-hidden flex gap-2 items-center max-w-2xl w-full">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="#7b7f8b"
-              viewBox="0 0 16 16"
-            >
-              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-            </svg>
-
-            <input
-              type="text"
-              className="w-full text-azul-bb focus:outline-none px-2"
-              placeholder="Busque por artista solo, banda ou nome do funcionário"
-            />
-          </div>
+          <h2 className="text-4xl font-extrabold font-bb-titulos text-amarelo-bb">
+            Vote nas melhores apresentações
+          </h2>
           <div className="flex gap-4">
             <button
-              onClick={() => setFiltroAtivo("Todos")}
+              onClick={() => handleFiltroChange("Todos")}
               className={`px-4 py-2 w-36 rounded-sm uppercase cursor-pointer font-bold ${
                 filtroAtivo === "Todos"
                   ? "bg-verde-500 text-azul-bb"
@@ -175,7 +194,7 @@ export function VoteNasMelhores() {
               Todos
             </button>
             <button
-              onClick={() => setFiltroAtivo("Solo")}
+              onClick={() => handleFiltroChange("Solo")}
               className={`px-4 py-2 w-36 rounded-sm uppercase cursor-pointer font-bold ${
                 filtroAtivo === "Solo"
                   ? "bg-verde-500 text-azul-bb"
@@ -185,7 +204,7 @@ export function VoteNasMelhores() {
               Solo
             </button>
             <button
-              onClick={() => setFiltroAtivo("Banda")}
+              onClick={() => handleFiltroChange("Banda")}
               className={`px-4 py-2 w-36 rounded-sm uppercase cursor-pointer font-bold ${
                 filtroAtivo === "Banda"
                   ? "bg-verde-500 text-azul-bb"
@@ -222,7 +241,7 @@ export function VoteNasMelhores() {
                   className="w-full h-full object-cover"
                 />
                 <span
-                  className={`px-4 py-1 rounded-b-sm absolute top-0 left-4 font-light ${
+                  className={`px-4 py-1 rounded-xl absolute top-3 right-3 font-light ${
                     apresentacao.tipo === "Solo"
                       ? "bg-verde-500 text-azul-bb"
                       : "bg-rosa-300 text-azul-bb"
@@ -232,67 +251,107 @@ export function VoteNasMelhores() {
                 </span>
               </div>
 
-              <div className="h-8 flex items-center">
-                <span className="text-2xl font-light text-white flex items-center gap-2">
-                  <svg
-                    width="15"
-                    height="17"
-                    viewBox="0 0 15 17"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="flex-shrink-0"
-                  >
-                    <g clipPath="url(#clip0_16_10642)">
-                      <path
-                        d="M0.0826914 8.76043C0.837104 7.18705 5.50276 8.94197 4.93796 11.0479C4.37518 13.1538 -0.701978 10.4004 0.0826914 8.76043Z"
-                        fill="#FF6E91"
-                      />
-                      <path
-                        d="M7.28997 13.3976C8.04438 11.8243 12.71 13.5792 12.1452 15.6851C11.5825 17.791 6.5053 15.0376 7.28997 13.3976Z"
-                        fill="#FF6E91"
-                      />
-                      <path
-                        d="M13.8497 6.88648L14.3036 4.54659C12.1513 3.20318 7.11247 0.447754 7.11247 0.447754L4.39941 10.9571L4.93799 11.0458L7.12861 2.57988L13.8497 6.88447V6.88648Z"
-                        fill="#FF6E91"
-                      />
-                      <path
-                        d="M12.1453 15.685L14.3036 4.54631L13.646 4.10254L11.7297 15.5377L12.1453 15.685Z"
-                        fill="#FF6E91"
-                      />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_16_10642">
-                        <rect
-                          width="14.3036"
-                          height="16"
-                          fill="white"
-                          transform="translate(0 0.447754)"
-                        />
-                      </clipPath>
-                    </defs>
-                  </svg>
-                  <span className="truncate">{apresentacao.genero}</span>
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold text-white flex items-center gap-2">
+                  {apresentacao.nome}
+                </span>
+                <span className="text-xs font-light text-white flex items-center gap-2">
+                  {apresentacao.local}
+                </span>
+                <span className="text-xl font-light text-white flex items-center gap-2">
+                  {apresentacao.genero}
                 </span>
               </div>
 
-              {/* Botão sempre no final */}
               <Link
                 to={`/apresentacao/${apresentacao.id}`}
-                className="w-full bg-amarelo-bb uppercase text-azul-bb py-2 rounded-sm font-bold text-center flex justify-center items-center gap-2 mt-auto hover:bg-amarelo-bb/90 transition-colors"
+                className="w-fit px-6 bg-amarelo-bb uppercase text-azul-bb py-2 rounded-sm font-bold text-center flex justify-center items-center gap-2 mt-auto hover:bg-amarelo-bb/90 transition-colors"
               >
                 Votar
               </Link>
             </div>
           ))}
         </div>
-        {temMaisItens && (
+        <div className="flex justify-between items-center">
           <button
-            onClick={() => setMostrarTodos(!mostrarTodos)}
-            className="bg-rosa-600 text-white py-3 px-4 rounded-sm uppercase cursor-pointer w-full max-w-xs mx-auto hover:bg-rosa-700 transition-colors"
+            onClick={handleMostrarTodos}
+            className="text-amarelo-bb text-xl hover:underline duration-300"
           >
-            {mostrarTodos ? "Ver menos" : "Ver mais"}
+            {mostrarTodos ? "Mostrar menos" : "Mostrar tudo"}
           </button>
-        )}
+          {!mostrarTodos && (
+            <div className="flex gap-10 items-center text-white font-light">
+              <span>
+                Mostrando {indiceInicio + 1}-
+                {Math.min(indiceFim, apresentacoesFiltradas.length)} de{" "}
+                {apresentacoesFiltradas.length} itens
+              </span>
+              {totalPaginas > 1 && (
+                <div className="flex gap-2 items-center font-normal">
+                  <button
+                    onClick={() => setPaginaAtual(Math.max(1, paginaAtual - 1))}
+                    disabled={paginaAtual === 1}
+                    className={`${
+                      paginaAtual === 1
+                        ? "opacity-50 cursor-not-allowed"
+                        : "cursor-pointer"
+                    }`}
+                  >
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M16 7.0275L14.4777 5.5L8 12L14.4777 18.5L16 16.9725L11.0553 12L16 7.0275Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </button>
+                  {paginasVisiveis.map((numeroPagina) => (
+                    <button
+                      key={numeroPagina}
+                      onClick={() => setPaginaAtual(numeroPagina)}
+                      className={`border rounded-sm w-8 h-8 flex items-center justify-center ${
+                        paginaAtual === numeroPagina
+                          ? "border-azul-bb bg-azul-bb text-white"
+                          : "border-white text-white hover:bg-white hover:text-azul-bb"
+                      } transition-colors cursor-pointer`}
+                    >
+                      {numeroPagina}
+                    </button>
+                  ))}
+                  <button
+                    onClick={() =>
+                      setPaginaAtual(Math.min(totalPaginas, paginaAtual + 1))
+                    }
+                    disabled={paginaAtual === totalPaginas}
+                    className={`${
+                      paginaAtual === totalPaginas
+                        ? "opacity-50 cursor-not-allowed"
+                        : "cursor-pointer"
+                    }`}
+                  >
+                    <svg
+                      width="8"
+                      height="14"
+                      viewBox="0 0 8 14"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1.52227 0.5L0 2.0275L4.94467 7L0 11.9725L1.52227 13.5L8 7L1.52227 0.5Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

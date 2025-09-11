@@ -3,6 +3,7 @@ import { Header } from "../../components/Header";
 import { BannerLogged } from "./sections/BannerLogged";
 import { PerguntasFaq } from "../../components/PerguntasFaq";
 import { VoteNasMelhores } from "./sections/VoteNasMelhores";
+import { FormEstaSemBanda } from "./sections/FormEstaSemBanda";
 
 export function Logged() {
   return (
@@ -15,6 +16,7 @@ export function Logged() {
           <VoteNasMelhores />
         </div>
       </div>
+      <FormEstaSemBanda />
       <PerguntasFaq />
       <Footer />
     </div>

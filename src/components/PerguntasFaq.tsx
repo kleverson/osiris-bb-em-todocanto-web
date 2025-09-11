@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconPessoasDancando, VetorTopBranco } from "../assets/Icons";
+import Piano from "../assets/images/piano.png";
 
 export function PerguntasFaq() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -38,9 +38,9 @@ export function PerguntasFaq() {
 
   return (
     <div className="relative bg-amarelo-bb">
-      <div className="absolute top-0 w-full z-10">
-        <VetorTopBranco color="#465eff " />
-      </div>
+      {/* <div className="absolute top-0 w-full z-10">
+        <VetorTopBranco color="#fcfc30 " />
+      </div> */}
       <div className="relative max-w-6xl mx-auto w-full px-4 pb-16 pt-28 z-30 grid grid-cols-2 gap-10">
         <div>
           <h2 className="text-6xl text-azul-bb font-extrabold border-b-2 border-azul-bb pb-10 font-bb-titulos">
@@ -106,7 +106,7 @@ export function PerguntasFaq() {
         </div>
       </div>
       <div className="absolute bottom-0 right-[10vw] w-[45%]">
-        <IconPessoasDancando />
+        <img src={Piano} alt="pessoa tocando piano" />
       </div>
     </div>
   );

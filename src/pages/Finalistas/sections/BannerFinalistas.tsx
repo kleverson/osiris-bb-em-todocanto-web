@@ -8,21 +8,19 @@ export function BannerFinalistas() {
           <LogoBBEmTodoCanto />
           <div className="space-y-6 mt-8 lg:ml-20">
             <h2 className="text-3xl lg:text-5xl font-black text-azul-bb font-bb-titulos">
-              Conheça os finalistas
+              Brilhe. Encante. <br />
+              Faça parte.
             </h2>
-            <p className="text-xl text-cinza-700">
-              Falta pouco pra você saber quem é o maior talento do BB em Todo
-              Canto.
+            <p className="text-xl text-azul-bb font-light">
+              O palco é seu! Participe do concurso musical exclusivo para
+              funcionários do BB e concorra a até 50 mil pontos Livelo.
             </p>
-            <p className="text-xl text-cinza-700 font-light">
-              Os finalistas se apresentarão em 25/10 a partir das 16h na Jenaf,
-              em Brasília/DF. <strong>Venha festejar com a gente!</strong> Você
-              também poderá assistir os shows por transmissão ao vivo em nosso
-              site.
-            </p>
-            <button className="px-6 lg:px-10 py-3 lg:py-5 text-lg lg:text-2xl font-bold bg-rosa-600 text-white uppercase">
-              ver todos
+            <button className="py-3 px-4 rounded-sm font-bold bg-rosa-600 text-white uppercase">
+              Conheça os classificados
             </button>
+            <p className="text-sm lg:text-base text-azul-600 mt-20 font-light">
+              *Confira o regulamento da campanha.
+            </p>
           </div>
         </div>
       </div>

@@ -75,7 +75,7 @@ export function FinalistasTodoCanto() {
           Finalistas do BB em Todo Canto
         </h2>
         <div className="space-y-10">
-          <h3 className="text-5xl font-thin text-amarelo-bb">Solo</h3>
+          <h3 className="text-5xl font-thin text-end text-verde-500">Solo</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {apresentacoesSolo.map((apresentacao) => (
               <div key={apresentacao.id} className="flex flex-col gap-2 h-full">
@@ -102,7 +102,7 @@ export function FinalistasTodoCanto() {
                     className="w-full h-full object-cover"
                   />
                   <span
-                    className={`px-4 py-1 rounded-b-sm absolute top-0 left-4 font-light ${
+                    className={`px-4 py-1 rounded-xl absolute top-3 right-3 font-light ${
                       apresentacao.tipo === "Solo"
                         ? "bg-verde-500 text-azul-bb"
                         : "bg-rosa-300 text-azul-bb"
@@ -112,46 +112,15 @@ export function FinalistasTodoCanto() {
                   </span>
                 </div>
 
-                <div className="h-8 flex items-center">
-                  <span className="text-2xl font-light text-white flex items-center gap-2">
-                    <svg
-                      width="15"
-                      height="17"
-                      viewBox="0 0 15 17"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="flex-shrink-0"
-                    >
-                      <g clipPath="url(#clip0_16_10642)">
-                        <path
-                          d="M0.0826914 8.76043C0.837104 7.18705 5.50276 8.94197 4.93796 11.0479C4.37518 13.1538 -0.701978 10.4004 0.0826914 8.76043Z"
-                          fill="#FF6E91"
-                        />
-                        <path
-                          d="M7.28997 13.3976C8.04438 11.8243 12.71 13.5792 12.1452 15.6851C11.5825 17.791 6.5053 15.0376 7.28997 13.3976Z"
-                          fill="#FF6E91"
-                        />
-                        <path
-                          d="M13.8497 6.88648L14.3036 4.54659C12.1513 3.20318 7.11247 0.447754 7.11247 0.447754L4.39941 10.9571L4.93799 11.0458L7.12861 2.57988L13.8497 6.88447V6.88648Z"
-                          fill="#FF6E91"
-                        />
-                        <path
-                          d="M12.1453 15.685L14.3036 4.54631L13.646 4.10254L11.7297 15.5377L12.1453 15.685Z"
-                          fill="#FF6E91"
-                        />
-                      </g>
-                      <defs>
-                        <clipPath id="clip0_16_10642">
-                          <rect
-                            width="14.3036"
-                            height="16"
-                            fill="white"
-                            transform="translate(0 0.447754)"
-                          />
-                        </clipPath>
-                      </defs>
-                    </svg>
-                    <span className="truncate">{apresentacao.genero}</span>
+                <div className="flex flex-col">
+                  <span className="text-2xl font-bold text-white flex items-center gap-2">
+                    {apresentacao.nome}
+                  </span>
+                  <span className="text-xs font-light text-white flex items-center gap-2">
+                    {apresentacao.local}
+                  </span>
+                  <span className="text-xl font-light text-white flex items-center gap-2">
+                    {apresentacao.genero}
                   </span>
                 </div>
               </div>
@@ -159,7 +128,7 @@ export function FinalistasTodoCanto() {
           </div>
         </div>
         <div className="space-y-10">
-          <h3 className="text-5xl font-thin text-amarelo-bb">Banda</h3>
+          <h3 className="text-5xl font-thin text-end text-verde-500">Banda</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {apresentacoesBanda.map((apresentacao) => (
               <div key={apresentacao.id} className="flex flex-col gap-2 h-full">

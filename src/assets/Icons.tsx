@@ -1084,3 +1084,20 @@ export function VetorBottomEstaSemBanda() {
     </svg>
   );
 }
+
+export function VetorTopPerguntasFaq() {
+  return (
+    <svg
+      width="100%"
+      height="100%"
+      viewBox="0 0 1920 317"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0 316.457L9.63867 311.19C509.496 -458.544 1392.5 520 1920 150.5V0H0V316.457Z"
+        fill="#465EFF"
+      />
+    </svg>
+  );
+}

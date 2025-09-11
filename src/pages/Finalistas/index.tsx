@@ -1,8 +1,8 @@
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
-import { PerguntasFaq } from "../../components/PerguntasFaq";
 import { FinalistasTodoCanto } from "./sections/FinalistasTodoCanto";
 import { BannerFinalistas } from "./sections/BannerFinalistas";
+import { PerguntasFaq } from "./sections/PerguntasFaq";
 
 export function Finalistas() {
   return (

@@ -1,13 +1,13 @@
+import { useState } from "react";
 import { Contator, LogoBBEmTodoCanto } from "../../../assets/Icons";
-import { useAuth } from "../../../contexts/AuthContext";
 
 export function Section1() {
-  const { isAuthenticated } = useAuth();
+  const [alertVisible, setAlertVisible] = useState(true);
   return (
     <div className="min-h-screen flex justify-center items-center">
       <div className="max-w-7xl mx-auto w-full px-4 grid grid-cols-1 lg:grid-cols-2 items-center py-12 gap-8">
         <div className="flex flex-col justify-center">
-          {isAuthenticated ? (
+          {!alertVisible ? (
             <div>
               <LogoBBEmTodoCanto />
               <div className="space-y-6 mt-8 lg:ml-20 max-w-md">
@@ -25,7 +25,10 @@ export function Section1() {
               </div>
             </div>
           ) : (
-            <div className="w-full lg:w-[568px] lg:h-[568px] relative">
+            <div
+              onClick={() => setAlertVisible(false)}
+              className="w-full lg:w-[568px] lg:h-[568px] relative cursor-pointer"
+            >
               <Contator />
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center space-y-4">
                 <h3 className="text-2xl lg:text-3xl font-black text-amarelo-bb">

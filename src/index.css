@@ -54,12 +54,16 @@
   background-attachment: scroll;
 }
 
-/* @font-face {
-  font-family: "PetrobrasSans";
-  font-weight: 300;
-  src: url("/fonts/PetrobrasSans_Lt.ttf") format("truetype"),
-    url("/fonts/PetrobrasSans_Lt.woff2") format("woff2");
-} */
+@media (max-width: 768px) {
+  .home-bg-unified {
+    background-image: url("/src/assets/images/bgMobile.png");
+    background-position: left;
+  }
+  .logged-bg-unified {
+    background-image: url("/src/assets/images/bgMobileAzul.png");
+    background-position: right;
+  }
+}
 
 @font-face {
   font-family: "BancoDoBrasilTextos";

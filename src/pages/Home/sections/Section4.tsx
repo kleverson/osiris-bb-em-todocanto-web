@@ -6,7 +6,7 @@ export function Section4() {
       <div className="absolute top-0 w-full z-10">
         <VetorTopAmarelo />
       </div>
-      <div className="absolute bottom-0 w-full z-10">
+      <div className="absolute -bottom-2 w-full z-10">
         <VetorBottomBranco />
       </div>
       <div className="relative max-w-6xl mx-auto w-full px-4 py-44">

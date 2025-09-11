@@ -17,9 +17,5 @@ export function ProtectedRoute({
     return <Navigate to="/" replace />;
   }
 
-  if (!requireAuth && isAuthenticated) {
-    return <Navigate to="/logged" replace />;
-  }
-
   return <>{children}</>;
 }

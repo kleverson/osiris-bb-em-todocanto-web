@@ -3,6 +3,7 @@ import {
   VetorBottomEstaSemBanda,
   VetorTopEstaSemBanda,
 } from "../../../assets/Icons";
+import { ModalCadastrarBanda } from "../../../components/ModalCadastrarBanda";
 
 interface Musico {
   id: number;
@@ -21,6 +22,7 @@ export function Section6FormEstaSemBanda() {
   const [busca, setBusca] = useState("");
   const [paginaAtual, setPaginaAtual] = useState(1);
   const itensPorPagina = 8;
+  const [openModal, setOpenModal] = useState(false);
 
   // Lista fictícia de músicos
   const musicos: Musico[] = [
@@ -396,7 +398,11 @@ export function Section6FormEstaSemBanda() {
           ))}
         </div>
         <div className="flex flex-wrap gap-5 justify-between items-center">
-          <button className="bg-amarelo-bb px-5 py-2 rounded-sm text-azul-bb font-bold uppercase">
+          <button
+            type="button"
+            onClick={() => setOpenModal(true)}
+            className="bg-amarelo-bb px-5 py-2 rounded-sm text-azul-bb font-bold uppercase cursor-pointer"
+          >
             publicar no mural
           </button>
           <button className="text-amarelo-bb text-xl">Mostrar tudo</button>
@@ -472,6 +478,12 @@ export function Section6FormEstaSemBanda() {
           </div>
         </div>
       </div>
+      {openModal && (
+        <ModalCadastrarBanda
+          isOpen={openModal}
+          onClose={() => setOpenModal(false)}
+        />
+      )}
     </div>
   );
 }

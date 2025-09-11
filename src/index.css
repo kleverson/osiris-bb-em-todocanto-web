@@ -231,3 +231,26 @@
     url("./assets/fonts/BancoDoBrasilTitulos-XBoldIt-web.ttf")
       format("truetype");
 }
+
+::-webkit-scrollbar {
+  width: 8px; /* Largura do scroll vertical */
+  height: 8px; /* Altura do scroll horizontal */
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f0f0; /* Cor do fundo do track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #465eff; /* Cor do scroll */
+  border-radius: 4px; /* Deixa as bordas arredondadas */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #364bcc; /* Cor ao passar o mouse */
+}
+
+* {
+  scrollbar-width: thin; /* Deixa o scroll mais fino */
+  scrollbar-color: #465eff #f0f0f0; /* Cor do scroll e do track */
+}

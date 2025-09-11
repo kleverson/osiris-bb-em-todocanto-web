@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
 import { useState, useMemo } from "react";
+import { ModalVideoView } from "../../../components/ModalVideoView";
+import { ModalCantorView } from "../../../components/ModalCantorView";
 
 interface Apresentacao {
   id: number;
@@ -17,6 +18,10 @@ export function VoteNasMelhores() {
     "Todos"
   );
   const [paginaAtual, setPaginaAtual] = useState(1);
+  const [openModal, setOpenModal] = useState(false);
+  const [apresentacaoSelecionada, setApresentacaoSelecionada] =
+    useState<Apresentacao | null>(null);
+
   const itensPorPagina = 8;
 
   const apresentacoes: Apresentacao[] = [
@@ -263,12 +268,15 @@ export function VoteNasMelhores() {
                 </span>
               </div>
 
-              <Link
-                to={`/apresentacao/${apresentacao.id}`}
+              <button
+                onClick={() => {
+                  setApresentacaoSelecionada(apresentacao);
+                  setOpenModal(true);
+                }}
                 className="w-fit px-6 bg-amarelo-bb uppercase text-azul-bb py-2 rounded-sm font-bold text-center flex justify-center items-center gap-2 mt-auto hover:bg-amarelo-bb/90 transition-colors"
               >
                 Votar
-              </Link>
+              </button>
             </div>
           ))}
         </div>
@@ -353,6 +361,20 @@ export function VoteNasMelhores() {
           )}
         </div>
       </div>
+      {openModal && (
+        <ModalVideoView
+          isOpen={openModal}
+          onClose={() => setOpenModal(false)}
+          apresentacaoSelecionada={apresentacaoSelecionada}
+        />
+      )}
+      {openModal && (
+        <ModalCantorView
+          isOpen={openModal}
+          onClose={() => setOpenModal(false)}
+          apresentacaoSelecionada={apresentacaoSelecionada}
+        />
+      )}
     </div>
   );
 }

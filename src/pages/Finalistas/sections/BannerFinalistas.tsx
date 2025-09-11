@@ -3,7 +3,7 @@ import { LogoBBEmTodoCanto } from "../../../assets/Icons";
 export function BannerFinalistas() {
   return (
     <div className="min-h-screen flex justify-center items-center">
-      <div className="max-w-7xl mx-auto w-full px-4 grid grid-cols-1 lg:grid-cols-2 items-center py-5 gap-8">
+      <div className="max-w-7xl mx-auto w-full px-4 grid grid-cols-1 lg:grid-cols-2 items-center py-5 lg:pb-20 gap-8">
         <div className="w-[85%]">
           <LogoBBEmTodoCanto />
           <div className="space-y-6 mt-8 lg:ml-20">

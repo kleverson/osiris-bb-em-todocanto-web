@@ -33,9 +33,12 @@ export function Header() {
             <button className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap">
               como participar
             </button>
-            <button className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap">
-              equipe técnica
-            </button>
+            <Link
+              to={"/classificados"}
+              className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
+            >
+              classificados
+            </Link>
             <button className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap">
               dúvidas
             </button>
@@ -212,12 +215,13 @@ export function Header() {
                 </button>
               </li>
               <li>
-                <button
+                <Link
+                  to={"/classificados"}
                   onClick={closeMenu}
                   className="block w-full text-left py-3 px-4 hover:bg-azul-500 hover:text-amarelo-bb transition-colors uppercase font-bold text-sm rounded-sm"
                 >
-                  Equipe Técnica
-                </button>
+                  Classificados
+                </Link>
               </li>
               <li>
                 <button

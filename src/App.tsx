@@ -19,7 +19,7 @@ function App() {
             }
           />
           <Route
-            path="/finalistas"
+            path="/classificados"
             element={
               <ProtectedRoute requireAuth={false}>
                 <Finalistas />

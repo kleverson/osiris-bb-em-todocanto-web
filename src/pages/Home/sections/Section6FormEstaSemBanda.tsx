@@ -1,5 +1,8 @@
 import { useState, useMemo } from "react";
-import { VetorBottomEstaSemBanda, VetorTopEstaSemBanda } from "../assets/Icons";
+import {
+  VetorBottomEstaSemBanda,
+  VetorTopEstaSemBanda,
+} from "../../../assets/Icons";
 
 interface Musico {
   id: number;
@@ -11,7 +14,7 @@ interface Musico {
   tipo: "Solo" | "Banda";
 }
 
-export function FormEstaSemBanda() {
+export function Section6FormEstaSemBanda() {
   const [filtroAtivo, setFiltroAtivo] = useState<"Todos" | "Solo" | "Banda">(
     "Todos"
   );

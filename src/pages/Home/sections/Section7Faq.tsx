@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Piano from "../../../assets/images/piano.png";
 
-export function Section6() {
+export function Section7Faq() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {

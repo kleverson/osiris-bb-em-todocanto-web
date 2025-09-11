@@ -1,12 +1,12 @@
 import { Footer } from "../../components/Footer";
-import { FormEstaSemBanda } from "../../components/FormEstaSemBanda";
+import { Section6FormEstaSemBanda } from "./sections/Section6FormEstaSemBanda";
 import { Header } from "../../components/Header";
 import { Section1 } from "./sections/Section1";
 import { Section2 } from "./sections/Section2";
 import { Section3 } from "./sections/Section3";
 import { Section4 } from "./sections/Section4";
 import { Section5Form } from "./sections/Section5Form";
-import { Section6 } from "./sections/Section6";
+import { Section7Faq } from "./sections/Section7Faq";
 
 export function Home() {
   return (
@@ -22,8 +22,8 @@ export function Home() {
       <Section3 />
       <Section4 />
       <Section5Form />
-      <FormEstaSemBanda />
-      <Section6 />
+      <Section6FormEstaSemBanda />
+      <Section7Faq />
       <Footer />
     </div>
   );

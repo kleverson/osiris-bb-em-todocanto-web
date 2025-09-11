@@ -6,33 +6,33 @@ export function Header() {
   const { user, isAuthenticated, login, logout } = useAuth();
 
   return (
-    <header className="w-full bg-azul-600 text-white flex justify-between h-14">
-      <div className="flex items-start ml-10 z-10">
-        <Link to="/" className="w-24 h-w-24">
+    <header className="w-full bg-azul-bb text-white flex justify-between h-14">
+      <div className="flex items-center gap-5 ml-10 z-10">
+        <Link to="/">
           <LogoHeaderBB />
         </Link>
-        <button className="px-6 h-full hover:bg-azul-bb/10 cursor-pointer duration-300 uppercase font-bold text-sm">
+        <button className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm">
           o concurso
         </button>
-        <button className="px-6 h-full hover:bg-azul-bb/10 cursor-pointer duration-300 uppercase font-bold text-sm">
+        <button className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm">
           o concurso
         </button>
-        <button className="px-6 h-full hover:bg-azul-bb/10 cursor-pointer duration-300 uppercase font-bold text-sm">
+        <button className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm">
           Prêmios
         </button>
-        <button className="px-6 h-full hover:bg-azul-bb/10 cursor-pointer duration-300 uppercase font-bold text-sm">
+        <button className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm">
           como participar
         </button>
-        <button className="px-6 h-full hover:bg-azul-bb/10 cursor-pointer duration-300 uppercase font-bold text-sm">
+        <button className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm">
           equipe técnica
         </button>
-        <button className="px-6 h-full hover:bg-azul-bb/10 cursor-pointer duration-300 uppercase font-bold text-sm">
+        <button className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm">
           dúvidas
         </button>
-        <button className="px-6 h-full hover:bg-azul-bb/10 cursor-pointer duration-300 uppercase font-bold text-sm">
+        <button className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm">
           fale com a gente
         </button>
-        <button className="px-6 h-full hover:bg-azul-bb/10 cursor-pointer duration-300 uppercase font-bold text-sm">
+        <button className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm">
           regulamento
         </button>
       </div>

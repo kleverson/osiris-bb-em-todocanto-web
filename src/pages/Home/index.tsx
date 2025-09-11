@@ -1,4 +1,5 @@
 import { Footer } from "../../components/Footer";
+import { FormEstaSemBanda } from "../../components/FormEstaSemBanda";
 import { Header } from "../../components/Header";
 import { Section1 } from "./sections/Section1";
 import { Section2 } from "./sections/Section2";
@@ -21,6 +22,7 @@ export function Home() {
       <Section3 />
       <Section4 />
       <Section5Form />
+      <FormEstaSemBanda />
       <Section6 />
       <Footer />
     </div>

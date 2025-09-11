@@ -21,6 +21,14 @@ function App() {
             }
           />
           <Route
+            path="/logged"
+            element={
+              <ProtectedRoute requireAuth={true}>
+                <Logged />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/finalistas"
             element={
               <ProtectedRoute requireAuth={false}>
@@ -41,14 +49,6 @@ function App() {
             element={
               <ProtectedRoute requireAuth={false}>
                 <Votar />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/logged"
-            element={
-              <ProtectedRoute requireAuth={true}>
-                <Logged />
               </ProtectedRoute>
             }
           />

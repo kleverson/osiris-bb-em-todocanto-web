@@ -6,17 +6,18 @@ export function FormTalentoMusicalStep1({
   setStep: (step: number) => void;
 }) {
   return (
-    <div className="relative max-w-5xl mx-auto w-full px-4 py-32 z-30 grid grid-cols-2 gap-10">
-      <div className="space-y-5">
+    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid grid-cols-2 gap-10">
+      <div className="space-y-10">
         <h2 className="text-3xl lg:text-5xl text-azul-bb font-bold font-bb-titulos">
-          Mostre seu talento musical
+          Transforme <br />
+          sua música <br />
+          em conquista.
         </h2>
-        <p className="text-xl text-cinza-600">
-          Cante, toque, arrase! Envie o seu vídeo de apresentação e concorra ao
-          prêmio de até 50 mil pontos Livelo.
+        <p className="text-xl text-cinza-600 font-light">
+          Envie seu vídeo de apresentação e concorra a até 50 mil pontos Livelo.
         </p>
       </div>
-      <form className="border-l-2 pl-10 border-cinza-400 flex gap-5 flex-col">
+      <form className="border-l-2 pl-10 border-azul-bb/50 flex gap-5 flex-col">
         <label className="flex flex-col gap-2">
           <span className="text-cinza-600 font-medium">Matrícula</span>
           <input
@@ -24,6 +25,9 @@ export function FormTalentoMusicalStep1({
             placeholder="Digite a sua matrícula"
             className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition"
           />
+          <span className="text-sm text-azul-bb font-light">
+            Exemplo: F000000
+          </span>
         </label>
         <label className="flex flex-col gap-2 mt-6">
           <span className="text-cinza-600 font-medium">Senha</span>
@@ -32,10 +36,13 @@ export function FormTalentoMusicalStep1({
             placeholder="********"
             className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition"
           />
+          <span className="text-sm text-azul-bb font-light">
+            Utilize a senha dos portais externos.
+          </span>
         </label>
         <button
           type="button"
-          className="px-7 py-3 font-bold bg-azul-bb text-white uppercase mt-10 ml-auto rounded-sm cursor-pointer hover:brightness-90 transition"
+          className="px-7 py-3 font-bold bg-azul-bb text-white uppercase mt-10 rounded-sm cursor-pointer hover:brightness-90 transition"
           onClick={() => setStep(2)}
         >
           continuar
@@ -50,7 +57,7 @@ export function FormTalentoMusicalStep2({
   setStep: (step: number) => void;
 }) {
   return (
-    <div className="relative max-w-5xl mx-auto w-full px-4 py-32 z-30 grid grid-cols-2 gap-10">
+    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid grid-cols-2 gap-10">
       <div className="space-y-5">
         <div className="flex gap-3 items-center mb-16">
           <span className="w-7 h-7 rounded-full bg-azul-bb flex items-center justify-center text-xs font-bold text-white">
@@ -71,7 +78,7 @@ export function FormTalentoMusicalStep2({
           Preencha os seus dados para dar início à inscrição.
         </p>
       </div>
-      <form className="border-l-2 pl-10 border-cinza-400 flex gap-5 flex-col">
+      <form className="border-l-2 pl-10 border-azul-bb/50 flex gap-5 flex-col">
         <label className="flex flex-col gap-2">
           <span className="text-cinza-600 font-medium">Nome completo</span>
           <input
@@ -122,7 +129,7 @@ export function FormTalentoMusicalStep3({
   setStep: (step: number) => void;
 }) {
   return (
-    <div className="relative max-w-5xl mx-auto w-full px-4 py-32 z-30 grid grid-cols-2 gap-10">
+    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid grid-cols-2 gap-10">
       <div className="space-y-5">
         <div className="flex gap-3 items-center mb-16">
           <span className="w-7 h-7 rounded-full bg-verde-500 flex items-center justify-center text-xs font-bold text-azul-bb">
@@ -293,7 +300,7 @@ export function FormTalentoMusicalStep4({
   setStep: (step: number) => void;
 }) {
   return (
-    <div className="relative max-w-5xl mx-auto w-full px-4 py-32 z-30 grid grid-cols-2 gap-10">
+    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid grid-cols-2 gap-10">
       <div className="space-y-5">
         <div className="flex gap-3 items-center mb-16">
           <span className="w-7 h-7 rounded-full bg-verde-500 flex items-center justify-center text-xs font-bold text-azul-bb">
@@ -315,7 +322,7 @@ export function FormTalentoMusicalStep4({
           BB. Cada voto deixa você mais perto da vitória.
         </p>
       </div>
-      <form className="border-l-2 pl-10 border-cinza-400 flex gap-5 flex-col">
+      <form className="border-l-2 pl-10 border-azul-bb/50 flex gap-5 flex-col">
         <div className="grid grid-cols-2 items-center gap-5 bg-white p-10">
           <img
             src="https://picsum.photos/200/300"
@@ -367,7 +374,7 @@ export function FormTalentoMusicalStep4({
 
 export function FormTalentoMusicalStep5() {
   return (
-    <div className="relative max-w-5xl mx-auto w-full px-4 py-32 z-30 grid grid-cols-2 gap-10">
+    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid grid-cols-2 gap-10">
       <div className="space-y-5">
         <h2 className="text-3xl lg:text-5xl text-azul-bb font-bold font-bb-titulos">
           Inscrição concluída com sucesso
@@ -382,7 +389,7 @@ export function FormTalentoMusicalStep5() {
           <strong>Boa sorte!</strong>
         </p>
       </div>
-      <form className="border-l-2 pl-10 border-cinza-400 flex gap-5 flex-col">
+      <form className="border-l-2 pl-10 border-azul-bb/50 flex gap-5 flex-col">
         <div className="grid grid-cols-2 items-center gap-5 bg-white p-10">
           <img
             src="https://picsum.photos/200/300"

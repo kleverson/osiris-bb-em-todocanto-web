@@ -1,18 +1,8 @@
 export function Footer() {
   return (
     <div>
-      <div className="bg-rosa-600">
-        <div className="max-w-7xl mx-auto py-5 px-4 flex flex-wrap justify-between items-center">
-          <h2 className="text-3xl text-white text-center font-extrabold w-fit">
-            Faça a sua inscrição e participe
-          </h2>
-          <button className="px-7 py-3 font-bold bg-amarelo-bb text-azul-bb uppercase rounded-sm cursor-pointer hover:brightness-90 transition">
-            Quero participar!
-          </button>
-        </div>
-      </div>
       <div className="bg-azul-bb">
-        <div className="flex flex-wrap justify-center gap-10 text-sm items-center py-8 text-white">
+        <div className="flex flex-wrap justify-center gap-10 text-sm items-center py-12 text-white">
           <p>
             <strong>© 2025 Banco do Brasil.</strong> Todos os direitos
             reservados.

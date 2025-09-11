@@ -1,17 +1,16 @@
 export function LogoHeaderBB() {
   return (
     <svg
-      width="100%"
-      height="100%"
-      viewBox="0 0 96 96"
+      width="28"
+      height="28"
+      viewBox="0 0 28 28"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <rect width="96" height="96" fill="#465EFF" />
       <path
         fill-rule="evenodd"
         clip-rule="evenodd"
-        d="M20 38.6675L31.6654 46.4444L45.6658 37.1119L39.8333 33.2215L47.4158 28.1671L63.7501 39.0556L36.9158 56.9439L42.7503 60.8328L76 38.6675L47.9982 20L20 38.6675ZM76 57.334L47.9982 76L20 57.334L53.2482 35.1667L59.0837 39.0556L32.2499 56.9449L48.5812 67.8339L56.1652 62.7795L50.3337 58.8901L64.3321 49.5556L76 57.334ZM76 27.7779L70.1651 31.6674L64.3321 27.7779L76 20V27.7779ZM20 68.2231V76L31.6654 68.2231L25.8329 64.3351L20 68.2231Z"
+        d="M0 9.33375L5.8327 13.2222L12.8329 8.55596L9.91666 6.61073L13.7079 4.08353L21.8751 9.52782L8.45792 18.4719L11.3751 20.4164L28 9.33375L13.9991 0L0 9.33375ZM28 18.667L13.9991 28L0 18.667L16.6241 7.58334L19.5418 9.52782L6.12495 18.4724L14.2906 23.917L18.0826 21.3898L15.1669 19.445L22.1661 14.7778L28 18.667ZM28 3.88896L25.0825 5.83369L22.1661 3.88896L28 0V3.88896ZM0 24.1115V28L5.8327 24.1115L2.91647 22.1676L0 24.1115Z"
         fill="#FCFC30"
       />
     </svg>
@@ -534,6 +533,22 @@ export function VetorTopAmarelo() {
     </svg>
   );
 }
+export function VetorBottomBranco() {
+  return (
+    <svg
+      width="100%"
+      height="100%"
+      viewBox="0 0 1920 383"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0 383.004V289.509C570.496 -107.823 1562.12 716.028 1920 0V383.004H0Z"
+        fill="#F4F4F6"
+      />
+    </svg>
+  );
+}
 export function VetorBallonWithPink() {
   return (
     <svg
@@ -1025,6 +1040,43 @@ export function CompartilharIcon() {
           />
         </clipPath>
       </defs>
+    </svg>
+  );
+}
+
+export function VetorTopEstaSemBanda() {
+  return (
+    <svg
+      width="100%"
+      height="100%"
+      viewBox="0 0 1920 570"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M1920 316.457L1910.36 311.19C1410.5 -458.544 527.5 520 0 150.5V0H1920V316.457Z"
+        fill="#F4F4F6"
+      />
+      <path
+        d="M300.567 424.044C574.462 366.406 848.536 381.178 814.009 217.105C779.482 53.0321 529.456 -33.2506 255.56 24.3874C-18.335 82.0255 -208.82 321.256 -174.293 485.329C-139.766 649.402 26.6712 481.682 300.567 424.044Z"
+        fill="#00EBD0"
+      />
+    </svg>
+  );
+}
+export function VetorBottomEstaSemBanda() {
+  return (
+    <svg
+      width="100%"
+      height="100%"
+      viewBox="0 0 1920 312"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M1920 383.004V289.509C1349.51 -107.823 357.887 716.028 0 0V383.004H1920Z"
+        fill="#FCFC30"
+      />
     </svg>
   );
 }

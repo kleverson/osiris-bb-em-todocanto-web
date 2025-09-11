@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconPessoasDancando, VetorTopBranco } from "../../../assets/Icons";
+import Piano from "../../../assets/images/piano.png";
 
 export function Section6() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -38,15 +38,12 @@ export function Section6() {
 
   return (
     <div className="relative bg-amarelo-bb">
-      <div className="absolute top-0 w-full z-10">
-        <VetorTopBranco />
-      </div>
-      <div className="relative max-w-6xl mx-auto w-full px-4 pb-16 pt-28 z-30 grid grid-cols-2 gap-10">
-        <div>
-          <h2 className="text-6xl text-azul-bb font-extrabold border-b-2 border-azul-bb pb-10 font-bb-titulos">
+      <div className="relative max-w-6xl mx-auto w-full px-4 py-16 z-30 grid grid-cols-2 gap-10">
+        <div className="text-azul-bb">
+          <h2 className="text-6xl text-azul-bb font-extrabold border-b-2 border-rosa-600 pb-10 font-bb-titulos">
             Perguntas? Temos a resposta.
           </h2>
-          <p className="py-10 font-bold text-lg">
+          <p className="py-10 font-light text-lg">
             Confira as dúvidas mais frequentes.
           </p>
           <div className="space-y-1">
@@ -106,7 +103,7 @@ export function Section6() {
         </div>
       </div>
       <div className="absolute bottom-0 right-[10vw] w-[45%]">
-        <IconPessoasDancando />
+        <img src={Piano} alt="pessoa tocando piano" />
       </div>
     </div>
   );

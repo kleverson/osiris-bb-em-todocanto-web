@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Contator, LogoBBEmTodoCanto } from "../../../assets/Icons";
-import Banda from "../../../assets/images/mobile/banda.png";
+import Banda from "../assets/images/mobile/banda.png";
+import { Contator, LogoBBEmTodoCanto } from "../assets/Icons";
 
-export function Section1() {
+export function BannerPrincipal() {
   const [alertVisible, setAlertVisible] = useState(true);
   return (
     <div className="min-h-screen flex justify-center items-center">

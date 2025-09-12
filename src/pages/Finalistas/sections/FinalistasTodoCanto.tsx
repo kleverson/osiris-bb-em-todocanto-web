@@ -70,12 +70,14 @@ export function FinalistasTodoCanto() {
 
   return (
     <div className="flex justify-center items-center py-32">
-      <div className="max-w-7xl mx-auto w-full px-4 flex flex-col gap-16">
-        <h2 className="text-5xl font-extrabold font-bb-titulos text-amarelo-bb ml-auto">
+      <div className="max-w-7xl mx-auto w-full px-4 flex flex-col gap-8 sm:gap-16">
+        <h2 className="text-3xl sm:text-5xl font-extrabold font-bb-titulos text-amarelo-bb ml-auto">
           Finalistas do BB em Todo Canto
         </h2>
-        <div className="space-y-10">
-          <h3 className="text-5xl font-thin text-end text-verde-500">Solo</h3>
+        <div className="space-y-5 sm:space-y-10">
+          <h3 className="text-3xl sm:text-5xl font-thin text-end text-verde-500">
+            Solo
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {apresentacoesSolo.map((apresentacao) => (
               <div key={apresentacao.id} className="flex flex-col gap-2 h-full">
@@ -127,8 +129,10 @@ export function FinalistasTodoCanto() {
             ))}
           </div>
         </div>
-        <div className="space-y-10">
-          <h3 className="text-5xl font-thin text-end text-verde-500">Banda</h3>
+        <div className="space-y-5 sm:space-y-10">
+          <h3 className="text-3xl sm:text-5xl font-thin text-end text-verde-500">
+            Banda
+          </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {apresentacoesBanda.map((apresentacao) => (
               <div key={apresentacao.id} className="flex flex-col gap-2 h-full">

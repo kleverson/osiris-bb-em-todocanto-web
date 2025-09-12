@@ -20,8 +20,8 @@ export function LogoHeaderBB() {
 export function LogoBBEmTodoCanto() {
   return (
     <svg
-      width="296"
-      height="298"
+      width="100%"
+      height="100%"
       viewBox="0 0 296 298"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

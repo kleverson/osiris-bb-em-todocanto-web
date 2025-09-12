@@ -307,13 +307,13 @@ export function FormEstaSemBanda() {
         <VetorBottomEstaSemBanda />
       </div>
       <div className="relative max-w-7xl mx-auto w-full px-4 py-28 pb-44 z-30">
-        <div className="flex flex-col md:flex-row justify-between md:items-end">
+        <div className="flex gap-5 flex-col md:flex-row justify-between md:items-end">
           <div className="flex flex-col gap-6">
             <h2 className="text-5xl font-extrabold font-bb-titulos text-azul-bb">
               Está sem <br />
               banda?
             </h2>
-            <p className="text-2xl text-azul-bb">
+            <p className="text-lg sm:text-2xl text-azul-bb">
               A gente te ajuda a encontrar <br />
               quem está faltando.
             </p>
@@ -395,14 +395,14 @@ export function FormEstaSemBanda() {
             </div>
           ))}
         </div>
-        <div className="flex flex-wrap justify-between items-center gap-5">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-5">
           <button className="bg-azul-bb px-5 py-2 rounded-sm text-white font-bold uppercase cursor-pointer">
             publicar no mural
           </button>
           <button className="text-azul-bb text-xl cursor-pointer">
             Mostrar tudo
           </button>
-          <div className="flex gap-10 items-center text-azul-bb font-light ml-auto">
+          <div className="flex flex-col sm:flex-row gap-5 sm:gap-10 items-center text-azul-bb font-light sm:ml-auto">
             <span>
               Mostrando {indiceInicio + 1}-
               {Math.min(indiceFim, musicosFiltrados.length)} de{" "}

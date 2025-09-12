@@ -17,8 +17,9 @@ export function PerguntasFaq() {
       </div>
       <div className="relative max-w-6xl mx-auto w-full px-4 pb-16 pt-28 z-30 grid md:grid-cols-2 gap-10">
         <div>
-          <h2 className="text-6xl text-azul-bb font-extrabold border-b-2 border-azul-bb pb-10 font-bb-titulos">
-            Perguntas? Temos a resposta.
+          <h2 className="text-4xl sm:text-6xl text-azul-bb font-extrabold border-b-2 border-azul-bb pb-10 font-bb-titulos">
+            Perguntas? <br />
+            Temos a resposta.
           </h2>
           <p className="py-10 font-bold text-lg">
             Confira as dúvidas mais frequentes.

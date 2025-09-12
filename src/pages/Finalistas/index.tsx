@@ -1,8 +1,8 @@
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import { FinalistasTodoCanto } from "./sections/FinalistasTodoCanto";
-import { BannerFinalistas } from "./sections/BannerFinalistas";
 import { PerguntasFaq } from "./sections/PerguntasFaq";
+import { BannerPrincipal } from "../../components/BannerPrincipal";
 
 export function Finalistas() {
   return (
@@ -11,7 +11,7 @@ export function Finalistas() {
       <div className="logged-container">
         <div className="logged-bg-unified"></div>
         <div className="relative z-10">
-          <BannerFinalistas />
+          <BannerPrincipal />
           <FinalistasTodoCanto />
         </div>
       </div>

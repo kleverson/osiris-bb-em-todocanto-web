@@ -5,7 +5,10 @@ import Banda from "../../../assets/images/mobile/banda.png";
 export function Section1() {
   const [alertVisible, setAlertVisible] = useState(true);
   return (
-    <div className="min-h-screen flex justify-center items-center">
+    <div
+      id="o-concurso"
+      className="min-h-screen flex justify-center items-center"
+    >
       <div className="max-w-7xl mx-auto w-full px-4 grid grid-cols-1 lg:grid-cols-2 items-center py-12 pb-56 gap-8 relative">
         <div className="flex flex-col justify-center">
           <div className="z-10">

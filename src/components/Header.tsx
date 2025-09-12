@@ -1,11 +1,35 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { scroller } from "react-scroll";
 import { LogoHeaderBB } from "../assets/Icons";
 import { useAuth } from "../contexts/AuthContext";
 
 export function Header() {
   const { user, isAuthenticated, login, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const scrollToSection = (sectionId: string) => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        scroller.scrollTo(sectionId, {
+          duration: 800,
+          delay: 0,
+          smooth: "easeInOutQuart",
+          offset: -56,
+        });
+      }, 100);
+    } else {
+      scroller.scrollTo(sectionId, {
+        duration: 800,
+        delay: 0,
+        smooth: "easeInOutQuart",
+        offset: -56,
+      });
+    }
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -13,6 +37,11 @@ export function Header() {
 
   const closeMenu = () => {
     setIsMenuOpen(false);
+  };
+
+  const handleMobileNavigation = (sectionId: string) => {
+    closeMenu();
+    scrollToSection(sectionId);
   };
 
   return (
@@ -24,13 +53,22 @@ export function Header() {
           </Link>
 
           <nav className="hidden lg:flex items-center gap-5">
-            <button className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap">
+            <button
+              onClick={() => scrollToSection("o-concurso")}
+              className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
+            >
               o concurso
             </button>
-            <button className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap">
+            <button
+              onClick={() => scrollToSection("premios")}
+              className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
+            >
               prêmios
             </button>
-            <button className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap">
+            <button
+              onClick={() => scrollToSection("como-participar")}
+              className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
+            >
               como participar
             </button>
             <Link
@@ -39,13 +77,22 @@ export function Header() {
             >
               classificados
             </Link>
-            <button className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap">
+            <button
+              onClick={() => scrollToSection("duvidas")}
+              className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
+            >
               dúvidas
             </button>
-            <button className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap">
+            <button
+              onClick={() => scrollToSection("fale-com-a-gente")}
+              className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
+            >
               fale com a gente
             </button>
-            <button className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap">
+            <button
+              onClick={() => scrollToSection("regulamento")}
+              className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
+            >
               regulamento
             </button>
           </nav>
@@ -192,7 +239,7 @@ export function Header() {
             <ul className="space-y-4">
               <li>
                 <button
-                  onClick={closeMenu}
+                  onClick={() => handleMobileNavigation("o-concurso")}
                   className="block w-full text-left py-3 px-4 hover:bg-azul-500 hover:text-amarelo-bb transition-colors uppercase font-bold text-sm rounded-sm"
                 >
                   O Concurso
@@ -200,7 +247,7 @@ export function Header() {
               </li>
               <li>
                 <button
-                  onClick={closeMenu}
+                  onClick={() => handleMobileNavigation("premios")}
                   className="block w-full text-left py-3 px-4 hover:bg-azul-500 hover:text-amarelo-bb transition-colors uppercase font-bold text-sm rounded-sm"
                 >
                   Prêmios
@@ -208,7 +255,7 @@ export function Header() {
               </li>
               <li>
                 <button
-                  onClick={closeMenu}
+                  onClick={() => handleMobileNavigation("como-participar")}
                   className="block w-full text-left py-3 px-4 hover:bg-azul-500 hover:text-amarelo-bb transition-colors uppercase font-bold text-sm rounded-sm"
                 >
                   Como Participar
@@ -225,7 +272,7 @@ export function Header() {
               </li>
               <li>
                 <button
-                  onClick={closeMenu}
+                  onClick={() => handleMobileNavigation("duvidas")}
                   className="block w-full text-left py-3 px-4 hover:bg-azul-500 hover:text-amarelo-bb transition-colors uppercase font-bold text-sm rounded-sm"
                 >
                   Dúvidas
@@ -233,7 +280,7 @@ export function Header() {
               </li>
               <li>
                 <button
-                  onClick={closeMenu}
+                  onClick={() => handleMobileNavigation("fale-com-a-gente")}
                   className="block w-full text-left py-3 px-4 hover:bg-azul-500 hover:text-amarelo-bb transition-colors uppercase font-bold text-sm rounded-sm"
                 >
                   Fale com a Gente
@@ -241,7 +288,7 @@ export function Header() {
               </li>
               <li>
                 <button
-                  onClick={closeMenu}
+                  onClick={() => handleMobileNavigation("regulamento")}
                   className="block w-full text-left py-3 px-4 hover:bg-azul-500 hover:text-amarelo-bb transition-colors uppercase font-bold text-sm rounded-sm"
                 >
                   Regulamento

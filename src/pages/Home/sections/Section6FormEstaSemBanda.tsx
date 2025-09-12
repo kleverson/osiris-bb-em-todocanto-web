@@ -301,7 +301,7 @@ export function Section6FormEstaSemBanda() {
     setPaginaAtual(1);
   };
   return (
-    <div className="bg-roxo-600 relative">
+    <div id="fale-com-a-gente" className="bg-roxo-600 relative">
       <div className="absolute top-0 w-full z-10">
         <VetorTopEstaSemBanda />
       </div>

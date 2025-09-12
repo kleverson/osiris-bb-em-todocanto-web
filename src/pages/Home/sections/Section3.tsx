@@ -1,7 +1,7 @@
 import Sanfoneiro from "../../../assets/images/safoneiro.png";
 export function Section3() {
   return (
-    <div className="relative bg-amarelo-bb py-8">
+    <div id="premios" className="relative bg-amarelo-bb py-8">
       <div className="max-w-6xl mx-auto w-full px-4 grid grid-cols-1 lg:grid-cols-2 items-center gap-10">
         <div className="z-20 space-y-10">
           <h2 className="text-3xl lg:text-5xl text-azul-bb font-black font-bb-titulos">

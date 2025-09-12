@@ -1,6 +1,5 @@
 import { useState, useMemo } from "react";
 import { ModalVideoView } from "../../../components/ModalVideoView";
-import { ModalCantorView } from "../../../components/ModalCantorView";
 
 interface Apresentacao {
   id: number;
@@ -363,13 +362,6 @@ export function VoteNasMelhores() {
       </div>
       {openModal && (
         <ModalVideoView
-          isOpen={openModal}
-          onClose={() => setOpenModal(false)}
-          apresentacaoSelecionada={apresentacaoSelecionada}
-        />
-      )}
-      {openModal && (
-        <ModalCantorView
           isOpen={openModal}
           onClose={() => setOpenModal(false)}
           apresentacaoSelecionada={apresentacaoSelecionada}

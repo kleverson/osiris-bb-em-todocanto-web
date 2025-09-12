@@ -28,7 +28,7 @@ export function ModalCantorView({
       <div className="relative w-full max-w-[992px] pt-12">
         <button
           onClick={onClose}
-          className="absolute top-2 -right-8 z-10 flex items-center justify-center w-10 h-10 bg-amarelo-bb rounded-full shadow-lg"
+          className="absolute top-0 sm:top-2 right-0 sm:-right-8 z-10 flex items-center justify-center w-10 h-10 bg-amarelo-bb rounded-full shadow-lg"
           aria-label="Fechar modal"
         >
           <svg
@@ -45,7 +45,7 @@ export function ModalCantorView({
           </svg>
         </button>
 
-        <div className="relative bg-azul-bb rounded-lg shadow-2xl max-h-[582px] p-12 grid grid-cols-2 gap-10">
+        <div className="relative bg-azul-bb rounded-lg shadow-2xl max-h-[582px] overflow-y-auto p-12 grid md:grid-cols-2 gap-10">
           <div className="flex flex-col gap-6">
             <div className="space-y-2">
               <div className="border-b border-white/20 pb-4 mb-4 flex items-start gap-4">
@@ -97,7 +97,7 @@ export function ModalCantorView({
               alt=""
               className="rounded-lg object-cover h-56"
             />
-            <p className="text-white font-light max-h-56 overflow-y-auto">
+            <p className="text-white font-light sm:max-h-56 overflow-y-auto">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris

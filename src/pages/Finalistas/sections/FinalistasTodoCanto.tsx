@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { ModalCantorView } from "../../../components/ModalCantorView";
+
 interface Apresentacao {
   id: number;
   nome: string;
@@ -67,6 +70,9 @@ export function FinalistasTodoCanto() {
       genero: "MPB",
     },
   ];
+  const [openModal, setOpenModal] = useState(false);
+  const [apresentacaoSelecionada, setApresentacaoSelecionada] =
+    useState<Apresentacao | null>(null);
 
   return (
     <div className="flex justify-center items-center py-32">
@@ -80,7 +86,14 @@ export function FinalistasTodoCanto() {
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {apresentacoesSolo.map((apresentacao) => (
-              <div key={apresentacao.id} className="flex flex-col gap-2 h-full">
+              <div
+                key={apresentacao.id}
+                className="flex flex-col gap-2 h-full"
+                onClick={() => {
+                  setApresentacaoSelecionada(apresentacao);
+                  setOpenModal(true);
+                }}
+              >
                 <div className="flex gap-2 items-start h-16">
                   <img
                     src={apresentacao.perfil}
@@ -219,6 +232,13 @@ export function FinalistasTodoCanto() {
           confira o regulamento
         </button>
       </div>
+      {openModal && (
+        <ModalCantorView
+          isOpen={openModal}
+          onClose={() => setOpenModal(false)}
+          apresentacaoSelecionada={apresentacaoSelecionada}
+        />
+      )}
     </div>
   );
 }

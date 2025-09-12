@@ -5,9 +5,7 @@ export function Section3() {
       <div className="max-w-6xl mx-auto w-full px-4 grid grid-cols-1 lg:grid-cols-2 items-center gap-10">
         <div className="z-20 space-y-10">
           <h2 className="text-3xl lg:text-5xl text-azul-bb font-black font-bb-titulos">
-            Sua música pode <br />
-            valer muito mais <br />
-            do que aplausos!
+            Sua música pode valer muito mais do que aplausos!
           </h2>
           <div className="space-y-5">
             <div className="flex items-center gap-6">
@@ -89,11 +87,14 @@ export function Section3() {
               </p>
             </div>
           </div>
+          <p className="sm:text-2xl text-azul-bb font-light">
+            Preparados para turbinar o talento?
+          </p>
           <button className="px-7 py-3 font-bold bg-azul-bb text-white uppercase rounded-sm">
             confira o regulamento
           </button>
         </div>
-        <div className="hidden lg:block z-20">
+        <div className="z-20">
           <img src={Sanfoneiro} alt="Sanfoneiro" />
         </div>
       </div>

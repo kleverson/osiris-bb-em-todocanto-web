@@ -1,7 +1,7 @@
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import { BannerLogged } from "./sections/BannerLogged";
-import { PerguntasFaq } from "../../components/PerguntasFaq";
+import { PerguntasFaq } from "./sections/PerguntasFaq";
 import { VoteNasMelhores } from "./sections/VoteNasMelhores";
 import { FormEstaSemBanda } from "./sections/FormEstaSemBanda";
 

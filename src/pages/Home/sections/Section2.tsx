@@ -1,7 +1,9 @@
+import Baterista from "../../../assets/images/mobile/baterista.png";
+
 export function Section2() {
   return (
-    <div className="flex justify-center items-center pt-12 pb-32">
-      <div className="max-w-7xl mx-auto w-full px-4 grid grid-cols-1 lg:grid-cols-2 items-center gap-8">
+    <div className="flex justify-center items-center pt-12 pb-32 sm:pb-96">
+      <div className="max-w-7xl mx-auto w-full px-4 grid grid-cols-1 lg:grid-cols-2 items-center gap-8 z-10">
         <div className="hidden lg:block"></div>
         <div className="space-y-6">
           <h2 className="text-3xl lg:text-5xl text-amarelo-bb font-bb-titulos font-extrabold">
@@ -20,6 +22,11 @@ export function Section2() {
           </button>
         </div>
       </div>
+      <img
+        src={Baterista}
+        alt="Baterista"
+        className="sm:hidden absolute -bottom-2 w-full"
+      />
     </div>
   );
 }

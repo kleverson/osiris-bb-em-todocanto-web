@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Piano from "../../../assets/images/piano.png";
+import { PerguntasFrequentes } from "../../../mock/PerguntasFrequentes";
 
 export function Section7Faq() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -7,34 +8,6 @@ export function Section7Faq() {
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
-
-  const faq = [
-    {
-      question: "Quem pode participar da promoção?",
-      answer:
-        "Qualquer pessoa pode participar da promoção, desde que atenda aos requisitos descritos no regulamento.",
-    },
-    {
-      question: "Qual é o prazo de inscrição?",
-      answer:
-        "Para participar, basta se inscrever no site e seguir as instruções.",
-    },
-    {
-      question: "Quem pode votar e qual é o período da votação?",
-      answer:
-        "Os prêmios incluem vale-compras, produtos exclusivos e muito mais.",
-    },
-    {
-      question: "Quando e onde serão divulgados os finalistas?",
-      answer:
-        "Os prêmios incluem vale-compras, produtos exclusivos e muito mais.",
-    },
-    {
-      question: "Onde será a final e quando vai acontecer?",
-      answer:
-        "Os prêmios incluem vale-compras, produtos exclusivos e muito mais.",
-    },
-  ];
 
   return (
     <div className="relative bg-amarelo-bb">
@@ -47,7 +20,7 @@ export function Section7Faq() {
             Confira as dúvidas mais frequentes.
           </p>
           <div className="space-y-1">
-            {faq.map((item, index) => (
+            {PerguntasFrequentes.map((item, index) => (
               <div
                 key={index}
                 className="bg-white rounded-lg overflow-hidden transition-all duration-300 ease-in-out"
@@ -87,13 +60,13 @@ export function Section7Faq() {
                   </svg>
                 </div>
                 <div
-                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                  className={`overflow-hidden bg-azul-bb transition-all duration-300 ease-in-out ${
                     openIndex === index
                       ? "max-h-96 opacity-100"
                       : "max-h-0 opacity-0"
                   }`}
                 >
-                  <div className="px-6 pb-6 text-gray-700">
+                  <div className="p-6 text-white">
                     <p>{item.answer}</p>
                   </div>
                 </div>

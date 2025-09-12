@@ -308,7 +308,7 @@ export function Section6FormEstaSemBanda() {
       <div className="absolute bottom-0 w-full z-10">
         <VetorBottomEstaSemBanda />
       </div>
-      <div className="relative max-w-7xl mx-auto w-full px-4 py-28 pb-44 z-30">
+      <div className="relative max-w-7xl mx-auto w-full px-4 py-28 sm:pb-44 z-30">
         <div className="flex flex-col md:flex-row gap-5 justify-between md:items-end">
           <div className="flex flex-col gap-6">
             <h2 className="text-5xl font-extrabold font-bb-titulos text-white md:text-azul-bb">
@@ -397,7 +397,7 @@ export function Section6FormEstaSemBanda() {
             </div>
           ))}
         </div>
-        <div className="flex flex-wrap gap-5 justify-between items-center">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-5 justify-between items-center">
           <button
             type="button"
             onClick={() => setOpenModal(true)}
@@ -406,7 +406,7 @@ export function Section6FormEstaSemBanda() {
             publicar no mural
           </button>
           <button className="text-amarelo-bb text-xl">Mostrar tudo</button>
-          <div className="flex gap-10 items-center text-white font-light ml-auto">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-10 items-center text-white font-light sm:ml-auto">
             <span>
               Mostrando {indiceInicio + 1}-
               {Math.min(indiceFim, musicosFiltrados.length)} de{" "}

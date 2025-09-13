@@ -1,279 +1,80 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import {
   VetorBottomEstaSemBanda,
   VetorTopEstaSemBanda,
 } from "../../../assets/Icons";
+import { ModalCadastrarBanda } from "../../../components/ModalCadastrarBanda";
+import { useAuth } from "../../../contexts/AuthContext";
+import { classifiedService, type ClassifiedItem } from "../../../services/api";
 
 interface Musico {
-  id: number;
+  id?: number;
   nome: string;
   instrumento: string;
   genero: string;
-  email: string;
+  email?: string;
   cidade: string;
   tipo: "Solo" | "Banda";
 }
 
 export function FormEstaSemBanda() {
+  const { isAuthenticated } = useAuth();
   const [filtroAtivo, setFiltroAtivo] = useState<"Todos" | "Solo" | "Banda">(
     "Todos"
   );
   const [busca, setBusca] = useState("");
   const [paginaAtual, setPaginaAtual] = useState(1);
   const itensPorPagina = 8;
+  const [openModal, setOpenModal] = useState(false);
+  const [musicos, setMusicos] = useState<Musico[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [totalPaginas, setTotalPaginas] = useState(0);
 
-  // Lista fictícia de músicos
-  const musicos: Musico[] = [
-    {
-      id: 1,
-      nome: "Leonor Maria",
-      instrumento: "Baixista",
-      genero: "Sertanejo",
-      email: "leonor.maria@bb.com.br",
-      cidade: "Brasília/DF",
-      tipo: "Solo",
-    },
-    {
-      id: 2,
-      nome: "Carlos Silva",
-      instrumento: "Guitarrista",
-      genero: "Rock",
-      email: "carlos.silva@bb.com.br",
-      cidade: "São Paulo/SP",
-      tipo: "Solo",
-    },
-    {
-      id: 3,
-      nome: "Banda Melodia",
-      instrumento: "Formação Completa",
-      genero: "MPB",
-      email: "melodia@bb.com.br",
-      cidade: "Rio de Janeiro/RJ",
-      tipo: "Banda",
-    },
-    {
-      id: 4,
-      nome: "Ana Costa",
-      instrumento: "Vocalista",
-      genero: "Pop",
-      email: "ana.costa@bb.com.br",
-      cidade: "Belo Horizonte/MG",
-      tipo: "Solo",
-    },
-    {
-      id: 5,
-      nome: "João Bateria",
-      instrumento: "Baterista",
-      genero: "Jazz",
-      email: "joao.bateria@bb.com.br",
-      cidade: "Salvador/BA",
-      tipo: "Solo",
-    },
-    {
-      id: 6,
-      nome: "Trio Acústico",
-      instrumento: "Violão, Voz e Cajon",
-      genero: "Folk",
-      email: "trio.acustico@bb.com.br",
-      cidade: "Curitiba/PR",
-      tipo: "Banda",
-    },
-    {
-      id: 7,
-      nome: "Marina Teclado",
-      instrumento: "Tecladista",
-      genero: "Eletrônica",
-      email: "marina.teclado@bb.com.br",
-      cidade: "Fortaleza/CE",
-      tipo: "Solo",
-    },
-    {
-      id: 8,
-      nome: "Banda Blues BB",
-      instrumento: "Banda Completa",
-      genero: "Blues",
-      email: "blues.bb@bb.com.br",
-      cidade: "Porto Alegre/RS",
-      tipo: "Banda",
-    },
-    {
-      id: 9,
-      nome: "Rafael Violão",
-      instrumento: "Violonista",
-      genero: "Clássico",
-      email: "rafael.violao@bb.com.br",
-      cidade: "Recife/PE",
-      tipo: "Solo",
-    },
-    {
-      id: 10,
-      nome: "Grupo Samba",
-      instrumento: "Percussão e Voz",
-      genero: "Samba",
-      email: "grupo.samba@bb.com.br",
-      cidade: "Santos/SP",
-      tipo: "Banda",
-    },
-    {
-      id: 11,
-      nome: "Luana Saxofone",
-      instrumento: "Saxofonista",
-      genero: "Jazz",
-      email: "luana.sax@bb.com.br",
-      cidade: "Brasília/DF",
-      tipo: "Solo",
-    },
-    {
-      id: 12,
-      nome: "Rock Nacional",
-      instrumento: "Banda de Rock",
-      genero: "Rock",
-      email: "rock.nacional@bb.com.br",
-      cidade: "São Paulo/SP",
-      tipo: "Banda",
-    },
-    {
-      id: 13,
-      nome: "Pedro Baixo",
-      instrumento: "Baixista",
-      genero: "Funk",
-      email: "pedro.baixo@bb.com.br",
-      cidade: "Rio de Janeiro/RJ",
-      tipo: "Solo",
-    },
-    {
-      id: 14,
-      nome: "Harmonia Gospel",
-      instrumento: "Coral",
-      genero: "Gospel",
-      email: "harmonia.gospel@bb.com.br",
-      cidade: "Goiânia/GO",
-      tipo: "Banda",
-    },
-    {
-      id: 15,
-      nome: "Carla Flauta",
-      instrumento: "Flautista",
-      genero: "Erudito",
-      email: "carla.flauta@bb.com.br",
-      cidade: "Florianópolis/SC",
-      tipo: "Solo",
-    },
-    {
-      id: 16,
-      nome: "Forró Nordeste",
-      instrumento: "Sanfona, Zabumba e Triângulo",
-      genero: "Forró",
-      email: "forro.nordeste@bb.com.br",
-      cidade: "Natal/RN",
-      tipo: "Banda",
-    },
-    {
-      id: 17,
-      nome: "Bruno Violino",
-      instrumento: "Violinista",
-      genero: "Clássico",
-      email: "bruno.violino@bb.com.br",
-      cidade: "Manaus/AM",
-      tipo: "Solo",
-    },
-    {
-      id: 18,
-      nome: "Pagode BB",
-      instrumento: "Cavaquinho, Pandeiro e Voz",
-      genero: "Pagode",
-      email: "pagode.bb@bb.com.br",
-      cidade: "Belém/PA",
-      tipo: "Banda",
-    },
-    {
-      id: 19,
-      nome: "Júlia Harpa",
-      instrumento: "Harpista",
-      genero: "Erudito",
-      email: "julia.harpa@bb.com.br",
-      cidade: "Campo Grande/MS",
-      tipo: "Solo",
-    },
-    {
-      id: 20,
-      nome: "Reggae Roots",
-      instrumento: "Banda Reggae",
-      genero: "Reggae",
-      email: "reggae.roots@bb.com.br",
-      cidade: "João Pessoa/PB",
-      tipo: "Banda",
-    },
-    {
-      id: 21,
-      nome: "Felipe Trompete",
-      instrumento: "Trompetista",
-      genero: "Jazz",
-      email: "felipe.trompete@bb.com.br",
-      cidade: "Vitória/ES",
-      tipo: "Solo",
-    },
-    {
-      id: 22,
-      nome: "Country BB",
-      instrumento: "Dupla Sertaneja",
-      genero: "Country",
-      email: "country.bb@bb.com.br",
-      cidade: "Cuiabá/MT",
-      tipo: "Banda",
-    },
-    {
-      id: 23,
-      nome: "Roberta Clarinete",
-      instrumento: "Clarinetista",
-      genero: "Erudito",
-      email: "roberta.clarinete@bb.com.br",
-      cidade: "Maceió/AL",
-      tipo: "Solo",
-    },
-    {
-      id: 24,
-      nome: "Eletrônica Mix",
-      instrumento: "DJ e Produção",
-      genero: "Eletrônica",
-      email: "eletronica.mix@bb.com.br",
-      cidade: "Aracaju/SE",
-      tipo: "Banda",
-    },
-    {
-      id: 25,
-      nome: "Diego Acordeon",
-      instrumento: "Acordeonista",
-      genero: "Tango",
-      email: "diego.acordeon@bb.com.br",
-      cidade: "Rio Branco/AC",
-      tipo: "Solo",
-    },
-  ];
+  const convertApiToMusico = (item: ClassifiedItem): Musico => ({
+    nome: item.title,
+    instrumento: item.position,
+    genero: item.style,
+    cidade: `${item.city}/${item.state}`,
+    tipo: item.type_item as "Solo" | "Banda",
+  });
 
-  // Filtrar músicos com base na busca e filtro ativo
+  const fetchClassifieds = async () => {
+    try {
+      setLoading(true);
+      const response = await classifiedService.searchClassifieds({
+        term: busca || undefined,
+        page: paginaAtual,
+        limit: itensPorPagina,
+      });
+
+      const musicosData = response.data.map(convertApiToMusico);
+      setMusicos(musicosData);
+      setTotalPaginas(response.total_pages);
+    } catch (error) {
+      console.error("Erro ao buscar classificados:", error);
+      setMusicos([]);
+      setTotalPaginas(0);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchClassifieds();
+  }, [busca, paginaAtual]);
+
   const musicosFiltrados = useMemo(() => {
     return musicos.filter((musico) => {
       const passaFiltroTipo =
         filtroAtivo === "Todos" || musico.tipo === filtroAtivo;
-      const passaBusca =
-        busca === "" ||
-        musico.nome.toLowerCase().includes(busca.toLowerCase()) ||
-        musico.instrumento.toLowerCase().includes(busca.toLowerCase()) ||
-        musico.genero.toLowerCase().includes(busca.toLowerCase()) ||
-        musico.cidade.toLowerCase().includes(busca.toLowerCase());
-
-      return passaFiltroTipo && passaBusca;
+      return passaFiltroTipo;
     });
-  }, [musicos, filtroAtivo, busca]);
+  }, [musicos, filtroAtivo]);
 
-  // Calcular paginação
-  const totalPaginas = Math.ceil(musicosFiltrados.length / itensPorPagina);
+  const musicosParaMostrar = musicosFiltrados;
   const indiceInicio = (paginaAtual - 1) * itensPorPagina;
-  const indiceFim = indiceInicio + itensPorPagina;
-  const musicosParaMostrar = musicosFiltrados.slice(indiceInicio, indiceFim);
+  const indiceFim = indiceInicio + musicosParaMostrar.length;
 
-  // Calcular páginas visíveis (máximo 7)
   const calcularPaginasVisiveis = () => {
     const maxPaginas = 7;
     let inicio = Math.max(1, paginaAtual - Math.floor(maxPaginas / 2));
@@ -288,32 +89,35 @@ export function FormEstaSemBanda() {
 
   const paginasVisiveis = calcularPaginasVisiveis();
 
-  // Resetar página quando filtros mudarem
   const handleFiltroChange = (novoFiltro: "Todos" | "Solo" | "Banda") => {
     setFiltroAtivo(novoFiltro);
-    setPaginaAtual(1);
   };
 
   const handleBuscaChange = (novaBusca: string) => {
     setBusca(novaBusca);
     setPaginaAtual(1);
   };
+
+  const handleModalClose = () => {
+    setOpenModal(false);
+    fetchClassifieds();
+  };
   return (
-    <div className="bg-cinza-200 relative">
+    <div id="fale-com-a-gente" className="bg-cinza-200 relative">
       <div className="absolute top-0 w-full z-10">
-        <VetorTopEstaSemBanda color="#465eff " />
+        <VetorTopEstaSemBanda color="#465eff" />
       </div>
       <div className="absolute bottom-0 w-full z-10">
         <VetorBottomEstaSemBanda />
       </div>
-      <div className="relative max-w-7xl mx-auto w-full px-4 py-28 pb-44 z-30">
-        <div className="flex gap-5 flex-col md:flex-row justify-between md:items-end">
+      <div className="relative max-w-7xl mx-auto w-full px-4 py-28 sm:pb-44 z-30">
+        <div className="flex flex-col md:flex-row gap-5 justify-between md:items-end">
           <div className="flex flex-col gap-6">
-            <h2 className="text-5xl font-extrabold font-bb-titulos text-azul-bb">
+            <h2 className="text-5xl font-extrabold font-bb-titulos text-white md:text-azul-bb">
               Está sem <br />
               banda?
             </h2>
-            <p className="text-lg sm:text-2xl text-azul-bb">
+            <p className="text-2xl text-azul-bb font-light">
               A gente te ajuda a encontrar <br />
               quem está faltando.
             </p>
@@ -374,38 +178,68 @@ export function FormEstaSemBanda() {
             </div>
           </div>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 py-20">
-          {musicosParaMostrar.map((musico) => (
-            <div
-              key={musico.id}
-              className="border border-dashed border-verde-500 rounded-3xl flex flex-col gap-4 p-6 text-xl text-azul-bb"
-            >
-              <h3>{musico.nome}</h3>
-              <div className="font-light flex flex-col gap-1 border-b border-verde-500 pb-2">
-                <span className="px-5 py-1">Eu sou</span>
-                <span className="w-full bg-verde-500 text-azul-bb px-5 py-1 rounded-3xl">
-                  {musico.instrumento}
-                </span>
-                <span className="px-5 py-1">{musico.genero}</span>
+
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <div className="text-azul-bb text-xl">Carregando...</div>
+          </div>
+        ) : musicosParaMostrar.length > 0 ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 py-20">
+            {musicosParaMostrar.map((musico, index) => (
+              <div
+                key={`${musico.nome}-${index}`}
+                className="border border-dashed border-verde-500 rounded-3xl flex flex-col gap-4 p-6 text-xl text-azul-bb"
+              >
+                <h3>{musico.nome}</h3>
+                <div className="font-light flex flex-col gap-1 border-b border-verde-500 pb-2">
+                  <span className="px-5 py-1">Eu sou</span>
+                  <span className="w-full bg-verde-500 text-azul-bb px-5 py-1 rounded-3xl">
+                    {musico.instrumento}
+                  </span>
+                  <span className="px-5 py-1">{musico.genero}</span>
+                </div>
+                <div className="font-light flex flex-col text-lg">
+                  {musico.email && (
+                    <span className="truncate">{musico.email}</span>
+                  )}
+                  <span>{musico.cidade}</span>
+                </div>
               </div>
-              <div className="font-light flex flex-col text-lg">
-                <span className="truncate">{musico.email}</span>
-                <span>{musico.cidade}</span>
-              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex justify-center items-center py-20">
+            <div className="text-white text-center">
+              <h3 className="text-2xl font-bold mb-4">
+                Nenhum resultado encontrado
+              </h3>
+              <p className="text-lg">
+                Tente ajustar os filtros ou fazer uma nova busca.
+              </p>
             </div>
-          ))}
-        </div>
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-5">
-          <button className="bg-azul-bb px-5 py-2 rounded-sm text-white font-bold uppercase cursor-pointer">
+          </div>
+        )}
+
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-5 justify-between items-center">
+          <button
+            type="button"
+            onClick={() => setOpenModal(true)}
+            disabled={!isAuthenticated}
+            className={`px-5 py-2 rounded-sm text-white font-bold uppercase cursor-pointer ${
+              isAuthenticated
+                ? "bg-azul-bb"
+                : "bg-azul-bb/80 cursor-not-allowed"
+            }`}
+            title={!isAuthenticated ? "Faça login para publicar no mural" : ""}
+          >
             publicar no mural
           </button>
           <button className="text-azul-bb text-xl cursor-pointer">
             Mostrar tudo
           </button>
-          <div className="flex flex-col sm:flex-row gap-5 sm:gap-10 items-center text-azul-bb font-light sm:ml-auto">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-10 items-center text-azul-bb font-light sm:ml-auto">
             <span>
-              Mostrando {indiceInicio + 1}-
-              {Math.min(indiceFim, musicosFiltrados.length)} de{" "}
+              Mostrando {indiceInicio + 1}-{indiceFim} de{" "}
               {musicosFiltrados.length} itens
             </span>
             {totalPaginas > 1 && (
@@ -428,7 +262,7 @@ export function FormEstaSemBanda() {
                   >
                     <path
                       d="M16 7.0275L14.4777 5.5L8 12L14.4777 18.5L16 16.9725L11.0553 12L16 7.0275Z"
-                      fill="#465eff "
+                      fill="#465eff"
                     />
                   </svg>
                 </button>
@@ -474,6 +308,9 @@ export function FormEstaSemBanda() {
           </div>
         </div>
       </div>
+      {openModal && (
+        <ModalCadastrarBanda isOpen={openModal} onClose={handleModalClose} />
+      )}
     </div>
   );
 }

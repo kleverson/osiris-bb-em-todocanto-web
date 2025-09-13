@@ -1,11 +1,48 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Banda from "../assets/images/mobile/banda.png";
 import { Contator, LogoBBEmTodoCanto } from "../assets/Icons";
 
 export function BannerPrincipal() {
   const [alertVisible, setAlertVisible] = useState(true);
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+  });
+  const navigate = useNavigate();
+
+  const eventDate = new Date("2025-09-26T23:59:59");
+
+  const calculateTimeLeft = () => {
+    const now = new Date();
+    const difference = eventDate.getTime() - now.getTime();
+
+    if (difference > 0) {
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+
+      setTimeLeft({ days, hours, minutes });
+    } else {
+      setTimeLeft({ days: 0, hours: 0, minutes: 0 });
+    }
+  };
+
+  useEffect(() => {
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 60000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <div className="min-h-screen flex justify-center items-center">
+    <div
+      id="o-concurso"
+      className="min-h-screen flex justify-center items-center"
+    >
       <div className="max-w-7xl mx-auto w-full px-4 grid grid-cols-1 lg:grid-cols-2 items-center py-12 pb-56 gap-8 relative">
         <div className="flex flex-col justify-center">
           <div className="z-10">
@@ -21,7 +58,11 @@ export function BannerPrincipal() {
                 O palco é seu! Participe do concurso musical exclusivo para
                 funcionários do BB e concorra a até 50 mil pontos Livelo.
               </p>
-              <button className="px-7 py-3 text-lg rounded-sm font-bold bg-rosa-600 text-white uppercase cursor-pointer">
+              <button
+                type="button"
+                onClick={() => navigate("/classificados")}
+                className="px-7 py-3 text-lg rounded-sm font-bold bg-rosa-600 text-white uppercase cursor-pointer"
+              >
                 Conheça os classificados
               </button>
             </div>
@@ -47,15 +88,21 @@ export function BannerPrincipal() {
               </h3>
               <div className="flex gap-2">
                 <div className="w-[60px] h-[60px] lg:w-[88px] lg:h-[88px] rounded-full bg-amarelo-bb text-azul-bb flex flex-col justify-center items-center">
-                  <span className="text-2xl lg:text-4xl font-bold">10</span>
+                  <span className="text-2xl lg:text-4xl font-bold">
+                    {timeLeft.days}
+                  </span>
                   <span className="text-xs lg:text-sm">dias</span>
                 </div>
                 <div className="w-[60px] h-[60px] lg:w-[88px] lg:h-[88px] rounded-full bg-amarelo-bb text-azul-bb flex flex-col justify-center items-center">
-                  <span className="text-2xl lg:text-4xl font-bold">10</span>
+                  <span className="text-2xl lg:text-4xl font-bold">
+                    {timeLeft.hours}
+                  </span>
                   <span className="text-xs lg:text-sm">horas</span>
                 </div>
                 <div className="w-[60px] h-[60px] lg:w-[88px] lg:h-[88px] rounded-full bg-amarelo-bb text-azul-bb flex flex-col justify-center items-center">
-                  <span className="text-2xl lg:text-4xl font-bold">10</span>
+                  <span className="text-2xl lg:text-4xl font-bold">
+                    {timeLeft.minutes}
+                  </span>
                   <span className="text-xs lg:text-sm">minutos</span>
                 </div>
               </div>

@@ -188,8 +188,16 @@ export function FormTalentoMusicalStep3({
           <span className="text-cinza-600 font-medium">
             Qual é o nome da música
           </span>
-          <textarea
+          <input
+            type="text"
             placeholder="Digite o título da música que será apresentada"
+            className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition"
+          />
+        </label>
+        <label className="flex flex-col gap-2">
+          <span className="text-cinza-600 font-medium">Escreva a letra</span>
+          <textarea
+            placeholder="Escreva a letra da sua música caso possua"
             maxLength={400}
             className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition resize-none h-32"
           />
@@ -206,6 +214,47 @@ export function FormTalentoMusicalStep3({
           <label className="bg-white p-8 flex flex-col items-center justify-center gap-4 text-center text-azul-bb">
             <span>
               Arraste e solte o arquivo do seu vídeo para fazer o envio
+            </span>
+            <svg
+              width="40"
+              height="41"
+              viewBox="0 0 40 41"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                y="0.865967"
+                width="40"
+                height="40"
+                rx="20"
+                fill="#465EFF"
+              />
+              <path
+                d="M15.2618 17.7819C15.4401 17.7819 15.6077 17.7125 15.734 17.5863L19.289 14.0313V21.9434C19.289 22.3115 19.5884 22.6109 19.9565 22.6109C20.3246 22.6109 20.624 22.3115 20.624 21.9434V14.0313L24.179 17.5863C24.3051 17.7123 24.4727 17.7819 24.651 17.7819C24.9261 17.7819 25.1624 17.624 25.2676 17.3698C25.3728 17.1157 25.3176 16.8369 25.1229 16.6424L20.64 12.1595C20.2629 11.7824 19.6492 11.7824 19.2721 12.1595L14.7892 16.6424C14.5948 16.8369 14.5393 17.1157 14.6445 17.3698C14.7497 17.624 14.986 17.7819 15.2611 17.7819H15.2618Z"
+                fill="white"
+              />
+              <path
+                d="M27.6778 21.6907C27.4993 21.6865 27.3305 21.7549 27.2015 21.8814C27.0718 22.0088 26.9973 22.1855 26.9973 22.3665V26.5807C26.9973 26.6302 26.9571 26.6704 26.9076 26.6704H13.0927C13.0433 26.6704 13.003 26.6302 13.003 26.5807V22.358C13.003 21.9899 12.7036 21.6904 12.3355 21.6904C11.9674 21.6904 11.668 21.9899 11.668 22.358V27.0376C11.668 27.5715 12.1022 28.0057 12.6361 28.0057H27.3645C27.8984 28.0057 28.3326 27.5715 28.3326 27.0376V22.358C28.3326 21.9968 28.039 21.6974 27.6781 21.6904L27.6778 21.6907Z"
+                fill="white"
+              />
+            </svg>
+
+            <button className="px-5 py-2 font-bold border-2 border-azul-bb text-azul-bb uppercase rounded-sm cursor-pointer hover:brightness-90 transition">
+              selecionar arquivo
+            </button>
+          </label>
+        </div>
+        <div className="space-y-4">
+          <h3 className="text-cinza-600 text-xl font-extrabold">
+            Faça upload da foto de capa do vídeo
+          </h3>
+          <p className="text-cinza-600 font-light">
+            Para melhorar o destaque do seu vídeo, envie uma foto para chamar a
+            atenção de quem vai votar
+          </p>
+          <label className="bg-white p-8 flex flex-col items-center justify-center gap-4 text-center text-azul-bb">
+            <span>
+              Arraste e solte o arquivo da sua foto para fazer o envio
             </span>
             <svg
               width="40"

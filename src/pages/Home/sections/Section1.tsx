@@ -13,8 +13,8 @@ export function Section1() {
   });
   const navigate = useNavigate();
 
-  // Data do evento: 19/09/2025
-  const eventDate = new Date("2025-09-19T23:59:59");
+  // Data do evento: 26/09/2025
+  const eventDate = new Date("2025-09-26T23:59:59");
 
   const calculateTimeLeft = () => {
     const now = new Date();

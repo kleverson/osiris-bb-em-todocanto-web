@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { classifiedService, type ClassifiedItem } from "../services/api";
+import { useState, useEffect } from "react";
 import {
-  estadosBrasil,
-  estilosMusicais,
-  instrumentosEPosicoes,
-} from "../mock/ModalCadastrarBandaMock";
+  classifiedService,
+  type ClassifiedItem,
+  type ClassifiedInfo,
+} from "../services/api";
+import { estadosBrasil } from "../mock/ModalCadastrarBandaMock";
+import { toast } from "react-toastify";
 
 interface ModalCadastrarBandaProps {
   isOpen: boolean;
@@ -19,15 +20,19 @@ export function ModalCadastrarBanda({
 
   const [concluido, setConcluido] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [classifiedInfo, setClassifiedInfo] = useState<ClassifiedInfo | null>(
+    null
+  );
   const [formData, setFormData] = useState<ClassifiedItem>({
     title: "",
     city: "",
     state: "",
+    type_item: "",
     position: "",
     style: "",
+    category: "",
     active: true,
   });
-
   const handleInputChange = (
     field: keyof ClassifiedItem,
     value: string | boolean
@@ -35,8 +40,24 @@ export function ModalCadastrarBanda({
     setFormData((prev) => ({
       ...prev,
       [field]: value,
+      ...(field === "type_item" && { category: String(value) }), // Sincroniza category com type_item, garantindo string
     }));
   };
+
+  useEffect(() => {
+    const loadClassifiedInfo = async () => {
+      try {
+        const info = await classifiedService.getClassifiedInfo();
+        setClassifiedInfo(info);
+      } catch (error) {
+        console.error("Erro ao carregar informações dos classificados:", error);
+      }
+    };
+
+    if (isOpen) {
+      loadClassifiedInfo();
+    }
+  }, [isOpen]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,10 +66,11 @@ export function ModalCadastrarBanda({
       !formData.title ||
       !formData.city ||
       !formData.state ||
+      !formData.type_item ||
       !formData.position ||
       !formData.style
     ) {
-      alert("Por favor, preencha todos os campos obrigatórios.");
+      toast.warning("Por favor, preencha todos os campos obrigatórios.");
       return;
     }
 
@@ -57,8 +79,7 @@ export function ModalCadastrarBanda({
       await classifiedService.createClassified(formData);
       setConcluido(true);
     } catch (error) {
-      console.error("Erro ao cadastrar:", error);
-      alert("Erro ao cadastrar. Tente novamente.");
+      toast.error("Erro ao cadastrar. Tente novamente.");
     } finally {
       setLoading(false);
     }
@@ -121,7 +142,7 @@ export function ModalCadastrarBanda({
             </p>
           </div>
         ) : (
-          <div className="relative bg-cinza-200 rounded-lg shadow-2xl max-h-[582px] p-12 grid grid-cols-2 gap-10 items-center">
+          <div className="relative bg-cinza-200 rounded-lg shadow-2xl max-h-[582px] overflow-y-auto p-12 grid lg:grid-cols-2 gap-10 items-center">
             <div className="space-y-6">
               <h2 className="text-5xl text-azul-bb font-bold">
                 Está sem banda?
@@ -132,10 +153,10 @@ export function ModalCadastrarBanda({
             </div>
             <form
               onSubmit={handleSubmit}
-              className="grid grid-cols-2 gap-4 border-l pl-10 border-azul-bb/60"
+              className="grid grid-cols-2 gap-4 lg:border-l pl-10 border-azul-bb/60"
             >
               <label className="flex flex-col gap-1">
-                <span className="text-cinza-600">Cidade *</span>
+                <span className="text-cinza-600">Cidade*</span>
                 <input
                   className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb"
                   type="text"
@@ -146,7 +167,7 @@ export function ModalCadastrarBanda({
                 />
               </label>
               <label className="flex flex-col gap-1">
-                <span className="text-cinza-600">Estado *</span>
+                <span className="text-cinza-600">Estado*</span>
                 <select
                   className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb"
                   value={formData.state}
@@ -163,7 +184,7 @@ export function ModalCadastrarBanda({
               </label>
               <label className="col-span-2 flex flex-col gap-1">
                 <span className="text-cinza-600">
-                  Nome/Título da publicação *
+                  Nome/Título da publicação*
                 </span>
                 <input
                   className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb"
@@ -174,10 +195,26 @@ export function ModalCadastrarBanda({
                   required
                 />
               </label>
-              <label className="col-span-2 flex flex-col gap-1">
-                <span className="text-cinza-600">
-                  Defina o estilo musical *
-                </span>
+              <label className="flex flex-col gap-1">
+                <span className="text-cinza-600">Categoria*</span>
+                <select
+                  className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb"
+                  value={formData.type_item}
+                  onChange={(e) =>
+                    handleInputChange("type_item", e.target.value)
+                  }
+                  required
+                >
+                  <option value="">Selecione</option>
+                  {classifiedInfo?.types.map((type) => (
+                    <option key={type} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="flex flex-col gap-1">
+                <span className="text-cinza-600">Defina o estilo musical*</span>
                 <select
                   className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb"
                   value={formData.style}
@@ -185,16 +222,16 @@ export function ModalCadastrarBanda({
                   required
                 >
                   <option value="">Selecione</option>
-                  {estilosMusicais.map((estilo) => (
-                    <option key={estilo.value} value={estilo.value}>
-                      {estilo.label}
+                  {classifiedInfo?.styles.map((style) => (
+                    <option key={style} value={style}>
+                      {style}
                     </option>
                   ))}
                 </select>
               </label>
               <label className="col-span-2 flex flex-col gap-1">
                 <span className="text-cinza-600">
-                  Posição/Instrumento musical *
+                  Posição/Instrumento musical*
                 </span>
                 <select
                   className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb"
@@ -205,9 +242,9 @@ export function ModalCadastrarBanda({
                   required
                 >
                   <option value="">Selecione</option>
-                  {instrumentosEPosicoes.map((instrumento) => (
-                    <option key={instrumento.value} value={instrumento.value}>
-                      {instrumento.label}
+                  {classifiedInfo?.instruments.map((instrument) => (
+                    <option key={instrument} value={instrument}>
+                      {instrument}
                     </option>
                   ))}
                 </select>

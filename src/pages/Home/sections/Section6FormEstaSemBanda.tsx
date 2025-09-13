@@ -35,7 +35,7 @@ export function Section6FormEstaSemBanda() {
     instrumento: item.position,
     genero: item.style,
     cidade: `${item.city}/${item.state}`,
-    tipo: item.position.toLowerCase().includes("banda") ? "Banda" : "Solo",
+    tipo: item.type_item as "Solo" | "Banda",
   });
 
   const fetchClassifieds = async () => {

@@ -62,8 +62,10 @@ export interface ClassifiedItem {
   title: string;
   city: string;
   state: string;
+  type_item: string;
   position: string;
   style: string;
+  category: string;
   active: boolean;
 }
 
@@ -78,6 +80,12 @@ export interface ClassifiedSearchParams {
   term?: string;
   page?: number;
   limit?: number;
+}
+
+export interface ClassifiedInfo {
+  types: string[];
+  styles: string[];
+  instruments: string[];
 }
 
 export interface CompleteRegisterRequest {
@@ -101,13 +109,9 @@ export interface VideoUploadRequest {
 export interface Category {
   id: number;
   name: string;
-}
-
-export interface CategoryResponse {
-  data: Category[];
-  page: number;
-  total_pages: number;
-  items_per_page: number;
+  active: boolean;
+  created_at: string;
+  updated_at: string | null;
 }
 
 export const authService = {
@@ -146,6 +150,11 @@ export const classifiedService = {
     const response = await api.post<ClassifiedItem>("/classified", classified);
     return response.data;
   },
+
+  async getClassifiedInfo(): Promise<ClassifiedInfo> {
+    const response = await api.get<ClassifiedInfo>("/classified/info");
+    return response.data;
+  },
 };
 
 export const videoService = {
@@ -171,13 +180,8 @@ export const videoService = {
 };
 
 export const categoryService = {
-  async getCategories(
-    page: number = 1,
-    limit: number = 10
-  ): Promise<CategoryResponse> {
-    const response = await api.get<CategoryResponse>(
-      `/admin/category/?page=${page}&limit=${limit}`
-    );
+  async getCategories(): Promise<Category[]> {
+    const response = await api.get<Category[]>("/category");
     return response.data;
   },
 };

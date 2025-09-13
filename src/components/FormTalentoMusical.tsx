@@ -289,7 +289,7 @@ export function FormTalentoMusicalStep3({
     const loadCategories = async () => {
       try {
         const response = await categoryService.getCategories();
-        setCategories(response.data);
+        setCategories(response);
       } catch (error) {
         console.error("Erro ao carregar categorias:", error);
       }

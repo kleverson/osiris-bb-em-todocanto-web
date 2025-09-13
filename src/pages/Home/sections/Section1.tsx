@@ -1,12 +1,44 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { scroller } from "react-scroll";
 import { Contator, LogoBBEmTodoCanto } from "../../../assets/Icons";
 import Banda from "../../../assets/images/mobile/banda.png";
 
 export function Section1() {
   const [alertVisible, setAlertVisible] = useState(true);
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+  });
   const navigate = useNavigate();
+
+  // Data do evento: 19/09/2025
+  const eventDate = new Date("2025-09-19T23:59:59");
+
+  const calculateTimeLeft = () => {
+    const now = new Date();
+    const difference = eventDate.getTime() - now.getTime();
+
+    if (difference > 0) {
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+
+      setTimeLeft({ days, hours, minutes });
+    } else {
+      setTimeLeft({ days: 0, hours: 0, minutes: 0 });
+    }
+  };
+
+  useEffect(() => {
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 60000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
     if (location.pathname !== "/") {
@@ -79,15 +111,21 @@ export function Section1() {
               </h3>
               <div className="flex gap-2">
                 <div className="w-[60px] h-[60px] lg:w-[88px] lg:h-[88px] rounded-full bg-amarelo-bb text-azul-bb flex flex-col justify-center items-center">
-                  <span className="text-2xl lg:text-4xl font-bold">10</span>
+                  <span className="text-2xl lg:text-4xl font-bold">
+                    {timeLeft.days}
+                  </span>
                   <span className="text-xs lg:text-sm">dias</span>
                 </div>
                 <div className="w-[60px] h-[60px] lg:w-[88px] lg:h-[88px] rounded-full bg-amarelo-bb text-azul-bb flex flex-col justify-center items-center">
-                  <span className="text-2xl lg:text-4xl font-bold">10</span>
+                  <span className="text-2xl lg:text-4xl font-bold">
+                    {timeLeft.hours}
+                  </span>
                   <span className="text-xs lg:text-sm">horas</span>
                 </div>
                 <div className="w-[60px] h-[60px] lg:w-[88px] lg:h-[88px] rounded-full bg-amarelo-bb text-azul-bb flex flex-col justify-center items-center">
-                  <span className="text-2xl lg:text-4xl font-bold">10</span>
+                  <span className="text-2xl lg:text-4xl font-bold">
+                    {timeLeft.minutes}
+                  </span>
                   <span className="text-xs lg:text-sm">minutos</span>
                 </div>
               </div>

@@ -3,10 +3,12 @@ import { useState } from "react";
 import { scroller } from "react-scroll";
 import { LogoHeaderBB } from "../assets/Icons";
 import { useAuth } from "../contexts/AuthContext";
+import { ModalLogin } from "./ModalLogin";
 
 export function Header() {
-  const { user, isAuthenticated, login, logout } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -115,7 +117,7 @@ export function Header() {
                       fill="#FCFC30"
                     />
                   </svg>
-                  {user?.name}
+                  {user?.preferred_username || user?.name}
                 </span>
                 <button
                   onClick={logout}
@@ -126,7 +128,7 @@ export function Header() {
               </>
             ) : (
               <button
-                onClick={login}
+                onClick={() => setIsLoginModalOpen(true)}
                 className="px-6 h-14 cursor-pointer duration-300 uppercase font-bold text-sm bg-rosa-600 hover:bg-rosa-700"
               >
                 Iniciar sessão
@@ -209,7 +211,9 @@ export function Header() {
                     />
                   </svg>
                   <div>
-                    <p className="font-bold text-lg">{user?.name}</p>
+                    <p className="font-bold text-lg">
+                      {user?.preferred_username || user?.name}
+                    </p>
                     <p className="text-sm text-gray-300">Usuário logado</p>
                   </div>
                 </div>
@@ -226,7 +230,7 @@ export function Header() {
             ) : (
               <button
                 onClick={() => {
-                  login();
+                  setIsLoginModalOpen(true);
                   closeMenu();
                 }}
                 className="w-full bg-rosa-600 hover:bg-rosa-700 text-white py-3 px-4 rounded-sm uppercase font-bold text-sm transition-colors"
@@ -298,6 +302,12 @@ export function Header() {
           </nav>
         </div>
       </div>
+
+      {/* Modal de Login */}
+      <ModalLogin
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+      />
     </>
   );
 }

@@ -1,16 +1,15 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
+import { authService, type UserData, type LoginRequest } from "../services/api";
+import { toast } from "react-toastify";
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
+interface User extends UserData {}
 
 interface AuthContextData {
   user: User | null;
   isAuthenticated: boolean;
-  login: () => void;
+  isLoading: boolean;
+  login: (credentials: LoginRequest) => Promise<void>;
   logout: () => void;
 }
 
@@ -22,19 +21,49 @@ interface AuthProviderProps {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const fakeUser: User = {
-    id: "1",
-    name: "João Silva",
-    email: "joao.silva@bb.com.br",
-  };
+  useEffect(() => {
+    const storedUser = localStorage.getItem("@bb-em-todocanto:user");
+    const token = localStorage.getItem("@bb-em-todocanto:token");
 
-  function login() {
-    setUser(fakeUser);
+    if (storedUser && token) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  async function login(credentials: LoginRequest) {
+    try {
+      setIsLoading(true);
+
+      const loginResponse = await authService.login(credentials);
+      localStorage.setItem(
+        "@bb-em-todocanto:token",
+        loginResponse.access_token
+      );
+
+      const userData = await authService.getUserData();
+      localStorage.setItem("@bb-em-todocanto:user", JSON.stringify(userData));
+      setUser(userData);
+
+      toast.success("Login realizado com sucesso!");
+    } catch (error: any) {
+      console.error("Erro no login:", error);
+      const errorMessage =
+        error.response?.data?.message ||
+        "Erro ao fazer login. Verifique suas credenciais.";
+      toast.error(errorMessage);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   function logout() {
+    localStorage.removeItem("@bb-em-todocanto:token");
+    localStorage.removeItem("@bb-em-todocanto:user");
     setUser(null);
+    toast.success("Logout realizado com sucesso!");
   }
 
   const isAuthenticated = !!user;
@@ -44,6 +73,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       value={{
         user,
         isAuthenticated,
+        isLoading,
         login,
         logout,
       }}

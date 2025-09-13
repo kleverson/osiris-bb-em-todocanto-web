@@ -1,5 +1,10 @@
 import { useState } from "react";
 import { classifiedService, type ClassifiedItem } from "../services/api";
+import {
+  estadosBrasil,
+  estilosMusicais,
+  instrumentosEPosicoes,
+} from "../mock/ModalCadastrarBandaMock";
 
 interface ModalCadastrarBandaProps {
   isOpen: boolean;
@@ -149,33 +154,11 @@ export function ModalCadastrarBanda({
                   required
                 >
                   <option value="">Selecione</option>
-                  <option value="AC">Acre</option>
-                  <option value="AL">Alagoas</option>
-                  <option value="AP">Amapá</option>
-                  <option value="AM">Amazonas</option>
-                  <option value="BA">Bahia</option>
-                  <option value="CE">Ceará</option>
-                  <option value="DF">Distrito Federal</option>
-                  <option value="ES">Espírito Santo</option>
-                  <option value="GO">Goiás</option>
-                  <option value="MA">Maranhão</option>
-                  <option value="MT">Mato Grosso</option>
-                  <option value="MS">Mato Grosso do Sul</option>
-                  <option value="MG">Minas Gerais</option>
-                  <option value="PA">Pará</option>
-                  <option value="PB">Paraíba</option>
-                  <option value="PR">Paraná</option>
-                  <option value="PE">Pernambuco</option>
-                  <option value="PI">Piauí</option>
-                  <option value="RJ">Rio de Janeiro</option>
-                  <option value="RN">Rio Grande do Norte</option>
-                  <option value="RS">Rio Grande do Sul</option>
-                  <option value="RO">Rondônia</option>
-                  <option value="RR">Roraima</option>
-                  <option value="SC">Santa Catarina</option>
-                  <option value="SP">São Paulo</option>
-                  <option value="SE">Sergipe</option>
-                  <option value="TO">Tocantins</option>
+                  {estadosBrasil.map((estado) => (
+                    <option key={estado.value} value={estado.value}>
+                      {estado.label}
+                    </option>
+                  ))}
                 </select>
               </label>
               <label className="col-span-2 flex flex-col gap-1">
@@ -202,27 +185,11 @@ export function ModalCadastrarBanda({
                   required
                 >
                   <option value="">Selecione</option>
-                  <option value="musica-classica">Música clássica</option>
-                  <option value="jazz">Jazz</option>
-                  <option value="blues">Blues</option>
-                  <option value="gospel">Gospel</option>
-                  <option value="soul">Soul</option>
-                  <option value="pop">Pop</option>
-                  <option value="rock-and-roll">Rock and Roll</option>
-                  <option value="country">Country</option>
-                  <option value="disco">Disco</option>
-                  <option value="techno">Techno</option>
-                  <option value="reggae">Reggae</option>
-                  <option value="salsa">Salsa</option>
-                  <option value="flamenco">Flamenco</option>
-                  <option value="hip-hop-rap">Hip hop/Rap</option>
-                  <option value="reggaeton">Reggaeton</option>
-                  <option value="metal">Metal</option>
-                  <option value="funk">Funk</option>
-                  <option value="bossa-nova">Bossa Nova</option>
-                  <option value="sertaneja">Sertaneja</option>
-                  <option value="pagode">Pagode</option>
-                  <option value="samba">Samba</option>
+                  {estilosMusicais.map((estilo) => (
+                    <option key={estilo.value} value={estilo.value}>
+                      {estilo.label}
+                    </option>
+                  ))}
                 </select>
               </label>
               <label className="col-span-2 flex flex-col gap-1">
@@ -238,29 +205,11 @@ export function ModalCadastrarBanda({
                   required
                 >
                   <option value="">Selecione</option>
-                  <option value="voz">Voz</option>
-                  <option value="violao">Violão (acústico e elétrico)</option>
-                  <option value="guitarra-eletrica">Guitarra elétrica</option>
-                  <option value="baixo-eletrico">Baixo elétrico</option>
-                  <option value="bateria">
-                    Bateria (acústica e eletrônica)
-                  </option>
-                  <option value="teclado-piano">Teclado / Piano</option>
-                  <option value="synthesizer">Synthesizer</option>
-                  <option value="percussao">Percussão</option>
-                  <option value="cavaquinho">Cavaquinho</option>
-                  <option value="acordeon-sanfona">Acordeon / Sanfona</option>
-                  <option value="saxofone">Saxofone</option>
-                  <option value="trompete">Trompete</option>
-                  <option value="violino">Violino</option>
-                  <option value="tamborim">Tamborim</option>
-                  <option value="surdo">Surdo</option>
-                  <option value="rebolo">Rebolo</option>
-                  <option value="clarinete">Clarinete</option>
-                  <option value="gaita-de-boca">Gaita de boca</option>
-                  <option value="ukulele">Ukulele</option>
-                  <option value="banda-completa">Banda completa</option>
-                  <option value="formacao-completa">Formação completa</option>
+                  {instrumentosEPosicoes.map((instrumento) => (
+                    <option key={instrumento.value} value={instrumento.value}>
+                      {instrumento.label}
+                    </option>
+                  ))}
                 </select>
               </label>
               <button

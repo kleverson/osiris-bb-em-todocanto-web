@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { classifiedService, type ClassifiedItem } from "../services/api";
 
 interface ModalCadastrarBandaProps {
   isOpen: boolean;
@@ -10,7 +11,53 @@ export function ModalCadastrarBanda({
   onClose,
 }: ModalCadastrarBandaProps) {
   if (!isOpen) return null;
+
   const [concluido, setConcluido] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState<ClassifiedItem>({
+    title: "",
+    city: "",
+    state: "",
+    position: "",
+    style: "",
+    active: true,
+  });
+
+  const handleInputChange = (
+    field: keyof ClassifiedItem,
+    value: string | boolean
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (
+      !formData.title ||
+      !formData.city ||
+      !formData.state ||
+      !formData.position ||
+      !formData.style
+    ) {
+      alert("Por favor, preencha todos os campos obrigatórios.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await classifiedService.createClassified(formData);
+      setConcluido(true);
+    } catch (error) {
+      console.error("Erro ao cadastrar:", error);
+      alert("Erro ao cadastrar. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-black/30 " onClick={onClose}></div>
@@ -78,32 +125,82 @@ export function ModalCadastrarBanda({
                 A gente te ajuda a encontrar quem está faltando.
               </p>
             </div>
-            <form className="grid grid-cols-2 gap-4 border-l pl-10 border-azul-bb/60">
+            <form
+              onSubmit={handleSubmit}
+              className="grid grid-cols-2 gap-4 border-l pl-10 border-azul-bb/60"
+            >
               <label className="flex flex-col gap-1">
-                <span className="text-cinza-600">Tipo de publicação</span>
-                <select className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb">
-                  <option value="">Selecione</option>
-                </select>
+                <span className="text-cinza-600">Cidade *</span>
+                <input
+                  className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb"
+                  type="text"
+                  placeholder="Digite sua cidade"
+                  value={formData.city}
+                  onChange={(e) => handleInputChange("city", e.target.value)}
+                  required
+                />
               </label>
               <label className="flex flex-col gap-1">
-                <span className="text-cinza-600">Escolha a categoria</span>
-                <select className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb">
+                <span className="text-cinza-600">Estado *</span>
+                <select
+                  className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb"
+                  value={formData.state}
+                  onChange={(e) => handleInputChange("state", e.target.value)}
+                  required
+                >
                   <option value="">Selecione</option>
+                  <option value="AC">Acre</option>
+                  <option value="AL">Alagoas</option>
+                  <option value="AP">Amapá</option>
+                  <option value="AM">Amazonas</option>
+                  <option value="BA">Bahia</option>
+                  <option value="CE">Ceará</option>
+                  <option value="DF">Distrito Federal</option>
+                  <option value="ES">Espírito Santo</option>
+                  <option value="GO">Goiás</option>
+                  <option value="MA">Maranhão</option>
+                  <option value="MT">Mato Grosso</option>
+                  <option value="MS">Mato Grosso do Sul</option>
+                  <option value="MG">Minas Gerais</option>
+                  <option value="PA">Pará</option>
+                  <option value="PB">Paraíba</option>
+                  <option value="PR">Paraná</option>
+                  <option value="PE">Pernambuco</option>
+                  <option value="PI">Piauí</option>
+                  <option value="RJ">Rio de Janeiro</option>
+                  <option value="RN">Rio Grande do Norte</option>
+                  <option value="RS">Rio Grande do Sul</option>
+                  <option value="RO">Rondônia</option>
+                  <option value="RR">Roraima</option>
+                  <option value="SC">Santa Catarina</option>
+                  <option value="SP">São Paulo</option>
+                  <option value="SE">Sergipe</option>
+                  <option value="TO">Tocantins</option>
                 </select>
               </label>
               <label className="col-span-2 flex flex-col gap-1">
                 <span className="text-cinza-600">
-                  Escreva como gostaria de ser chamado(a)
+                  Nome/Título da publicação *
                 </span>
                 <input
                   className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb"
                   type="text"
                   placeholder="Digite seu nome ou nome da banda"
+                  value={formData.title}
+                  onChange={(e) => handleInputChange("title", e.target.value)}
+                  required
                 />
               </label>
               <label className="col-span-2 flex flex-col gap-1">
-                <span className="text-cinza-600">Defina o estilo musical</span>
-                <select className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb">
+                <span className="text-cinza-600">
+                  Defina o estilo musical *
+                </span>
+                <select
+                  className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb"
+                  value={formData.style}
+                  onChange={(e) => handleInputChange("style", e.target.value)}
+                  required
+                >
                   <option value="">Selecione</option>
                   <option value="musica-classica">Música clássica</option>
                   <option value="jazz">Jazz</option>
@@ -130,9 +227,16 @@ export function ModalCadastrarBanda({
               </label>
               <label className="col-span-2 flex flex-col gap-1">
                 <span className="text-cinza-600">
-                  Escolha o tipo de instrumento musical
+                  Posição/Instrumento musical *
                 </span>
-                <select className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb">
+                <select
+                  className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb"
+                  value={formData.position}
+                  onChange={(e) =>
+                    handleInputChange("position", e.target.value)
+                  }
+                  required
+                >
                   <option value="">Selecione</option>
                   <option value="voz">Voz</option>
                   <option value="violao">Violão (acústico e elétrico)</option>
@@ -155,14 +259,18 @@ export function ModalCadastrarBanda({
                   <option value="clarinete">Clarinete</option>
                   <option value="gaita-de-boca">Gaita de boca</option>
                   <option value="ukulele">Ukulele</option>
+                  <option value="banda-completa">Banda completa</option>
+                  <option value="formacao-completa">Formação completa</option>
                 </select>
               </label>
               <button
-                type="button"
-                onClick={() => setConcluido(true)}
-                className="w-fit px-6 bg-azul-bb uppercase text-white py-2 rounded-sm font-bold text-center cursor-pointer"
+                type="submit"
+                disabled={loading}
+                className={`w-fit px-6 uppercase text-white py-2 rounded-sm font-bold text-center cursor-pointer ${
+                  loading ? "bg-gray-400" : "bg-azul-bb hover:bg-azul-bb/90"
+                }`}
               >
-                Enviar
+                {loading ? "Enviando..." : "Enviar"}
               </button>
             </form>
           </div>

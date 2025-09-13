@@ -58,6 +58,28 @@ export interface UserData {
   id: number;
 }
 
+export interface ClassifiedItem {
+  title: string;
+  city: string;
+  state: string;
+  position: string;
+  style: string;
+  active: boolean;
+}
+
+export interface ClassifiedResponse {
+  data: ClassifiedItem[];
+  page: number;
+  total_pages: number;
+  items_per_page: number;
+}
+
+export interface ClassifiedSearchParams {
+  term?: string;
+  page?: number;
+  limit?: number;
+}
+
 export const authService = {
   async login(credentials: LoginRequest): Promise<LoginResponse> {
     const response = await api.post<LoginResponse>("/users/login", credentials);
@@ -66,6 +88,28 @@ export const authService = {
 
   async getUserData(): Promise<UserData> {
     const response = await api.get<UserData>("/users/me");
+    return response.data;
+  },
+};
+
+export const classifiedService = {
+  async searchClassifieds(
+    params: ClassifiedSearchParams = {}
+  ): Promise<ClassifiedResponse> {
+    const searchParams = new URLSearchParams();
+
+    if (params.term) searchParams.append("term", params.term);
+    if (params.page) searchParams.append("page", params.page.toString());
+    if (params.limit) searchParams.append("limit", params.limit.toString());
+
+    const response = await api.get<ClassifiedResponse>(
+      `/classified/?${searchParams.toString()}`
+    );
+    return response.data;
+  },
+
+  async createClassified(classified: ClassifiedItem): Promise<ClassifiedItem> {
+    const response = await api.post<ClassifiedItem>("/classified", classified);
     return response.data;
   },
 };

@@ -11,7 +11,7 @@ export function Section5Form() {
   const [step, setStep] = useState(1);
 
   return (
-    <div className="relative bg-cinza-200 z-10">
+    <div id="inscreva-se" className="relative bg-cinza-200 z-10">
       {step === 1 && <FormTalentoMusicalStep1 setStep={setStep} />}
       {step === 2 && <FormTalentoMusicalStep2 setStep={setStep} />}
       {step === 3 && <FormTalentoMusicalStep3 setStep={setStep} />}

@@ -1,9 +1,34 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { scroller } from "react-scroll";
 import { Contator, LogoBBEmTodoCanto } from "../../../assets/Icons";
 import Banda from "../../../assets/images/mobile/banda.png";
 
 export function Section1() {
   const [alertVisible, setAlertVisible] = useState(true);
+  const navigate = useNavigate();
+
+  const scrollToSection = (sectionId: string) => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        scroller.scrollTo(sectionId, {
+          duration: 800,
+          delay: 0,
+          smooth: "easeInOutQuart",
+          offset: -56,
+        });
+      }, 100);
+    } else {
+      scroller.scrollTo(sectionId, {
+        duration: 800,
+        delay: 0,
+        smooth: "easeInOutQuart",
+        offset: -56,
+      });
+    }
+  };
+
   return (
     <div
       id="o-concurso"
@@ -24,8 +49,12 @@ export function Section1() {
                 O palco é seu! Participe do concurso musical exclusivo para
                 funcionários do BB e concorra a até 50 mil pontos Livelo.
               </p>
-              <button className="px-7 py-3 text-lg rounded-sm font-bold bg-rosa-600 text-white uppercase cursor-pointer">
-                Conheça os classificados
+              <button
+                type="button"
+                onClick={() => scrollToSection("inscreva-se")}
+                className="px-7 py-3 text-lg rounded-sm font-bold bg-rosa-600 text-white uppercase cursor-pointer"
+              >
+                Inscreva-se
               </button>
             </div>
           </div>

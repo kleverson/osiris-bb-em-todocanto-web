@@ -80,6 +80,36 @@ export interface ClassifiedSearchParams {
   limit?: number;
 }
 
+export interface CompleteRegisterRequest {
+  name: string;
+  prefix: number;
+  region: string;
+}
+
+export interface VideoUploadRequest {
+  title: string;
+  nickname: string;
+  category: number;
+  description: string;
+  music_name: string;
+  music_letter: string;
+  file: File;
+  thumb: File;
+  filePhoto: File;
+}
+
+export interface Category {
+  id: number;
+  name: string;
+}
+
+export interface CategoryResponse {
+  data: Category[];
+  page: number;
+  total_pages: number;
+  items_per_page: number;
+}
+
 export const authService = {
   async login(credentials: LoginRequest): Promise<LoginResponse> {
     const response = await api.post<LoginResponse>("/users/login", credentials);
@@ -89,6 +119,10 @@ export const authService = {
   async getUserData(): Promise<UserData> {
     const response = await api.get<UserData>("/users/me");
     return response.data;
+  },
+
+  async completeRegister(data: CompleteRegisterRequest): Promise<void> {
+    await api.post("/users/complete-register", data);
   },
 };
 
@@ -110,6 +144,40 @@ export const classifiedService = {
 
   async createClassified(classified: ClassifiedItem): Promise<ClassifiedItem> {
     const response = await api.post<ClassifiedItem>("/classified", classified);
+    return response.data;
+  },
+};
+
+export const videoService = {
+  async uploadVideo(data: VideoUploadRequest): Promise<any> {
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("nickname", data.nickname);
+    formData.append("category", data.category.toString());
+    formData.append("description", data.description);
+    formData.append("music_name", data.music_name);
+    formData.append("music_letter", data.music_letter);
+    formData.append("file", data.file);
+    formData.append("thumb", data.thumb);
+    formData.append("filePhoto", data.filePhoto);
+
+    const response = await api.post("/video", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  },
+};
+
+export const categoryService = {
+  async getCategories(
+    page: number = 1,
+    limit: number = 10
+  ): Promise<CategoryResponse> {
+    const response = await api.get<CategoryResponse>(
+      `/admin/category/?page=${page}&limit=${limit}`
+    );
     return response.data;
   },
 };

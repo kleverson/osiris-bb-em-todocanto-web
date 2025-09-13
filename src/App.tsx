@@ -2,8 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Home } from "./pages/Home";
-import { Finalistas } from "./pages/Finalistas";
 import { Votar } from "./pages/Votar";
+import { Classificados } from "./pages/Classificados";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
             path="/classificados"
             element={
               <ProtectedRoute requireAuth={false}>
-                <Finalistas />
+                <Classificados />
               </ProtectedRoute>
             }
           />

@@ -4,7 +4,7 @@ import { FinalistasTodoCanto } from "./sections/FinalistasTodoCanto";
 import { PerguntasFaq } from "./sections/PerguntasFaq";
 import { BannerPrincipal } from "../../components/BannerPrincipal";
 
-export function Finalistas() {
+export function Classificados() {
   return (
     <div>
       <Header />

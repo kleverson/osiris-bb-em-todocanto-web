@@ -9,6 +9,7 @@ import {
   type VideoUploadRequest,
 } from "../services/api";
 import { CompartilharIcon, FacebookIcon, WhatsAppIcon } from "../assets/Icons";
+import { toast } from "react-toastify";
 
 export function FormTalentoMusicalStep1({
   setStep,
@@ -20,14 +21,11 @@ export function FormTalentoMusicalStep1({
     user: "",
     password: "",
   });
-  const [error, setError] = useState("");
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
 
     if (!formData.user || !formData.password) {
-      setError("Por favor, preencha todos os campos.");
+      toast.warning("Por favor, preencha todos os campos.");
       return;
     }
 
@@ -39,7 +37,7 @@ export function FormTalentoMusicalStep1({
       });
       setStep(2);
     } catch (error) {
-      setError("Erro ao fazer login. Verifique suas credenciais.");
+      toast.error("Erro ao fazer login. Verifique suas credenciais.");
     }
   };
   return (
@@ -58,11 +56,6 @@ export function FormTalentoMusicalStep1({
         onSubmit={handleSubmit}
         className="md:border-l-2 md:pl-10 border-azul-bb/50 flex gap-5 flex-col"
       >
-        {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-            {error}
-          </div>
-        )}
         <label className="flex flex-col gap-2">
           <span className="text-cinza-600 font-medium">Matrícula</span>
           <input
@@ -122,7 +115,6 @@ export function FormTalentoMusicalStep2({
     region: "",
   });
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     if (user) {
@@ -136,19 +128,19 @@ export function FormTalentoMusicalStep2({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
 
     if (!formData.name || !formData.prefix || !formData.region) {
-      setError("Por favor, preencha todos os campos.");
+      toast.warning("Por favor, preencha todos os campos.");
       return;
     }
 
     try {
       setLoading(true);
       await authService.completeRegister(formData);
+      toast.success("Dados salvos com sucesso!");
       setStep(3);
     } catch (error) {
-      setError("Erro ao salvar dados. Tente novamente.");
+      toast.error("Erro ao salvar dados. Tente novamente.");
     } finally {
       setLoading(false);
     }
@@ -179,11 +171,6 @@ export function FormTalentoMusicalStep2({
         onSubmit={handleSubmit}
         className="md:border-l-2 md:pl-10 border-azul-bb/50 flex gap-5 flex-col"
       >
-        {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-            {error}
-          </div>
-        )}
         <label className="flex flex-col gap-2">
           <span className="text-cinza-600 font-medium">Nome completo</span>
           <input
@@ -266,7 +253,7 @@ export function FormTalentoMusicalStep3({
   setUploadedData,
 }: {
   setStep: (step: number) => void;
-  setUploadedData: (data: { filePhoto?: string }) => void;
+  setUploadedData: (data: { picture?: string; thumb?: string }) => void;
 }) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [formData, setFormData] = useState({
@@ -274,16 +261,14 @@ export function FormTalentoMusicalStep3({
     nickname: "",
     category: 0,
     description: "",
-    music_name: "",
-    music_letter: "",
+    song: "",
   });
   const [files, setFiles] = useState<{
     file?: File;
     thumb?: File;
-    filePhoto?: File;
+    picture?: File;
   }>({});
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -297,28 +282,24 @@ export function FormTalentoMusicalStep3({
     loadCategories();
   }, []);
 
-  const handleFileChange = (
-    type: "file" | "thumb" | "filePhoto",
-    file: File
-  ) => {
+  const handleFileChange = (type: "file" | "thumb" | "picture", file: File) => {
     setFiles((prev) => ({ ...prev, [type]: file }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
 
     if (
       !formData.title ||
       !formData.nickname ||
       !formData.category ||
       !formData.description ||
-      !formData.music_name ||
+      !formData.song ||
       !files.file ||
       !files.thumb ||
-      !files.filePhoto
+      !files.picture
     ) {
-      setError(
+      toast.warning(
         "Por favor, preencha todos os campos e faça upload dos arquivos."
       );
       return;
@@ -330,17 +311,18 @@ export function FormTalentoMusicalStep3({
         ...formData,
         file: files.file!,
         thumb: files.thumb!,
-        filePhoto: files.filePhoto!,
+        picture: files.picture!,
       };
 
       await videoService.uploadVideo(videoData);
 
-      const photoUrl = URL.createObjectURL(files.filePhoto);
-      setUploadedData({ filePhoto: photoUrl });
+      const photoUrl = URL.createObjectURL(files.picture);
+      const thumbUrl = URL.createObjectURL(files.thumb);
+      setUploadedData({ picture: photoUrl, thumb: thumbUrl });
 
       setStep(4);
     } catch (error) {
-      setError("Erro ao enviar vídeo. Tente novamente.");
+      toast.error("Erro ao enviar vídeo. Tente novamente.");
     } finally {
       setLoading(false);
     }
@@ -371,11 +353,6 @@ export function FormTalentoMusicalStep3({
         onSubmit={handleSubmit}
         className="md:border-l-2 md:px-10 border-cinza-400 flex gap-5 flex-col md:max-h-96 overflow-y-auto"
       >
-        {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-            {error}
-          </div>
-        )}
         <label className="flex flex-col gap-2">
           <span className="text-cinza-600 font-medium">
             Escolha a categoria
@@ -399,7 +376,7 @@ export function FormTalentoMusicalStep3({
             ))}
           </select>
         </label>
-        <label className="flex flex-col gap-2">
+        {/* <label className="flex flex-col gap-2">
           <span className="text-cinza-600 font-medium">
             Título da apresentação
           </span>
@@ -413,7 +390,7 @@ export function FormTalentoMusicalStep3({
             }
             required
           />
-        </label>
+        </label> */}
         <label className="flex flex-col gap-2">
           <span className="text-cinza-600 font-medium">
             Como gostaria de ser chamado(a)
@@ -455,9 +432,9 @@ export function FormTalentoMusicalStep3({
             type="text"
             placeholder="Digite o título da música que será apresentada"
             className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition"
-            value={formData.music_name}
+            value={formData.title}
             onChange={(e) =>
-              setFormData((prev) => ({ ...prev, music_name: e.target.value }))
+              setFormData((prev) => ({ ...prev, title: e.target.value }))
             }
             required
           />
@@ -468,9 +445,9 @@ export function FormTalentoMusicalStep3({
             placeholder="Escreva a letra da sua música caso possua"
             maxLength={400}
             className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition resize-none h-32"
-            value={formData.music_letter}
+            value={formData.song}
             onChange={(e) =>
-              setFormData((prev) => ({ ...prev, music_letter: e.target.value }))
+              setFormData((prev) => ({ ...prev, song: e.target.value }))
             }
             required
           />
@@ -590,8 +567,8 @@ export function FormTalentoMusicalStep3({
           </p>
           <label className="bg-white p-8 flex flex-col items-center justify-center gap-4 text-center text-azul-bb cursor-pointer">
             <span>
-              {files.filePhoto
-                ? files.filePhoto.name
+              {files.picture
+                ? files.picture.name
                 : "Arraste e solte o arquivo da sua foto para fazer o envio"}
             </span>
             <svg
@@ -623,7 +600,7 @@ export function FormTalentoMusicalStep3({
               accept="image/*"
               onChange={(e) =>
                 e.target.files?.[0] &&
-                handleFileChange("filePhoto", e.target.files[0])
+                handleFileChange("picture", e.target.files[0])
               }
               className="hidden"
             />
@@ -662,12 +639,12 @@ export function FormTalentoMusicalStep4({
   uploadedData,
 }: {
   setStep: (step: number) => void;
-  uploadedData: { filePhoto?: string };
+  uploadedData: { picture?: string; thumb?: string };
 }) {
   const handleDownload = () => {
-    if (uploadedData.filePhoto) {
+    if (uploadedData.picture) {
       const link = document.createElement("a");
-      link.href = uploadedData.filePhoto;
+      link.href = uploadedData.picture;
       link.download = "minha-foto-bb-em-todocanto.jpg";
       document.body.appendChild(link);
       link.click();
@@ -701,7 +678,7 @@ export function FormTalentoMusicalStep4({
         <div className="grid grid-cols-2 items-center gap-5 bg-white p-10">
           <div className="relative">
             <img
-              src={uploadedData.filePhoto || "https://picsum.photos/200/300"}
+              src={uploadedData.picture || "https://picsum.photos/200/300"}
               className="object-cover border-4 border-azul-bb rounded"
               alt="Sua foto"
             />
@@ -757,7 +734,11 @@ export function FormTalentoMusicalStep4({
   );
 }
 
-export function FormTalentoMusicalStep5() {
+export function FormTalentoMusicalStep5({
+  uploadedData,
+}: {
+  uploadedData: { picture?: string; thumb?: string };
+}) {
   return (
     <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid md:grid-cols-2 gap-10">
       <div className="space-y-5">
@@ -777,9 +758,9 @@ export function FormTalentoMusicalStep5() {
       <form className="md:border-l-2 md:pl-10 border-azul-bb/50 flex gap-5 flex-col">
         <div className="grid grid-cols-2 items-center gap-5 bg-white p-10">
           <img
-            src="https://picsum.photos/200/300"
-            className="object-cover"
-            alt=""
+            src={uploadedData.thumb || "https://picsum.photos/200/300"}
+            className="object-cover rounded"
+            alt="Capa do vídeo"
           />
           <div>
             <p className="text-cinza-600 font-light">

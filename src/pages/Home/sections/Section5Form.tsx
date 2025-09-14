@@ -12,12 +12,13 @@ export function Section5Form() {
   const { isAuthenticated } = useAuth();
   const [step, setStep] = useState(1);
   const [uploadedData, setUploadedData] = useState<{
-    filePhoto?: string;
+    picture?: string;
+    thumb?: string;
   }>({});
 
   useEffect(() => {
     if (isAuthenticated) {
-      setStep(3);
+      setStep(5);
     }
   }, [isAuthenticated]);
 
@@ -37,7 +38,7 @@ export function Section5Form() {
           uploadedData={uploadedData}
         />
       )}
-      {step === 5 && <FormTalentoMusicalStep5 />}
+      {step === 5 && <FormTalentoMusicalStep5 uploadedData={uploadedData} />}
     </div>
   );
 }

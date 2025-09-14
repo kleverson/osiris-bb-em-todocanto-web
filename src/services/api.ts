@@ -99,11 +99,10 @@ export interface VideoUploadRequest {
   nickname: string;
   category: number;
   description: string;
-  music_name: string;
-  music_letter: string;
   file: File;
   thumb: File;
-  filePhoto: File;
+  picture: File;
+  song: string;
 }
 
 export interface Category {
@@ -164,11 +163,10 @@ export const videoService = {
     formData.append("nickname", data.nickname);
     formData.append("category", data.category.toString());
     formData.append("description", data.description);
-    formData.append("music_name", data.music_name);
-    formData.append("music_letter", data.music_letter);
+    formData.append("song", data.song);
     formData.append("file", data.file);
     formData.append("thumb", data.thumb);
-    formData.append("filePhoto", data.filePhoto);
+    formData.append("picture", data.picture);
 
     const response = await api.post("/video", formData, {
       headers: {

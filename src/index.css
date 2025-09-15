@@ -254,3 +254,17 @@
   scrollbar-width: thin; /* Deixa o scroll mais fino */
   scrollbar-color: #465eff #f0f0f0; /* Cor do scroll e do track */
 }
+
+/* Header fixo */
+header {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000 !important;
+}
+
+/* Compensar a altura do header fixo */
+body {
+  padding-top: 56px; /* altura do header (h-14 = 56px) */
+}

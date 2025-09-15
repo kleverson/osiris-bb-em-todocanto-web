@@ -20,7 +20,7 @@ export function Section2() {
             formada só por colegas do BB e mostre seu talento no BB em Todo
             Canto.
           </p>
-          <button className="px-7 py-3 font-bold bg-amarelo-bb text-azul-bb uppercase mt-10 mx-auto rounded-sm cursor-pointer hover:brightness-90 transition">
+          <button className="px-7 py-3 font-bold bg-amarelo-bb text-azul-bb uppercase mt-10 mx-auto rounded-sm cursor-pointer hover:scale-105 duration-300">
             confira o regulamento
           </button>
         </div>

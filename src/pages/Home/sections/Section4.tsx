@@ -77,7 +77,7 @@ export function Section4() {
             </div>
           </div>
 
-          <button className="px-7 py-3 font-bold bg-amarelo-bb text-azul-bb uppercase mx-auto rounded-sm cursor-pointer hover:brightness-90 transition">
+          <button className="px-7 py-3 font-bold bg-amarelo-bb text-azul-bb uppercase mx-auto rounded-sm cursor-pointer hover:scale-105 duration-300">
             confira o regulamento
           </button>
         </div>

@@ -84,7 +84,7 @@ export function Section1() {
               <button
                 type="button"
                 onClick={() => scrollToSection("inscreva-se")}
-                className="px-7 py-3 text-lg rounded-sm font-bold bg-rosa-600 text-white uppercase cursor-pointer"
+                className="px-7 py-3 text-lg rounded-sm font-bold bg-rosa-600 hover:scale-105 duration-300 text-white uppercase cursor-pointer"
               >
                 Inscreva-se
               </button>

@@ -6,6 +6,7 @@ import {
 import { ModalCadastrarBanda } from "../../../components/ModalCadastrarBanda";
 import { useAuth } from "../../../contexts/AuthContext";
 import { classifiedService, type ClassifiedItem } from "../../../services/api";
+import { toast } from "react-toastify";
 
 interface Musico {
   id?: number;
@@ -29,6 +30,7 @@ export function Section6FormEstaSemBanda() {
   const [musicos, setMusicos] = useState<Musico[]>([]);
   const [loading, setLoading] = useState(false);
   const [totalPaginas, setTotalPaginas] = useState(0);
+  const [mostrandoTodos, setMostrandoTodos] = useState(false);
 
   const convertApiToMusico = (item: ClassifiedItem): Musico => ({
     nome: item.title,
@@ -38,18 +40,19 @@ export function Section6FormEstaSemBanda() {
     tipo: item.type_item as "Solo" | "Banda",
   });
 
-  const fetchClassifieds = async () => {
+  const fetchClassifieds = async (mostrarTodos = false) => {
     try {
       setLoading(true);
       const response = await classifiedService.searchClassifieds({
         term: busca || undefined,
-        page: paginaAtual,
-        limit: itensPorPagina,
+        page: mostrarTodos ? 1 : paginaAtual,
+        limit: mostrarTodos ? 1000 : itensPorPagina, // usar um limite alto quando mostrar todos
       });
 
       const musicosData = response.data.map(convertApiToMusico);
       setMusicos(musicosData);
       setTotalPaginas(response.total_pages);
+      setMostrandoTodos(mostrarTodos);
     } catch (error) {
       console.error("Erro ao buscar classificados:", error);
       setMusicos([]);
@@ -60,8 +63,10 @@ export function Section6FormEstaSemBanda() {
   };
 
   useEffect(() => {
-    fetchClassifieds();
-  }, [busca, paginaAtual]);
+    if (!mostrandoTodos) {
+      fetchClassifieds();
+    }
+  }, [busca, paginaAtual, mostrandoTodos]);
 
   const musicosFiltrados = useMemo(() => {
     return musicos.filter((musico) => {
@@ -91,16 +96,30 @@ export function Section6FormEstaSemBanda() {
 
   const handleFiltroChange = (novoFiltro: "Todos" | "Solo" | "Banda") => {
     setFiltroAtivo(novoFiltro);
+    setMostrandoTodos(false);
   };
 
   const handleBuscaChange = (novaBusca: string) => {
     setBusca(novaBusca);
     setPaginaAtual(1);
+    setMostrandoTodos(false);
   };
 
   const handleModalClose = () => {
     setOpenModal(false);
     fetchClassifieds();
+  };
+
+  const handleMostrarTudo = () => {
+    if (mostrandoTodos) {
+      // Se está mostrando todos, voltar para paginação
+      setMostrandoTodos(false);
+      setPaginaAtual(1);
+      fetchClassifieds();
+    } else {
+      // Se não está mostrando todos, buscar todos os dados
+      fetchClassifieds(true);
+    }
   };
   return (
     <div id="fale-com-a-gente" className="bg-roxo-600 relative">
@@ -223,24 +242,34 @@ export function Section6FormEstaSemBanda() {
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-5 justify-between items-center">
           <button
             type="button"
-            onClick={() => setOpenModal(true)}
-            disabled={!isAuthenticated}
-            className={`px-5 py-2 rounded-sm font-bold uppercase cursor-pointer ${
-              isAuthenticated
-                ? "bg-amarelo-bb text-azul-bb"
-                : "bg-amarelo-bb/80 text-azul-bb cursor-not-allowed"
-            }`}
-            title={!isAuthenticated ? "Faça login para publicar no mural" : ""}
+            onClick={() => {
+              if (isAuthenticated) {
+                setOpenModal(true);
+              } else {
+                toast.warning("Faça login para publicar no mural");
+              }
+            }}
+            className={`px-5 py-2 rounded-sm font-bold uppercase bg-amarelo-bb text-azul-bb cursor-pointer hover:scale-105 duration-300`}
           >
             publicar no mural
           </button>
-          <button className="text-amarelo-bb text-xl">Mostrar tudo</button>
+          {totalPaginas >= 1 && (
+            <button
+              onClick={handleMostrarTudo}
+              className={`text-xl text-amarelo-bb cursor-pointer`}
+            >
+              {mostrandoTodos ? "Mostrar menos" : "Mostrar tudo"}
+            </button>
+          )}
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-10 items-center text-white font-light sm:ml-auto">
             <span>
-              Mostrando {indiceInicio + 1}-{indiceFim} de{" "}
-              {musicosFiltrados.length} itens
+              {mostrandoTodos
+                ? `Mostrando todos os ${musicosFiltrados.length} itens`
+                : `Mostrando ${indiceInicio + 1}-${indiceFim} de ${
+                    musicosFiltrados.length
+                  } itens`}
             </span>
-            {totalPaginas > 1 && (
+            {totalPaginas > 1 && !mostrandoTodos && (
               <div className="flex gap-2 items-center font-normal">
                 <button
                   onClick={() => setPaginaAtual(Math.max(1, paginaAtual - 1))}

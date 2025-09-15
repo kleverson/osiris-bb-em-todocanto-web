@@ -11,8 +11,8 @@ export function Section7Faq() {
 
   return (
     <div id="duvidas" className="relative bg-amarelo-bb">
-      <div className="relative max-w-6xl mx-auto w-full px-4 py-16 z-30 grid md:grid-cols-2 gap-10">
-        <div className="text-azul-bb">
+      <div className="relative max-w-6xl mx-auto w-full px-4 grid md:grid-cols-2 md:gap-10 items-end">
+        <div className="text-azul-bb py-16">
           <h2 className="text-3xl sm:text-5xl text-azul-bb font-extrabold border-b-2 border-azul-bb pb-10 font-bb-titulos">
             Perguntas? <br />
             Temos a resposta.
@@ -75,9 +75,9 @@ export function Section7Faq() {
             ))}
           </div>
         </div>
-      </div>
-      <div className="absolute bottom-0 right-[10vw] w-[45%]">
-        <img src={Piano} alt="pessoa tocando piano" />
+        <div>
+          <img src={Piano} alt="pessoa tocando piano" />
+        </div>
       </div>
     </div>
   );

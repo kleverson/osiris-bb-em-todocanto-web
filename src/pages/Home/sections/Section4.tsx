@@ -15,7 +15,7 @@ export function Section4() {
             Veja como vai funcionar
           </h2>
           <div className="grid md:grid-cols-3 gap-10">
-            <div className="space-y-4">
+            <div className="space-y-2">
               <div className="flex items-center gap-6 text-amarelo-bb">
                 <span className="w-16 h-16 md:w-[88px] md:h-[88px] rounded-full flex items-center justify-center border-4 border-amarelo-bb text-4xl md:text-5xl font-extrabold">
                   1
@@ -35,7 +35,7 @@ export function Section4() {
                 o palco!
               </p>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-2">
               <div className="flex items-center gap-6 text-amarelo-bb">
                 <span className="w-16 h-16 md:w-[88px] md:h-[88px] rounded-full flex items-center justify-center border-4 border-amarelo-bb text-4xl md:text-5xl font-extrabold">
                   2
@@ -55,7 +55,7 @@ export function Section4() {
                 na final em Brasília.
               </p>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-2">
               <div className="flex items-center gap-6 text-amarelo-bb">
                 <span className="w-16 h-16 md:w-[88px] md:h-[88px] rounded-full flex items-center justify-center border-4 border-amarelo-bb text-4xl md:text-5xl font-extrabold">
                   3

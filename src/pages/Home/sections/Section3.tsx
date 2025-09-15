@@ -10,28 +10,34 @@ export function Section3() {
           <div className="space-y-5">
             <div className="flex items-center gap-6">
               <svg
-                width="24"
-                height="40"
-                viewBox="0 0 24 40"
+                width="56"
+                height="56"
+                viewBox="0 0 56 56"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <g clip-path="url(#clip0_104_5318)">
+                <g clip-path="url(#clip0_104_14660)">
                   <path
-                    d="M4.04868 38.18C2.08547 33.5662 14.8769 26.8973 18.3617 32.1156C21.8466 37.3338 6.0934 42.9886 4.04868 38.18Z"
+                    d="M20.0487 46.18C18.0855 41.5662 30.8769 34.8973 34.3617 40.1156C37.8466 45.3338 22.0934 50.9886 20.0487 46.18Z"
                     fill="#FF6E91"
                   />
                   <path
-                    d="M24 5.17126L18.9595 0C10.1489 1.94762 0 7.93821 0 7.93821L17.1322 33.096L18.3617 32.1088L4.20492 11.2962L24 5.17126Z"
+                    d="M40 13.1713L34.9595 8C26.1489 9.94762 16 15.9382 16 15.9382L33.1322 41.096L34.3617 40.1088L20.2049 19.2962L40 13.1713Z"
                     fill="#FF6E91"
                   />
                 </g>
                 <defs>
-                  <clipPath id="clip0_104_5318">
-                    <rect width="24" height="40" fill="white" />
+                  <clipPath id="clip0_104_14660">
+                    <rect
+                      width="24"
+                      height="40"
+                      fill="white"
+                      transform="translate(16 8)"
+                    />
                   </clipPath>
                 </defs>
               </svg>
+
               <p className="text-2xl text-azul-bb font-light">
                 O melhor artista solo leva <br />
                 <strong className="font-extrabold text-3xl">
@@ -41,44 +47,50 @@ export function Section3() {
             </div>
             <div className="flex items-center gap-6">
               <svg
-                width="49"
-                height="40"
-                viewBox="0 0 49 40"
+                width="56"
+                height="56"
+                viewBox="0 0 56 56"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <g clip-path="url(#clip0_104_5328)">
+                <g clip-path="url(#clip0_104_14670)">
                   <path
-                    d="M0.0987653 23.0514C1.41615 18.8893 13.5406 21.6206 12.8777 27.0378C12.2148 32.455 -1.27222 27.3863 0.0987653 23.0514Z"
+                    d="M3.09877 31.0514C4.41615 26.8893 16.5406 29.6206 15.8777 35.0378C15.2148 40.455 1.72778 35.3863 3.09877 31.0514Z"
                     fill="#FF6E91"
                   />
                   <path
-                    d="M34.7401 33.6648C36.0574 29.5027 48.1819 32.234 47.519 37.6512C46.8561 43.0684 33.3691 37.9997 34.7401 33.6648Z"
+                    d="M37.7401 41.6648C39.0574 37.5027 51.1819 40.234 50.519 45.6512C49.8561 51.0684 36.3691 45.9997 37.7401 41.6648Z"
                     fill="#FF6E91"
                   />
                   <path
-                    d="M48.6897 15.2401L49 9.27894C43.2199 6.69783 14.5843 0 14.5843 0L11.5151 27.0038L12.8748 27.0378L15.3601 5.28403L48.6897 15.2373V15.2401Z"
+                    d="M51.6897 23.2401L52 17.2789C46.2199 14.6978 17.5843 8 17.5843 8L14.5151 35.0038L15.8748 35.0378L18.3601 13.284L51.6897 23.2373V23.2401Z"
                     fill="#FF6E91"
                   />
                   <path
-                    d="M47.519 37.6512L49 9.27893L47.1833 9.86825L46.4414 37.4274L47.519 37.6512Z"
+                    d="M50.519 45.6512L52 17.2789L50.1833 17.8682L49.4414 45.4274L50.519 45.6512Z"
                     fill="#FF6E91"
                   />
                   <path
-                    d="M19.363 19.3399C20.6804 15.1778 32.8049 17.9091 32.142 23.3263C31.4791 28.7435 17.9921 23.6747 19.363 19.3399Z"
+                    d="M22.363 27.3399C23.6804 23.1778 35.8049 25.9091 35.142 31.3263C34.4791 36.7435 20.9921 31.6747 22.363 27.3399Z"
                     fill="#FF6E91"
                   />
                   <path
-                    d="M32.1392 23.3262L33.1265 5.3775L31.3465 4.50769L31.0644 23.1024L32.1392 23.3262Z"
+                    d="M35.1392 31.3262L36.1265 13.3775L34.3465 12.5077L34.0644 31.1024L35.1392 31.3262Z"
                     fill="#FF6E91"
                   />
                 </g>
                 <defs>
-                  <clipPath id="clip0_104_5328">
-                    <rect width="49" height="40" fill="white" />
+                  <clipPath id="clip0_104_14670">
+                    <rect
+                      width="49"
+                      height="40"
+                      fill="white"
+                      transform="translate(3 8)"
+                    />
                   </clipPath>
                 </defs>
               </svg>
+
               <p className="text-2xl text-azul-bb font-light">
                 A melhor banda conquista <br />
                 <strong className="font-extrabold text-3xl">

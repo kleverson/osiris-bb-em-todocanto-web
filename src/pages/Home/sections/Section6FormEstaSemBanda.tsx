@@ -7,6 +7,7 @@ import { ModalCadastrarBanda } from "../../../components/ModalCadastrarBanda";
 import { useAuth } from "../../../contexts/AuthContext";
 import { classifiedService, type ClassifiedItem } from "../../../services/api";
 import { toast } from "react-toastify";
+import { useDebounce } from "../../../hooks/useDebounce";
 
 interface Musico {
   id?: number;
@@ -23,7 +24,7 @@ export function Section6FormEstaSemBanda() {
   const [filtroAtivo, setFiltroAtivo] = useState<"Todos" | "Solo" | "Banda">(
     "Todos"
   );
-  const [busca, setBusca] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [paginaAtual, setPaginaAtual] = useState(1);
   const itensPorPagina = 8;
   const [openModal, setOpenModal] = useState(false);
@@ -31,6 +32,8 @@ export function Section6FormEstaSemBanda() {
   const [loading, setLoading] = useState(false);
   const [totalPaginas, setTotalPaginas] = useState(0);
   const [mostrandoTodos, setMostrandoTodos] = useState(false);
+
+  const busca = useDebounce(inputValue, 500);
 
   const convertApiToMusico = (item: ClassifiedItem): Musico => ({
     nome: item.title,
@@ -46,7 +49,7 @@ export function Section6FormEstaSemBanda() {
       const response = await classifiedService.searchClassifieds({
         term: busca || undefined,
         page: mostrarTodos ? 1 : paginaAtual,
-        limit: mostrarTodos ? 1000 : itensPorPagina, // usar um limite alto quando mostrar todos
+        limit: mostrarTodos ? 1000 : itensPorPagina,
       });
 
       const musicosData = response.data.map(convertApiToMusico);
@@ -99,8 +102,8 @@ export function Section6FormEstaSemBanda() {
     setMostrandoTodos(false);
   };
 
-  const handleBuscaChange = (novaBusca: string) => {
-    setBusca(novaBusca);
+  const handleInputChange = (novoValor: string) => {
+    setInputValue(novoValor);
     setPaginaAtual(1);
     setMostrandoTodos(false);
   };
@@ -112,12 +115,10 @@ export function Section6FormEstaSemBanda() {
 
   const handleMostrarTudo = () => {
     if (mostrandoTodos) {
-      // Se está mostrando todos, voltar para paginação
       setMostrandoTodos(false);
       setPaginaAtual(1);
       fetchClassifieds();
     } else {
-      // Se não está mostrando todos, buscar todos os dados
       fetchClassifieds(true);
     }
   };
@@ -157,8 +158,8 @@ export function Section6FormEstaSemBanda() {
                 type="text"
                 className="w-full text-azul-bb focus:outline-none px-2"
                 placeholder="Busque por artista solo, banda ou nome do funcionário"
-                value={busca}
-                onChange={(e) => handleBuscaChange(e.target.value)}
+                value={inputValue}
+                onChange={(e) => handleInputChange(e.target.value)}
               />
             </div>
             <div className="ml-auto">

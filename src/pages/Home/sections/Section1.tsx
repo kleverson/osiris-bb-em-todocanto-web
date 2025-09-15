@@ -72,10 +72,10 @@ export function Section1() {
             <div className="w-1/2 lg:w-[296px]">
               <LogoBBEmTodoCanto />
             </div>
-            <div className="space-y-3 sm:space-y-6 mt-8 lg:ml-20 max-w-md">
+            <div className="space-y-3 sm:space-y-6 mt-8 max-w-md">
               <h2 className="text-3xl lg:text-5xl font-black text-azul-bb font-bb-titulos">
                 Brilhe. Encante. <br />
-                Faça parte
+                Faça parte!
               </h2>
               <p className="text-lg lg:text-2xl text-azul-bb font-light">
                 O palco é seu! Participe do concurso musical exclusivo para

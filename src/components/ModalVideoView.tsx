@@ -1,3 +1,4 @@
+import React from "react";
 import { createPortal } from "react-dom";
 
 interface VideoData {
@@ -15,6 +16,22 @@ interface VideoData {
   };
 }
 
+interface AlreadyVideoData {
+  id: number;
+  nickname: string;
+  title: string;
+  description: string;
+  deleted: boolean;
+  thumb: string;
+  user_id: number;
+  updated_at: string | null;
+  category: number;
+  song: string;
+  file: string;
+  picture: string;
+  created_at: string;
+}
+
 interface Apresentacao {
   id: number;
   nome: string;
@@ -30,6 +47,7 @@ interface ModalVideoViewProps {
   onClose: () => void;
   apresentacaoSelecionada?: Apresentacao | null;
   videoData?: VideoData;
+  alreadyVideoData?: AlreadyVideoData;
 }
 
 export function ModalVideoView({
@@ -37,18 +55,43 @@ export function ModalVideoView({
   onClose,
   apresentacaoSelecionada,
   videoData,
+  alreadyVideoData,
 }: ModalVideoViewProps) {
   if (!isOpen) return null;
 
+  // Bloquear scroll da página quando o modal estiver aberto
+  React.useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
+
+  // Determinar o tipo de dados que estamos usando
   const isFromForm = videoData && videoData.formData && videoData.files;
+  const isFromAlreadyVideo = alreadyVideoData;
+
+  // URLs para vídeo e imagens
   const videoUrl =
     isFromForm && videoData.files?.file
       ? URL.createObjectURL(videoData.files.file)
+      : isFromAlreadyVideo
+      ? alreadyVideoData.file
       : null;
+
   const imageUrl =
     isFromForm && videoData.files?.picture
       ? URL.createObjectURL(videoData.files.picture)
+      : isFromAlreadyVideo
+      ? alreadyVideoData.picture
       : apresentacaoSelecionada?.imagem;
+
+  const thumbUrl =
+    isFromForm && videoData.files?.thumb
+      ? URL.createObjectURL(videoData.files.thumb)
+      : isFromAlreadyVideo
+      ? alreadyVideoData.thumb
+      : undefined;
 
   const modalContent = (
     <div
@@ -56,7 +99,7 @@ export function ModalVideoView({
       style={{ zIndex: 999999 }}
     >
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 cursor-pointer"
         onClick={onClose}
         aria-label="Fechar modal"
       ></div>
@@ -67,7 +110,7 @@ export function ModalVideoView({
       >
         <button
           onClick={onClose}
-          className="absolute top-0 sm:top-2 right-0 sm:-right-8 flex items-center cursor-pointer justify-center w-10 h-10 bg-amarelo-bb rounded-full shadow-lg hover:bg-amarelo-bb/90 transition-colors"
+          className="absolute top-0 sm:top-2 right-0 sm:-right-8 flex items-center justify-center w-10 h-10 bg-amarelo-bb rounded-full shadow-lg hover:bg-amarelo-bb/90 transition-colors"
           style={{ zIndex: 999999 }}
           aria-label="Fechar modal"
         >
@@ -87,16 +130,12 @@ export function ModalVideoView({
 
         <div className="relative bg-azul-bb rounded-lg shadow-2xl max-h-[80vh] overflow-y-auto p-8 sm:p-12 grid sm:grid-cols-2 gap-6 sm:gap-10">
           <div className="flex flex-col gap-6">
-            {isFromForm && videoUrl ? (
+            {videoUrl ? (
               <video
                 src={videoUrl}
                 controls
                 className="w-full h-auto rounded-lg max-h-[300px] object-cover"
-                poster={
-                  videoData.files?.thumb
-                    ? URL.createObjectURL(videoData.files.thumb)
-                    : undefined
-                }
+                poster={thumbUrl}
               >
                 Seu navegador não suporta o elemento de vídeo.
               </video>
@@ -111,16 +150,22 @@ export function ModalVideoView({
               <h2 className="text-2xl sm:text-3xl font-bold text-amarelo-bb">
                 {isFromForm
                   ? videoData.formData?.nickname
+                  : isFromAlreadyVideo
+                  ? alreadyVideoData.nickname
                   : apresentacaoSelecionada?.nome}
               </h2>
               <p className="text-white font-light">
                 {isFromForm
                   ? videoData.formData?.title
+                  : isFromAlreadyVideo
+                  ? alreadyVideoData.title
                   : apresentacaoSelecionada?.local}
               </p>
               <span className="text-white font-light">
                 {isFromForm
                   ? `Música: ${videoData.formData?.song}`
+                  : isFromAlreadyVideo
+                  ? `Música: ${alreadyVideoData.song}`
                   : apresentacaoSelecionada?.genero}
               </span>
             </div>
@@ -129,6 +174,8 @@ export function ModalVideoView({
             <p className="text-white font-light max-h-[400px] overflow-y-auto">
               {isFromForm
                 ? videoData.formData?.description
+                : isFromAlreadyVideo
+                ? alreadyVideoData.description
                 : `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
@@ -151,5 +198,6 @@ export function ModalVideoView({
     </div>
   );
 
+  // Usar Portal para renderizar o modal diretamente no body
   return createPortal(modalContent, document.body);
 }

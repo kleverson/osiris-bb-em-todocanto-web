@@ -650,6 +650,7 @@ export function FormTalentoMusicalStep4({
     };
   };
 }) {
+  const { user } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -684,7 +685,8 @@ export function FormTalentoMusicalStep4({
       <ModalVideoView
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        videoData={uploadedData}
+        videoData={user?.already_video ? undefined : uploadedData}
+        alreadyVideoData={user?.already_video}
       />
     </>
   );

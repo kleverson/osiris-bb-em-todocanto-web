@@ -56,10 +56,26 @@ export interface UserData {
   sub: string;
   updated_at: number;
   id: number;
+  already_video?: {
+    id: number;
+    nickname: string;
+    title: string;
+    description: string;
+    deleted: boolean;
+    thumb: string;
+    user_id: number;
+    updated_at: string | null;
+    category: number;
+    song: string;
+    file: string;
+    picture: string;
+    created_at: string;
+  };
 }
 
 export interface ClassifiedItem {
   title: string;
+  email?: string;
   city: string;
   state: string;
   type_item: string;

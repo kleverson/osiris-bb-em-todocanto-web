@@ -39,6 +39,7 @@ export function Section6FormEstaSemBanda() {
     nome: item.title,
     instrumento: item.position,
     genero: item.style,
+    email: item.email,
     cidade: `${item.city}/${item.state}`,
     tipo: item.type_item as "Solo" | "Banda",
   });
@@ -222,6 +223,7 @@ export function Section6FormEstaSemBanda() {
                   {musico.email && (
                     <span className="truncate">{musico.email}</span>
                   )}
+                  <span>{musico.email ?? "@bb.com"}</span>
                   <span>{musico.cidade}</span>
                 </div>
               </div>

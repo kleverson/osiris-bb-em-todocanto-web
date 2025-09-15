@@ -217,8 +217,8 @@ export function FormTalentoMusicalStep2({
               Selecione o local em que está lotado atualmente
             </option>
             <option value="NORTE">Norte</option>
-            <option value="NORDESTE">Nordeste</option>
-            <option value="CENTRO-OESTE">Centro-Oeste</option>
+            <option value="NORTHEAST">Nordeste</option>
+            <option value="CENTRO_OESTE">Centro-Oeste</option>
             <option value="SUDESTE">Sudeste</option>
             <option value="SUL">Sul</option>
           </select>

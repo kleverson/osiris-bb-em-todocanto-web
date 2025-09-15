@@ -13,7 +13,7 @@ export function Section7Faq() {
     <div id="duvidas" className="relative bg-amarelo-bb">
       <div className="relative max-w-6xl mx-auto w-full px-4 grid md:grid-cols-2 md:gap-10 items-end">
         <div className="text-azul-bb py-16">
-          <h2 className="text-3xl sm:text-5xl text-azul-bb font-extrabold border-b-2 border-azul-bb pb-10 font-bb-titulos">
+          <h2 className="text-3xl sm:text-5xl text-azul-bb font-bold border-b-2 border-rosa-600 pb-10 font-bb-titulos">
             Perguntas? <br />
             Temos a resposta.
           </h2>
@@ -27,7 +27,7 @@ export function Section7Faq() {
                 className="bg-white rounded-lg overflow-hidden transition-all duration-300 ease-in-out"
               >
                 <div
-                  className="flex justify-between items-center p-6 text-lg font-medium cursor-pointer hover:bg-gray-50 transition-colors duration-200"
+                  className="flex justify-between items-center p-6 text-lg cursor-pointer hover:bg-gray-50 transition-colors duration-200"
                   onClick={() => toggleFAQ(index)}
                 >
                   <p>{item.question}</p>

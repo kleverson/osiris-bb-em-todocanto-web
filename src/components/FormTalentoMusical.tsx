@@ -116,6 +116,14 @@ export function FormTalentoMusicalStep2({
   });
   const [loading, setLoading] = useState(false);
 
+  const handleNumericInput = (value: string) => {
+    const numericValue = value.replace(/\D/g, "");
+    setFormData((prev) => ({
+      ...prev,
+      prefix: parseInt(numericValue) || 0,
+    }));
+  };
+
   useEffect(() => {
     if (user) {
       setFormData({
@@ -189,16 +197,11 @@ export function FormTalentoMusicalStep2({
             Dependência em que trabalha
           </span>
           <input
-            type="number"
+            type="text"
             placeholder="Digite o número da sua agência"
             className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition"
             value={formData.prefix || ""}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                prefix: parseInt(e.target.value) || 0,
-              }))
-            }
+            onChange={(e) => handleNumericInput(e.target.value)}
             required
           />
           <span>Exemplo: 4267</span>

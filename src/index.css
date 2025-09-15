@@ -56,7 +56,7 @@
 
 @media (max-width: 768px) {
   .home-bg-unified {
-    background-image: url("/src/assets/images/bgMobile.png");
+    background-image: url("/src/assets/images/bgMobile2.png");
     background-position: left;
   }
   .logged-bg-unified {

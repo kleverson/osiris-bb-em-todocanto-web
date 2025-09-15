@@ -4,7 +4,7 @@ export function Section2() {
   return (
     <div
       id="regulamento"
-      className="flex justify-center items-center pt-18 sm:pb-32 pb-80"
+      className="flex justify-center items-center py-40 pb-[340px] sm:pb-32"
     >
       <div className="max-w-7xl mx-auto w-full px-4 grid grid-cols-1 lg:grid-cols-2 items-center gap-8 z-10">
         <div className="hidden lg:block"></div>

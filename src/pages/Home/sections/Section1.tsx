@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { scroller } from "react-scroll";
 import { Contator, LogoBBEmTodoCanto } from "../../../assets/Icons";
-import Banda from "../../../assets/images/mobile/banda.png";
 
 export function Section1() {
   const [alertVisible, setAlertVisible] = useState(true);
@@ -13,7 +12,6 @@ export function Section1() {
   });
   const navigate = useNavigate();
 
-  // Data do evento: 26/09/2025
   const eventDate = new Date("2025-09-26T23:59:59");
 
   const calculateTimeLeft = () => {
@@ -66,7 +64,7 @@ export function Section1() {
       id="o-concurso"
       className="min-h-screen flex justify-center items-center"
     >
-      <div className="max-w-7xl mx-auto w-full px-4 grid grid-cols-1 lg:grid-cols-2 items-center py-12 pb-56 gap-8 relative">
+      <div className="max-w-7xl mx-auto w-full px-4 grid grid-cols-1 lg:grid-cols-2 items-center py-8 pb-56 gap-8 relative">
         <div className="flex flex-col justify-center">
           <div className="z-10">
             <div className="w-1/2 lg:w-[296px]">
@@ -90,11 +88,7 @@ export function Section1() {
               </button>
             </div>
           </div>
-          <img
-            src={Banda}
-            alt="Banda"
-            className="sm:hidden absolute bottom-0 right-0"
-          />
+
           <p className="text-sm lg:text-base text-azul-600 mt-20 font-light hidden sm:block">
             *Confira o regulamento da campanha.
           </p>

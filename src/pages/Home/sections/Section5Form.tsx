@@ -28,7 +28,9 @@ export function Section5Form() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      setStep(4);
+      setStep(2);
+    } else {
+      setStep(1);
     }
   }, [isAuthenticated]);
 

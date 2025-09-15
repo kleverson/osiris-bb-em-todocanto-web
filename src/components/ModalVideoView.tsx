@@ -64,7 +64,7 @@ export function ModalVideoView({
       style={{ zIndex: 999999 }}
     >
       <div
-        className="absolute inset-0 cursor-pointer"
+        className="absolute inset-0"
         onClick={onClose}
         aria-label="Fechar modal"
       ></div>
@@ -75,7 +75,7 @@ export function ModalVideoView({
       >
         <button
           onClick={onClose}
-          className="absolute top-0 sm:top-2 right-0 sm:-right-8 flex items-center justify-center w-10 h-10 bg-amarelo-bb rounded-full shadow-lg hover:bg-amarelo-bb/90 transition-colors"
+          className="absolute top-0 sm:top-2 right-0 sm:-right-8 flex items-center cursor-pointer justify-center w-10 h-10 bg-amarelo-bb rounded-full shadow-lg hover:bg-amarelo-bb/90 transition-colors"
           style={{ zIndex: 999999 }}
           aria-label="Fechar modal"
         >
@@ -132,9 +132,6 @@ export function ModalVideoView({
                   : apresentacaoSelecionada?.genero}
               </span>
             </div>
-            <button className="w-fit px-6 bg-amarelo-bb uppercase text-azul-bb py-2 rounded-sm font-bold text-center flex justify-center items-center gap-2 mt-auto hover:bg-amarelo-bb/90 transition-colors">
-              votar
-            </button>
           </div>
           <div>
             <p className="text-white font-light max-h-[400px] overflow-y-auto">

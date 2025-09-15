@@ -128,7 +128,7 @@ export function FormTalentoMusicalStep2({
   useEffect(() => {
     if (user) {
       setFormData({
-        name: user.name || "",
+        name: user?.preferred_username ?? user?.name ?? "",
         prefix: 0,
         region: "",
       });

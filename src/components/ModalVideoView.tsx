@@ -1,3 +1,18 @@
+interface VideoData {
+  formData?: {
+    title: string;
+    nickname: string;
+    category: number;
+    description: string;
+    song: string;
+  };
+  files?: {
+    file?: File;
+    thumb?: File;
+    picture?: File;
+  };
+}
+
 interface Apresentacao {
   id: number;
   nome: string;
@@ -11,15 +26,28 @@ interface Apresentacao {
 interface ModalVideoViewProps {
   isOpen: boolean;
   onClose: () => void;
-  apresentacaoSelecionada: Apresentacao | null;
+  apresentacaoSelecionada?: Apresentacao | null;
+  videoData?: VideoData;
 }
 
 export function ModalVideoView({
   isOpen,
   onClose,
   apresentacaoSelecionada,
+  videoData,
 }: ModalVideoViewProps) {
   if (!isOpen) return null;
+
+  // Se há videoData (do formulário), usar esses dados, senão usar apresentacaoSelecionada
+  const isFromForm = videoData && videoData.formData && videoData.files;
+  const videoUrl =
+    isFromForm && videoData.files?.file
+      ? URL.createObjectURL(videoData.files.file)
+      : null;
+  const imageUrl =
+    isFromForm && videoData.files?.picture
+      ? URL.createObjectURL(videoData.files.picture)
+      : apresentacaoSelecionada?.imagem;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
@@ -47,16 +75,37 @@ export function ModalVideoView({
 
         <div className="relative bg-azul-bb rounded-lg shadow-2xl max-h-[582px] overflow-y-auto p-12 grid sm:grid-cols-2 gap-10">
           <div className="flex flex-col gap-6">
-            <img src={apresentacaoSelecionada?.imagem} alt="" />
+            {isFromForm && videoUrl ? (
+              <video
+                src={videoUrl}
+                controls
+                className="w-full h-auto rounded-lg"
+                poster={
+                  videoData.files?.thumb
+                    ? URL.createObjectURL(videoData.files.thumb)
+                    : undefined
+                }
+              >
+                Seu navegador não suporta o elemento de vídeo.
+              </video>
+            ) : (
+              <img src={imageUrl} alt="" />
+            )}
             <div className="space-y-2">
               <h2 className="text-3xl font-bold text-amarelo-bb">
-                {apresentacaoSelecionada?.nome}
+                {isFromForm
+                  ? videoData.formData?.nickname
+                  : apresentacaoSelecionada?.nome}
               </h2>
               <p className="text-white font-light">
-                {apresentacaoSelecionada?.local}
+                {isFromForm
+                  ? videoData.formData?.title
+                  : apresentacaoSelecionada?.local}
               </p>
               <span className="text-white font-light">
-                {apresentacaoSelecionada?.genero}
+                {isFromForm
+                  ? `Música: ${videoData.formData?.song}`
+                  : apresentacaoSelecionada?.genero}
               </span>
             </div>
             <button className="w-fit px-6 bg-amarelo-bb uppercase text-azul-bb py-2 rounded-sm font-bold text-center flex justify-center items-center gap-2 mt-auto hover:bg-amarelo-bb/90 transition-colors">
@@ -65,7 +114,9 @@ export function ModalVideoView({
           </div>
           <div>
             <p className="text-white font-light sm:max-h-[482px] overflow-y-auto">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              {isFromForm
+                ? videoData.formData?.description
+                : `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
               nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
@@ -79,7 +130,7 @@ export function ModalVideoView({
               urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
               egestas. Iaculis massa nisl malesuada lacinia integer nunc
               posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad
-              litora torquent per conubia nostra inceptos himenaeos.
+              litora torquent per conubia nostra inceptos himenaeos.`}
             </p>
           </div>
         </div>

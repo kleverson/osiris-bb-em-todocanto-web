@@ -10,6 +10,7 @@ import {
 } from "../services/api";
 import { CompartilharIcon, FacebookIcon, WhatsAppIcon } from "../assets/Icons";
 import { toast } from "react-toastify";
+import { ModalVideoView } from "./ModalVideoView";
 
 export function FormTalentoMusicalStep1({
   setStep,
@@ -164,9 +165,6 @@ export function FormTalentoMusicalStep2({
           <span className="w-7 h-7 rounded-full border-2 border-azul-bb flex items-center justify-center text-xs font-bold text-azul-bb">
             02
           </span>
-          <span className="w-7 h-7 rounded-full border-2 border-azul-bb flex items-center justify-center text-xs font-bold text-azul-bb">
-            03
-          </span>
         </div>
         <h2 className="text-3xl lg:text-5xl text-azul-bb font-bold font-bb-titulos">
           Dados pessoais
@@ -256,7 +254,20 @@ export function FormTalentoMusicalStep3({
   setUploadedData,
 }: {
   setStep: (step: number) => void;
-  setUploadedData: (data: { picture?: string; thumb?: string }) => void;
+  setUploadedData: (data: {
+    formData: {
+      title: string;
+      nickname: string;
+      category: number;
+      description: string;
+      song: string;
+    };
+    files: {
+      file?: File;
+      thumb?: File;
+      picture?: File;
+    };
+  }) => void;
 }) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [formData, setFormData] = useState({
@@ -319,9 +330,11 @@ export function FormTalentoMusicalStep3({
 
       await videoService.uploadVideo(videoData);
 
-      const photoUrl = URL.createObjectURL(files.picture);
-      const thumbUrl = URL.createObjectURL(files.thumb);
-      setUploadedData({ picture: photoUrl, thumb: thumbUrl });
+      // Passa os dados completos para o próximo step
+      setUploadedData({
+        formData,
+        files,
+      });
 
       setStep(4);
     } catch (error) {
@@ -341,9 +354,6 @@ export function FormTalentoMusicalStep3({
             02
           </span>
           <span className="text-azul-bb">Sua música</span>
-          <span className="w-7 h-7 rounded-full border-2 border-azul-bb flex items-center justify-center text-xs font-bold text-azul-bb">
-            03
-          </span>
         </div>
         <h2 className="text-3xl lg:text-5xl text-azul-bb font-bold font-bb-titulos">
           Hora da sua apresentação
@@ -379,21 +389,6 @@ export function FormTalentoMusicalStep3({
             ))}
           </select>
         </label>
-        {/* <label className="flex flex-col gap-2">
-          <span className="text-cinza-600 font-medium">
-            Título da apresentação
-          </span>
-          <input
-            type="text"
-            placeholder="Digite o título da sua apresentação"
-            className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition"
-            value={formData.title}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, title: e.target.value }))
-            }
-            required
-          />
-        </label> */}
         <label className="flex flex-col gap-2">
           <span className="text-cinza-600 font-medium">
             Como gostaria de ser chamado(a)
@@ -638,102 +633,60 @@ export function FormTalentoMusicalStep3({
 }
 
 export function FormTalentoMusicalStep4({
-  setStep,
   uploadedData,
 }: {
-  setStep: (step: number) => void;
-  uploadedData: { picture?: string; thumb?: string };
-}) {
-  const handleDownload = () => {
-    if (uploadedData.picture) {
-      const link = document.createElement("a");
-      link.href = uploadedData.picture;
-      link.download = "minha-foto-bb-em-todocanto.jpg";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
+  uploadedData: {
+    formData?: {
+      title: string;
+      nickname: string;
+      category: number;
+      description: string;
+      song: string;
+    };
+    files?: {
+      file?: File;
+      thumb?: File;
+      picture?: File;
+    };
   };
+}) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
   return (
-    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid md:grid-cols-2 gap-10">
-      <div className="space-y-5">
-        <div className="flex gap-3 items-center mb-16">
-          <span className="w-7 h-7 rounded-full bg-verde-500 flex items-center justify-center text-xs font-bold text-azul-bb">
-            01
-          </span>
-          <span className="w-7 h-7 rounded-full bg-verde-500 flex items-center justify-center text-xs font-bold text-azul-bb">
-            02
-          </span>
-          <span className="w-7 h-7 rounded-full bg-azul-bb flex items-center justify-center text-xs font-bold text-white">
-            03
-          </span>
-          <span className="text-azul-bb">Finalize o cadastro</span>
-        </div>
+    <>
+      <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid md:grid-cols-2 md:items-center gap-10">
         <h2 className="text-3xl lg:text-5xl text-azul-bb font-bold font-bb-titulos">
-          Ative sua torcida
+          Inscrição <br />
+          concluída <br />
+          com sucesso
         </h2>
-        <p className="text-xl text-cinza-600">
-          Baixe sua imagem personalizada e compartilhe-a com os seus colegas do
-          BB. Cada voto deixa você mais perto da vitória.
-        </p>
+        <div className="md:border-l-2 md:pl-10 border-cinza-400 flex gap-5 flex-col md:text-lg">
+          <p className="text-cinza-600 font-light">
+            Pronto! A sua parte está feita. Agora é{" "}
+            <strong>hora de divulgar a sua música</strong>, engajar a sua
+            torcida e torcer pela vaga na grande final do{" "}
+            <strong>BB em todo canto.</strong>
+          </p>
+          <button
+            onClick={handleOpenModal}
+            className="px-7 py-3 font-bold bg-azul-bb text-white uppercase w-fit rounded-sm cursor-pointer hover:scale-105 duration-300 text-base"
+          >
+            Ver vídeo
+          </button>
+          <p className="text-cinza-600 font-bold">Boa sorte!</p>
+        </div>
       </div>
-      <form className="md:border-l-2 md:pl-10 border-azul-bb/50 flex gap-5 flex-col">
-        <div className="grid grid-cols-2 items-center gap-5 bg-white p-10">
-          <div className="relative">
-            <img
-              src={uploadedData.picture || "https://picsum.photos/200/300"}
-              className="object-cover border-4 border-azul-bb rounded"
-              alt="Sua foto"
-            />
-          </div>
-          <div>
-            <p className="text-cinza-600 font-light">
-              Agora é com você: faça o download da imagem e compartilhe-a com os
-              seus colegas para conseguir mais votos!
-            </p>
-            <button
-              type="button"
-              onClick={handleDownload}
-              className="flex items-center gap-2 text-azul-bb font-bold uppercase mt-5 cursor-pointer hover:brightness-90 transition"
-            >
-              <svg
-                width="17"
-                height="18"
-                viewBox="0 0 17 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M3.59363 5.76451C3.7719 5.76451 3.93953 5.83388 4.06578 5.96012L7.62077 9.51512V1.60303C7.62077 1.23493 7.9202 0.935498 8.2883 0.935498C8.6564 0.935498 8.95583 1.23493 8.95583 1.60303V9.51512L12.5108 5.96012C12.6368 5.83411 12.8045 5.76451 12.9827 5.76451C13.2579 5.76451 13.4942 5.92243 13.5994 6.17654C13.7046 6.43065 13.6494 6.70951 13.4547 6.90396L8.97179 11.3868C8.59467 11.764 7.98101 11.764 7.6039 11.3868L3.12102 6.90396C2.92656 6.70951 2.87107 6.43065 2.97627 6.17654C3.08148 5.92243 3.31779 5.76451 3.59294 5.76451H3.59363Z"
-                  fill="#465EFF"
-                />
-                <path
-                  d="M16.0099 10.7495C15.8314 10.7453 15.6626 10.8138 15.5335 10.9403C15.4038 11.0677 15.3294 11.2443 15.3294 11.4254V15.6396C15.3294 15.689 15.2891 15.7293 15.2397 15.7293H1.42477C1.37529 15.7293 1.33506 15.689 1.33506 15.6396V11.4168C1.33506 11.0487 1.03563 10.7493 0.66753 10.7493C0.299429 10.7493 0 11.0487 0 11.4168V16.0964C0 16.6303 0.43423 17.0646 0.968115 17.0646H15.6965C16.2304 17.0646 16.6647 16.6303 16.6647 16.0964V11.4168C16.6647 11.0556 16.371 10.7562 16.0101 10.7493L16.0099 10.7495Z"
-                  fill="#465EFF"
-                />
-              </svg>
-              baixar
-            </button>
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-10 mt-10">
-          <button
-            type="button"
-            onClick={() => setStep(3)}
-            className="w-full py-2 font-bold border-2 border-azul-bb text-azul-bb uppercase rounded-sm cursor-pointer hover:brightness-90 transition"
-          >
-            VOLTAR
-          </button>
-          <button
-            type="button"
-            className="w-full py-2 font-bold bg-azul-bb text-white uppercase rounded-sm cursor-pointer hover:brightness-90 transition"
-            onClick={() => setStep(5)}
-          >
-            finalizar
-          </button>
-        </div>
-      </form>
-    </div>
+
+      <ModalVideoView
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        videoData={uploadedData}
+      />
+    </>
   );
 }
 

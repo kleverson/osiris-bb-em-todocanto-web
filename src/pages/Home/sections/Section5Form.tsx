@@ -5,20 +5,30 @@ import {
   FormTalentoMusicalStep2,
   FormTalentoMusicalStep3,
   FormTalentoMusicalStep4,
-  FormTalentoMusicalStep5,
+  // FormTalentoMusicalStep5,
 } from "../../../components/FormTalentoMusical";
 
 export function Section5Form() {
   const { isAuthenticated } = useAuth();
   const [step, setStep] = useState(1);
   const [uploadedData, setUploadedData] = useState<{
-    picture?: string;
-    thumb?: string;
+    formData?: {
+      title: string;
+      nickname: string;
+      category: number;
+      description: string;
+      song: string;
+    };
+    files?: {
+      file?: File;
+      thumb?: File;
+      picture?: File;
+    };
   }>({});
 
   useEffect(() => {
     if (isAuthenticated) {
-      setStep(2);
+      setStep(4);
     }
   }, [isAuthenticated]);
 
@@ -32,13 +42,8 @@ export function Section5Form() {
           setUploadedData={setUploadedData}
         />
       )}
-      {step === 4 && (
-        <FormTalentoMusicalStep4
-          setStep={setStep}
-          uploadedData={uploadedData}
-        />
-      )}
-      {step === 5 && <FormTalentoMusicalStep5 uploadedData={uploadedData} />}
+      {step === 4 && <FormTalentoMusicalStep4 uploadedData={uploadedData} />}
+      {/* {step === 5 && <FormTalentoMusicalStep5 uploadedData={uploadedData} />} */}
     </div>
   );
 }

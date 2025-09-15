@@ -1,4 +1,3 @@
-import React from "react";
 import { createPortal } from "react-dom";
 
 interface VideoData {
@@ -58,14 +57,6 @@ export function ModalVideoView({
   alreadyVideoData,
 }: ModalVideoViewProps) {
   if (!isOpen) return null;
-
-  // Bloquear scroll da página quando o modal estiver aberto
-  React.useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, []);
 
   // Determinar o tipo de dados que estamos usando
   const isFromForm = videoData && videoData.formData && videoData.files;

@@ -9,12 +9,12 @@ export function Section4() {
       <div className="absolute -bottom-2 w-full z-10">
         <VetorBottomBranco />
       </div>
-      <div className="relative max-w-6xl mx-auto w-full px-4 py-44">
+      <div className="relative max-w-7xl mx-auto w-full px-4 py-44">
         <div className="relative z-30 flex flex-col space-y-10">
           <h2 className="text-3xl sm:text-5xl text-amarelo-bb sm:text-center font-black font-bb-titulos">
             Veja como vai funcionar
           </h2>
-          <div className="grid md:grid-cols-3 gap-10">
+          <div className="grid md:grid-cols-3 gap-12">
             <div className="space-y-2">
               <div className="flex items-center gap-6 text-amarelo-bb">
                 <span className="w-16 h-16 md:w-[88px] md:h-[88px] rounded-full flex items-center justify-center border-4 border-amarelo-bb text-4xl md:text-5xl font-extrabold">

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { createPortal } from "react-dom";
 
 interface VideoData {
@@ -40,13 +39,6 @@ export function ModalVideoView({
   videoData,
 }: ModalVideoViewProps) {
   if (!isOpen) return null;
-
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, []);
 
   const isFromForm = videoData && videoData.formData && videoData.files;
   const videoUrl =

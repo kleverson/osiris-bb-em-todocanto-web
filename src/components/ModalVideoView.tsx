@@ -161,17 +161,17 @@ export function ModalVideoView({
                   ? alreadyVideoData.title
                   : apresentacaoSelecionada?.local}
               </p>
-              <span className="text-white font-light">
+              <div className="text-white font-light">
                 {isFromForm
                   ? `Música: ${videoData.formData?.song}`
                   : isFromAlreadyVideo
                   ? `Música: ${alreadyVideoData.song}`
                   : apresentacaoSelecionada?.genero}
-              </span>
+              </div>
             </div>
           </div>
           <div>
-            <p className="text-white font-light max-h-[400px] overflow-y-auto">
+            <p className="text-white font-light max-h-[400px] overflow-y-auto whitespace-pre-line">
               {isFromForm
                 ? videoData.formData?.description
                 : isFromAlreadyVideo
@@ -198,6 +198,5 @@ export function ModalVideoView({
     </div>
   );
 
-  // Usar Portal para renderizar o modal diretamente no body
   return createPortal(modalContent, document.body);
 }

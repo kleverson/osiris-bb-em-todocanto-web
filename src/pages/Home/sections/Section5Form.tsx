@@ -28,9 +28,7 @@ export function Section5Form() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      // Se o usuário está autenticado e já tem um vídeo, vai direto para o step 4
       if (user?.already_video) {
-        // Converte os dados do vídeo já enviado para o formato esperado pelo modal
         setUploadedData({
           formData: {
             title: user.already_video.title,
@@ -39,12 +37,10 @@ export function Section5Form() {
             description: user.already_video.description,
             song: user.already_video.song,
           },
-          // Para vídeos já enviados, usamos as URLs em vez de Files
-          files: {}, // Será tratado no modal como vídeo existente
+          files: {},
         });
         setStep(4);
       } else {
-        // Se autenticado mas sem vídeo, vai para o step 2
         setStep(2);
       }
     } else {

@@ -116,6 +116,7 @@ export function FormTalentoMusicalStep2({
     region: "",
   });
   const [loading, setLoading] = useState(false);
+  const [errorStep2, setErrorStep2] = useState<string>("");
 
   const handleNumericInput = (value: string) => {
     const numericValue = value.replace(/\D/g, "");
@@ -145,11 +146,20 @@ export function FormTalentoMusicalStep2({
 
     try {
       setLoading(true);
+      setErrorStep2("");
       await authService.completeRegister(formData);
       toast.success("Dados salvos com sucesso!");
       setStep(3);
-    } catch (error) {
-      toast.error("Erro ao salvar dados. Tente novamente.");
+    } catch (error: any) {
+      let errorMessage = "Erro ao salvar os dados. Tente novamente.";
+
+      if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+
+      setErrorStep2(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -224,6 +234,26 @@ export function FormTalentoMusicalStep2({
             <option value="SUL">Sul</option>
           </select>
         </label>
+
+        {errorStep2 && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+            <div className="flex items-center gap-2">
+              <svg
+                className="w-5 h-5 text-red-500"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <span className="text-red-700 font-medium">{errorStep2}</span>
+            </div>
+          </div>
+        )}
+
         <div className="grid grid-cols-2 gap-10 mt-10">
           <button
             type="button"
@@ -283,6 +313,7 @@ export function FormTalentoMusicalStep3({
     picture?: File;
   }>({});
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -302,6 +333,7 @@ export function FormTalentoMusicalStep3({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(""); // Limpa erro anterior
 
     if (
       !formData.title ||
@@ -314,6 +346,9 @@ export function FormTalentoMusicalStep3({
       !files.picture
     ) {
       toast.warning(
+        "Por favor, preencha todos os campos e faça upload dos arquivos."
+      );
+      setError(
         "Por favor, preencha todos os campos e faça upload dos arquivos."
       );
       return;
@@ -337,8 +372,13 @@ export function FormTalentoMusicalStep3({
       });
 
       setStep(4);
-    } catch (error) {
-      toast.error("Erro ao enviar vídeo. Tente novamente.");
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Erro inesperado ao enviar vídeo. Tente novamente em alguns instantes.";
+      setError(errorMessage);
+      toast.error("Erro ao enviar vídeo. Verifique a mensagem abaixo.");
     } finally {
       setLoading(false);
     }
@@ -607,6 +647,29 @@ export function FormTalentoMusicalStep3({
             </span>
           </label>
         </div>
+
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md mb-4">
+            <div className="flex items-start">
+              <svg
+                className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <div>
+                <p className="font-medium">Erro no envio</p>
+                <p className="text-sm">{error}</p>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="grid grid-cols-2 gap-10 mt-10">
           <button
             type="button"

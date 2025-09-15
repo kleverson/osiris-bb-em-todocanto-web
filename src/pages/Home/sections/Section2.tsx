@@ -13,12 +13,14 @@ export function Section2() {
             Veja como participar!
           </h2>
           <p className="text-lg lg:text-3xl text-white font-bold">
-            Está na hora de transformar cada nota em inspiração.
+            Está na hora de transformar <br />
+            cada nota em inspiração.
           </p>
           <p className="text-lg lg:text-2xl text-white font-light">
-            Se a música faz parte de você, inscreva-se solo ou com a sua banda
-            formada só por colegas do BB e mostre seu talento no BB em Todo
-            Canto.
+            Se a música faz parte de você, inscreva-se <br />
+            solo ou com a sua banda formada só por <br />
+            colegas do BB e mostre seu talento no BB <br />
+            em Todo Canto.
           </p>
           <button className="px-7 py-3 font-bold bg-amarelo-bb text-azul-bb uppercase mt-10 mx-auto rounded-sm cursor-pointer hover:scale-105 duration-300">
             confira o regulamento

@@ -86,12 +86,6 @@ export function Header() {
               dúvidas
             </button>
             <button
-              onClick={() => scrollToSection("fale-com-a-gente")}
-              className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
-            >
-              fale com a gente
-            </button>
-            <button
               onClick={() => scrollToSection("regulamento")}
               className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
             >
@@ -280,14 +274,6 @@ export function Header() {
                   className="block w-full text-left py-3 px-4 hover:bg-azul-500 hover:text-amarelo-bb transition-colors uppercase font-bold text-sm rounded-sm"
                 >
                   Dúvidas
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => handleMobileNavigation("fale-com-a-gente")}
-                  className="block w-full text-left py-3 px-4 hover:bg-azul-500 hover:text-amarelo-bb transition-colors uppercase font-bold text-sm rounded-sm"
-                >
-                  Fale com a Gente
                 </button>
               </li>
               <li>

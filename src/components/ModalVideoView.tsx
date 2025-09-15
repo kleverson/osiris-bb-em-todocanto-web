@@ -1,3 +1,6 @@
+import { useEffect } from "react";
+import { createPortal } from "react-dom";
+
 interface VideoData {
   formData?: {
     title: string;
@@ -38,7 +41,13 @@ export function ModalVideoView({
 }: ModalVideoViewProps) {
   if (!isOpen) return null;
 
-  // Se há videoData (do formulário), usar esses dados, senão usar apresentacaoSelecionada
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
+
   const isFromForm = videoData && videoData.formData && videoData.files;
   const videoUrl =
     isFromForm && videoData.files?.file
@@ -49,14 +58,25 @@ export function ModalVideoView({
       ? URL.createObjectURL(videoData.files.picture)
       : apresentacaoSelecionada?.imagem;
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/30 " onClick={onClose}></div>
+  const modalContent = (
+    <div
+      className="fixed inset-0 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      style={{ zIndex: 999999 }}
+    >
+      <div
+        className="absolute inset-0 cursor-pointer"
+        onClick={onClose}
+        aria-label="Fechar modal"
+      ></div>
 
-      <div className="relative w-full max-w-[992px] pt-12">
+      <div
+        className="relative w-full max-w-[992px] pt-12"
+        style={{ zIndex: 999999 }}
+      >
         <button
           onClick={onClose}
-          className="absolute top-0 sm:top-2 right-0 sm:-right-8 z-10 flex items-center justify-center w-10 h-10 bg-amarelo-bb rounded-full shadow-lg"
+          className="absolute top-0 sm:top-2 right-0 sm:-right-8 flex items-center justify-center w-10 h-10 bg-amarelo-bb rounded-full shadow-lg hover:bg-amarelo-bb/90 transition-colors"
+          style={{ zIndex: 999999 }}
           aria-label="Fechar modal"
         >
           <svg
@@ -73,13 +93,13 @@ export function ModalVideoView({
           </svg>
         </button>
 
-        <div className="relative bg-azul-bb rounded-lg shadow-2xl max-h-[582px] overflow-y-auto p-12 grid sm:grid-cols-2 gap-10">
+        <div className="relative bg-azul-bb rounded-lg shadow-2xl max-h-[80vh] overflow-y-auto p-8 sm:p-12 grid sm:grid-cols-2 gap-6 sm:gap-10">
           <div className="flex flex-col gap-6">
             {isFromForm && videoUrl ? (
               <video
                 src={videoUrl}
                 controls
-                className="w-full h-auto rounded-lg"
+                className="w-full h-auto rounded-lg max-h-[300px] object-cover"
                 poster={
                   videoData.files?.thumb
                     ? URL.createObjectURL(videoData.files.thumb)
@@ -89,10 +109,14 @@ export function ModalVideoView({
                 Seu navegador não suporta o elemento de vídeo.
               </video>
             ) : (
-              <img src={imageUrl} alt="" />
+              <img
+                src={imageUrl}
+                alt=""
+                className="w-full h-auto rounded-lg max-h-[300px] object-cover"
+              />
             )}
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold text-amarelo-bb">
+              <h2 className="text-2xl sm:text-3xl font-bold text-amarelo-bb">
                 {isFromForm
                   ? videoData.formData?.nickname
                   : apresentacaoSelecionada?.nome}
@@ -113,7 +137,7 @@ export function ModalVideoView({
             </button>
           </div>
           <div>
-            <p className="text-white font-light sm:max-h-[482px] overflow-y-auto">
+            <p className="text-white font-light max-h-[400px] overflow-y-auto">
               {isFromForm
                 ? videoData.formData?.description
                 : `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -137,4 +161,6 @@ export function ModalVideoView({
       </div>
     </div>
   );
+
+  return createPortal(modalContent, document.body);
 }

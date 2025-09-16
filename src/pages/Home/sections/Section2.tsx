@@ -4,7 +4,7 @@ export function Section2() {
   return (
     <div
       id="como-participar"
-      className="flex justify-center items-center py-40 pb-[340px]"
+      className="flex justify-center items-center pb-96 pt-40 md:py-40 md:pb-[340px]"
     >
       <div className="max-w-7xl mx-auto w-full px-4 grid grid-cols-1 lg:grid-cols-2 items-center gap-8 z-10">
         <div className="hidden lg:block"></div>

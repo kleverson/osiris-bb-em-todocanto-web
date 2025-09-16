@@ -62,23 +62,23 @@ export function Header() {
               o concurso
             </button>
             <button
+              onClick={() => scrollToSection("como-participar")}
+              className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
+            >
+              como participar
+            </button>
+            <button
               onClick={() => scrollToSection("premios")}
               className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
             >
               prêmios
             </button>
             <button
-              onClick={() => scrollToSection("como-participar")}
+              onClick={() => scrollToSection("esta-sem-banda")}
               className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
             >
-              como participar
+              Está sem banda
             </button>
-            <Link
-              to={"/classificados"}
-              className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
-            >
-              classificados
-            </Link>
             <button
               onClick={() => scrollToSection("duvidas")}
               className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
@@ -245,6 +245,14 @@ export function Header() {
               </li>
               <li>
                 <button
+                  onClick={() => handleMobileNavigation("como-participar")}
+                  className="block w-full text-left py-3 px-4 hover:bg-azul-500 hover:text-amarelo-bb transition-colors uppercase font-bold text-sm rounded-sm"
+                >
+                  Como Participar
+                </button>
+              </li>
+              <li>
+                <button
                   onClick={() => handleMobileNavigation("premios")}
                   className="block w-full text-left py-3 px-4 hover:bg-azul-500 hover:text-amarelo-bb transition-colors uppercase font-bold text-sm rounded-sm"
                 >
@@ -253,20 +261,11 @@ export function Header() {
               </li>
               <li>
                 <button
-                  onClick={() => handleMobileNavigation("como-participar")}
+                  onClick={() => handleMobileNavigation("esta-sem-banda")}
                   className="block w-full text-left py-3 px-4 hover:bg-azul-500 hover:text-amarelo-bb transition-colors uppercase font-bold text-sm rounded-sm"
                 >
-                  Como Participar
+                  Está sem banda
                 </button>
-              </li>
-              <li>
-                <Link
-                  to={"/classificados"}
-                  onClick={closeMenu}
-                  className="block w-full text-left py-3 px-4 hover:bg-azul-500 hover:text-amarelo-bb transition-colors uppercase font-bold text-sm rounded-sm"
-                >
-                  Classificados
-                </Link>
               </li>
               <li>
                 <button
@@ -289,7 +288,6 @@ export function Header() {
         </div>
       </div>
 
-      {/* Modal de Login */}
       <ModalLogin
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}

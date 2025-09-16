@@ -124,7 +124,7 @@ export function Section6FormEstaSemBanda() {
     }
   };
   return (
-    <div id="fale-com-a-gente" className="bg-roxo-600 relative">
+    <div id="esta-sem-banda" className="bg-roxo-600 relative">
       <div className="absolute top-0 w-full z-10">
         <VetorTopEstaSemBanda />
       </div>

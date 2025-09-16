@@ -66,7 +66,6 @@ export function ModalCadastrarBanda({
     if (
       !formData.title ||
       !formData.city ||
-      !formData.state ||
       !formData.type_item ||
       !formData.position ||
       !formData.style
@@ -156,33 +155,6 @@ export function ModalCadastrarBanda({
               onSubmit={handleSubmit}
               className="grid grid-cols-2 gap-4 lg:border-l pl-10 border-azul-bb/60"
             >
-              <label className="flex flex-col gap-1 text-sm">
-                <span className="text-cinza-600">Cidade*</span>
-                <input
-                  className="bg-white px-4 py-3 rounded-t-md text-azul-bb border-b border-azul-bb"
-                  type="text"
-                  placeholder="Digite sua cidade"
-                  value={formData.city}
-                  onChange={(e) => handleInputChange("city", e.target.value)}
-                  required
-                />
-              </label>
-              <label className="flex flex-col gap-1 text-sm">
-                <span className="text-cinza-600">Estado*</span>
-                <select
-                  className="bg-white px-4 py-3 rounded-t-md text-azul-bb border-b border-azul-bb"
-                  value={formData.state}
-                  onChange={(e) => handleInputChange("state", e.target.value)}
-                  required
-                >
-                  <option value="">Selecione</option>
-                  {estadosBrasil.map((estado) => (
-                    <option key={estado.value} value={estado.value}>
-                      {estado.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
               <label className="col-span-2 flex flex-col gap-1 text-sm">
                 <span className="text-cinza-600">Selecione o que procura*</span>
                 <div className="flex flex-wrap gap-4">
@@ -245,6 +217,24 @@ export function ModalCadastrarBanda({
                   onChange={(e) => handleInputChange("title", e.target.value)}
                   required
                 />
+              </label>
+              <label className="col-span-2 flex flex-col gap-1 text-sm">
+                <span className="text-cinza-600">Qual sua região?*</span>
+                <select
+                  className="bg-white px-4 py-3 rounded-t-md text-azul-bb border-b border-azul-bb font-light"
+                  value={formData.city}
+                  onChange={(e) => handleInputChange("city", e.target.value)}
+                  required
+                >
+                  <option value="">
+                    Selecione o local em que está lotado atualmente
+                  </option>
+                  {estadosBrasil.map((estado) => (
+                    <option key={estado.value} value={estado.value}>
+                      {estado.label}
+                    </option>
+                  ))}
+                </select>
               </label>
               <label className="col-span-2 flex flex-col gap-1 text-sm">
                 <span className="text-cinza-600">Defina o estilo musical*</span>

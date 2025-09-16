@@ -8,7 +8,6 @@ import {
   type CompleteRegisterRequest,
   type VideoUploadRequest,
 } from "../services/api";
-import { CompartilharIcon, FacebookIcon, WhatsAppIcon } from "../assets/Icons";
 import { toast } from "react-toastify";
 import { ModalVideoView } from "./ModalVideoView";
 
@@ -175,6 +174,12 @@ export function FormTalentoMusicalStep2({
           <span className="w-7 h-7 rounded-full border-2 border-azul-bb flex items-center justify-center text-xs font-bold text-azul-bb">
             02
           </span>
+          <span className="w-7 h-7 rounded-full border-2 border-azul-bb flex items-center justify-center text-xs font-bold text-azul-bb">
+            03
+          </span>
+          <span className="w-7 h-7 rounded-full border-2 border-azul-bb flex items-center justify-center text-xs font-bold text-azul-bb">
+            04
+          </span>
         </div>
         <h2 className="text-3xl lg:text-5xl text-azul-bb font-bold font-bb-titulos">
           Dados pessoais
@@ -254,7 +259,7 @@ export function FormTalentoMusicalStep2({
           </div>
         )}
 
-        <div className="grid grid-cols-2 gap-10 mt-10">
+        <div className="grid grid-cols-2 gap-10 mt-5">
           <button
             type="button"
             onClick={() => setStep(1)}
@@ -281,39 +286,22 @@ export function FormTalentoMusicalStep2({
 
 export function FormTalentoMusicalStep3({
   setStep,
-  setUploadedData,
+  formData,
+  setFormData,
 }: {
   setStep: (step: number) => void;
-  setUploadedData: (data: {
-    formData: {
-      title: string;
-      nickname: string;
-      category: number;
-      description: string;
-      song: string;
-    };
-    files: {
-      file?: File;
-      thumb?: File;
-      picture?: File;
-    };
+  formData: {
+    nickname: string;
+    category: number;
+    description: string;
+  };
+  setFormData: (data: {
+    nickname: string;
+    category: number;
+    description: string;
   }) => void;
 }) {
   const [categories, setCategories] = useState<Category[]>([]);
-  const [formData, setFormData] = useState({
-    title: "",
-    nickname: "",
-    category: 0,
-    description: "",
-    song: "",
-  });
-  const [files, setFiles] = useState<{
-    file?: File;
-    thumb?: File;
-    picture?: File;
-  }>({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string>("");
 
   useEffect(() => {
     const loadCategories = async () => {
@@ -327,61 +315,15 @@ export function FormTalentoMusicalStep3({
     loadCategories();
   }, []);
 
-  const handleFileChange = (type: "file" | "thumb" | "picture", file: File) => {
-    setFiles((prev) => ({ ...prev, [type]: file }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError(""); // Limpa erro anterior
 
-    if (
-      !formData.title ||
-      !formData.nickname ||
-      !formData.category ||
-      !formData.description ||
-      !formData.song ||
-      !files.file ||
-      !files.thumb ||
-      !files.picture
-    ) {
-      toast.warning(
-        "Por favor, preencha todos os campos e faça upload dos arquivos."
-      );
-      setError(
-        "Por favor, preencha todos os campos e faça upload dos arquivos."
-      );
+    if (!formData.nickname || !formData.category || !formData.description) {
+      toast.warning("Por favor, preencha todos os campos.");
       return;
     }
 
-    try {
-      setLoading(true);
-      const videoData: VideoUploadRequest = {
-        ...formData,
-        file: files.file!,
-        thumb: files.thumb!,
-        picture: files.picture!,
-      };
-
-      await videoService.uploadVideo(videoData);
-
-      // Passa os dados completos para o próximo step
-      setUploadedData({
-        formData,
-        files,
-      });
-
-      setStep(4);
-    } catch (error: any) {
-      const errorMessage =
-        error.response?.data?.message ||
-        error.message ||
-        "Erro inesperado ao enviar vídeo. Tente novamente em alguns instantes.";
-      setError(errorMessage);
-      toast.error("Erro ao enviar vídeo. Verifique a mensagem abaixo.");
-    } finally {
-      setLoading(false);
-    }
+    setStep(4);
   };
   return (
     <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid md:grid-cols-2 gap-10">
@@ -393,18 +335,26 @@ export function FormTalentoMusicalStep3({
           <span className="w-7 h-7 rounded-full bg-azul-bb flex items-center justify-center text-xs font-bold text-white">
             02
           </span>
-          <span className="text-azul-bb">Sua música</span>
+          <span className="text-azul-bb">Sobre você</span>
+          <span className="w-7 h-7 rounded-full border-2 border-azul-bb flex items-center justify-center text-xs font-bold text-azul-bb">
+            03
+          </span>
+          <span className="w-7 h-7 rounded-full border-2 border-azul-bb flex items-center justify-center text-xs font-bold text-azul-bb">
+            04
+          </span>
         </div>
         <h2 className="text-3xl lg:text-5xl text-azul-bb font-bold font-bb-titulos">
-          Hora da sua apresentação
+          Precisamos de <br />
+          mais algumas <br />
+          informações
         </h2>
         <p className="text-xl text-cinza-600">
-          Grave a sua apresentação ou da sua banda e envie o vídeo pra gente
+          É o começo da realização de sonhos
         </p>
       </div>
       <form
         onSubmit={handleSubmit}
-        className="md:border-l-2 md:px-10 border-cinza-400 flex gap-5 flex-col md:max-h-96 overflow-y-auto"
+        className="md:border-l-2 md:px-10 border-cinza-400 flex gap-5 flex-col"
       >
         <label className="flex flex-col gap-2">
           <span className="text-cinza-600 font-medium">
@@ -414,10 +364,10 @@ export function FormTalentoMusicalStep3({
             className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition"
             value={formData.category}
             onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
+              setFormData({
+                ...formData,
                 category: parseInt(e.target.value),
-              }))
+              })
             }
             required
           >
@@ -439,7 +389,7 @@ export function FormTalentoMusicalStep3({
             className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition"
             value={formData.nickname}
             onChange={(e) =>
-              setFormData((prev) => ({ ...prev, nickname: e.target.value }))
+              setFormData({ ...formData, nickname: e.target.value })
             }
             required
           />
@@ -454,7 +404,7 @@ export function FormTalentoMusicalStep3({
             className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition resize-none h-32"
             value={formData.description}
             onChange={(e) =>
-              setFormData((prev) => ({ ...prev, description: e.target.value }))
+              setFormData({ ...formData, description: e.target.value })
             }
             required
           />
@@ -462,6 +412,78 @@ export function FormTalentoMusicalStep3({
             Máximo de 400 caracteres.
           </span>
         </label>
+
+        <div className="grid grid-cols-2 gap-10 mt-5">
+          <button
+            type="button"
+            onClick={() => setStep(2)}
+            className="w-full py-2 font-bold border-2 border-azul-bb text-azul-bb uppercase rounded-sm cursor-pointer hover:brightness-90 transition"
+          >
+            VOLTAR
+          </button>
+          <button
+            type="submit"
+            className="w-full py-2 font-bold text-white uppercase rounded-sm transition bg-azul-bb cursor-pointer hover:brightness-90"
+          >
+            continuar
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
+export function FormTalentoMusicalStep4({
+  setStep,
+  musicData,
+  setMusicData,
+}: {
+  setStep: (step: number) => void;
+  musicData: {
+    title: string;
+    song: string;
+  };
+  setMusicData: (data: { title: string; song: string }) => void;
+}) {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!musicData.title || !musicData.song) {
+      toast.warning("Por favor, preencha todos os campos.");
+      return;
+    }
+
+    setStep(5);
+  };
+  return (
+    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid md:grid-cols-2 gap-10">
+      <div className="space-y-5">
+        <div className="flex gap-3 items-center mb-16">
+          <span className="w-7 h-7 rounded-full bg-verde-500 flex items-center justify-center text-xs font-bold text-azul-bb">
+            01
+          </span>
+          <span className="w-7 h-7 rounded-full bg-verde-500 flex items-center justify-center text-xs font-bold text-azul-bb">
+            02
+          </span>
+          <span className="w-7 h-7 rounded-full bg-azul-bb flex items-center justify-center text-xs font-bold text-white">
+            03
+          </span>
+          <span className="text-azul-bb">Sua música</span>
+          <span className="w-7 h-7 rounded-full border-2 border-azul-bb flex items-center justify-center text-xs font-bold text-azul-bb">
+            04
+          </span>
+        </div>
+        <h2 className="text-3xl lg:text-5xl text-azul-bb font-bold font-bb-titulos">
+          Vamos falar <br />
+          da sua música
+        </h2>
+        <p className="text-xl text-cinza-600">
+          A gente quer saber como podemos chamar e cantar a sua música
+        </p>
+      </div>
+      <form
+        onSubmit={handleSubmit}
+        className="md:border-l-2 md:px-10 border-cinza-400 flex gap-5 flex-col"
+      >
         <label className="flex flex-col gap-2">
           <span className="text-cinza-600 font-medium">
             Qual é o nome da música
@@ -470,9 +492,9 @@ export function FormTalentoMusicalStep3({
             type="text"
             placeholder="Digite o título da música que será apresentada"
             className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition"
-            value={formData.title}
+            value={musicData.title}
             onChange={(e) =>
-              setFormData((prev) => ({ ...prev, title: e.target.value }))
+              setMusicData({ ...musicData, title: e.target.value })
             }
             required
           />
@@ -483,13 +505,153 @@ export function FormTalentoMusicalStep3({
             placeholder="Escreva a letra da sua música caso possua"
             maxLength={400}
             className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition resize-none h-32"
-            value={formData.song}
+            value={musicData.song}
             onChange={(e) =>
-              setFormData((prev) => ({ ...prev, song: e.target.value }))
+              setMusicData({ ...musicData, song: e.target.value })
             }
             required
           />
         </label>
+
+        <div className="grid grid-cols-2 gap-10 mt-5">
+          <button
+            type="button"
+            onClick={() => setStep(3)}
+            className="w-full py-2 font-bold border-2 border-azul-bb text-azul-bb uppercase rounded-sm cursor-pointer hover:brightness-90 transition"
+          >
+            VOLTAR
+          </button>
+          <button
+            type="submit"
+            className="w-full py-2 font-bold text-white uppercase rounded-sm transition bg-azul-bb cursor-pointer hover:brightness-90"
+          >
+            continuar
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+}
+export function FormTalentoMusicalStep5({
+  setStep,
+  formData,
+  musicData,
+  setUploadedData,
+}: {
+  setStep: (step: number) => void;
+  formData: {
+    nickname: string;
+    category: number;
+    description: string;
+  };
+  musicData: {
+    title: string;
+    song: string;
+  };
+  setUploadedData: (data: {
+    formData: {
+      title: string;
+      nickname: string;
+      category: number;
+      description: string;
+      song: string;
+    };
+    files: {
+      file?: File;
+      thumb?: File;
+      picture?: File;
+    };
+  }) => void;
+}) {
+  const [files, setFiles] = useState<{
+    file?: File;
+    thumb?: File;
+    picture?: File;
+  }>({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string>("");
+
+  const handleFileChange = (type: "file" | "thumb" | "picture", file: File) => {
+    setFiles((prev) => ({ ...prev, [type]: file }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    if (!files.file || !files.thumb || !files.picture) {
+      toast.warning("Por favor, faça upload de todos os arquivos.");
+      setError("Por favor, faça upload de todos os arquivos.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const videoData: VideoUploadRequest = {
+        title: musicData.title,
+        nickname: formData.nickname,
+        category: formData.category,
+        description: formData.description,
+        song: musicData.song,
+        file: files.file!,
+        thumb: files.thumb!,
+        picture: files.picture!,
+      };
+
+      await videoService.uploadVideo(videoData);
+
+      setUploadedData({
+        formData: {
+          title: musicData.title,
+          nickname: formData.nickname,
+          category: formData.category,
+          description: formData.description,
+          song: musicData.song,
+        },
+        files,
+      });
+
+      setStep(6);
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message ||
+        error.message ||
+        "Erro inesperado ao enviar vídeo. Tente novamente em alguns instantes.";
+      setError(errorMessage);
+      toast.error("Erro ao enviar vídeo. Verifique a mensagem abaixo.");
+    } finally {
+      setLoading(false);
+    }
+  };
+  return (
+    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid md:grid-cols-2 gap-10">
+      <div className="space-y-5">
+        <div className="flex gap-3 items-center mb-16">
+          <span className="w-7 h-7 rounded-full bg-verde-500 flex items-center justify-center text-xs font-bold text-azul-bb">
+            01
+          </span>
+          <span className="w-7 h-7 rounded-full bg-verde-500 flex items-center justify-center text-xs font-bold text-azul-bb">
+            02
+          </span>
+          <span className="w-7 h-7 rounded-full bg-verde-500 flex items-center justify-center text-xs font-bold text-azul-bb">
+            03
+          </span>
+          <span className="w-7 h-7 rounded-full bg-azul-bb flex items-center justify-center text-xs font-bold text-white">
+            04
+          </span>
+          <span className="text-azul-bb">Uploads</span>
+        </div>
+        <h2 className="text-3xl lg:text-5xl text-azul-bb font-bold font-bb-titulos">
+          Dê o tom da sua apresentação
+        </h2>
+        <p className="text-xl text-cinza-600">
+          Complete o seu perfil com mais algumas informações
+        </p>
+      </div>
+      <form
+        onSubmit={handleSubmit}
+        className="md:border-l-2 md:px-10 border-cinza-400 flex gap-5 flex-col md:max-h-96 overflow-auto"
+      >
         <div className="space-y-4">
           <h3 className="text-cinza-600 text-xl font-extrabold">
             Faça upload do seu vídeo de apresentação
@@ -503,7 +665,7 @@ export function FormTalentoMusicalStep3({
             <span>
               {files.file
                 ? files.file.name
-                : "Arraste e solte o arquivo do seu vídeo para fazer o envio"}
+                : "Clique aqui para selecionar seu vídeo para fazer o envio"}
             </span>
             <svg
               width="40"
@@ -555,7 +717,7 @@ export function FormTalentoMusicalStep3({
             <span>
               {files.thumb
                 ? files.thumb.name
-                : "Arraste e solte o arquivo da sua foto para fazer o envio"}
+                : "Clique aqui para  da sua foto para fazer o envio"}
             </span>
             <svg
               width="40"
@@ -607,7 +769,7 @@ export function FormTalentoMusicalStep3({
             <span>
               {files.picture
                 ? files.picture.name
-                : "Arraste e solte o arquivo da sua foto para fazer o envio"}
+                : "Clique aqui para  da sua foto para fazer o envio"}
             </span>
             <svg
               width="40"
@@ -649,31 +811,15 @@ export function FormTalentoMusicalStep3({
         </div>
 
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md mb-4">
-            <div className="flex items-start">
-              <svg
-                className="w-5 h-5 mr-2 mt-0.5 flex-shrink-0"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <div>
-                <p className="font-medium">Erro no envio</p>
-                <p className="text-sm">{error}</p>
-              </div>
-            </div>
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+            <p className="text-sm text-red-700">{error}</p>
           </div>
         )}
 
-        <div className="grid grid-cols-2 gap-10 mt-10">
+        <div className="grid grid-cols-2 gap-5 mt-5">
           <button
             type="button"
-            onClick={() => setStep(2)}
+            onClick={() => setStep(4)}
             className="w-full py-2 font-bold border-2 border-azul-bb text-azul-bb uppercase rounded-sm cursor-pointer hover:brightness-90 transition"
           >
             VOLTAR
@@ -687,7 +833,7 @@ export function FormTalentoMusicalStep3({
                 : "bg-azul-bb cursor-pointer hover:brightness-90"
             }`}
           >
-            {loading ? "Enviando..." : "continuar"}
+            {loading ? "Enviando..." : "FINALIZAR"}
           </button>
         </div>
       </form>
@@ -695,7 +841,7 @@ export function FormTalentoMusicalStep3({
   );
 }
 
-export function FormTalentoMusicalStep4({
+export function FormTalentoMusicalStep6({
   uploadedData,
 }: {
   uploadedData: {
@@ -752,55 +898,5 @@ export function FormTalentoMusicalStep4({
         alreadyVideoData={user?.already_video}
       />
     </>
-  );
-}
-
-export function FormTalentoMusicalStep5({
-  uploadedData,
-}: {
-  uploadedData: { picture?: string; thumb?: string };
-}) {
-  return (
-    <div className="relative max-w-5xl mx-auto w-full px-4 py-24 z-30 grid md:grid-cols-2 gap-10">
-      <div className="space-y-5">
-        <h2 className="text-3xl lg:text-5xl text-azul-bb font-bold font-bb-titulos">
-          Inscrição concluída com sucesso
-        </h2>
-        <p className="text-xl text-cinza-600">
-          Pronto! A sua parte está feita. Agora é{" "}
-          <strong>hora de divulgar a sua música</strong>, engajar a sua torcida
-          e torcer pela vaga na grande final do{" "}
-          <strong>BB em todo canto.</strong>
-        </p>
-        <p className="text-cinza-600">
-          <strong>Boa sorte!</strong>
-        </p>
-      </div>
-      <form className="md:border-l-2 md:pl-10 border-azul-bb/50 flex gap-5 flex-col">
-        <div className="grid grid-cols-2 items-center gap-5 bg-white p-10">
-          <img
-            src={uploadedData.thumb || "https://picsum.photos/200/300"}
-            className="object-cover rounded"
-            alt="Capa do vídeo"
-          />
-          <div>
-            <p className="text-cinza-600 font-light">
-              Divulgue o seu vídeo nas redes e chame a galera pra votar!
-            </p>
-            <div className="flex items-center gap-4 mt-5">
-              <a href="#" target="_blank">
-                <FacebookIcon />
-              </a>
-              <a href="#" target="_blank">
-                <WhatsAppIcon />
-              </a>
-              <a href="#" target="_blank">
-                <CompartilharIcon />
-              </a>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
   );
 }

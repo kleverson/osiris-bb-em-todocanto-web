@@ -5,12 +5,26 @@ import {
   FormTalentoMusicalStep2,
   FormTalentoMusicalStep3,
   FormTalentoMusicalStep4,
-  // FormTalentoMusicalStep5,
+  FormTalentoMusicalStep5,
+  FormTalentoMusicalStep6,
 } from "../../../components/FormTalentoMusical";
 
 export function Section5Form() {
   const { isAuthenticated, user } = useAuth();
   const [step, setStep] = useState(1);
+
+  // Estados para os dados do formulário separados por step
+  const [formData, setFormData] = useState({
+    nickname: "",
+    category: 0,
+    description: "",
+  });
+
+  const [musicData, setMusicData] = useState({
+    title: "",
+    song: "",
+  });
+
   const [uploadedData, setUploadedData] = useState<{
     formData?: {
       title: string;
@@ -29,6 +43,16 @@ export function Section5Form() {
   useEffect(() => {
     if (isAuthenticated) {
       if (user?.already_video) {
+        // Se usuário já tem vídeo, preenche os dados e vai para step final
+        setFormData({
+          nickname: user.already_video.nickname,
+          category: user.already_video.category,
+          description: user.already_video.description,
+        });
+        setMusicData({
+          title: user.already_video.title,
+          song: user.already_video.song,
+        });
         setUploadedData({
           formData: {
             title: user.already_video.title,
@@ -39,12 +63,12 @@ export function Section5Form() {
           },
           files: {},
         });
-        setStep(4);
+        setStep(6);
       } else {
         setStep(2);
       }
     } else {
-      setStep(1);
+      setStep(5);
     }
   }, [isAuthenticated, user]);
 
@@ -55,11 +79,26 @@ export function Section5Form() {
       {step === 3 && (
         <FormTalentoMusicalStep3
           setStep={setStep}
+          formData={formData}
+          setFormData={setFormData}
+        />
+      )}
+      {step === 4 && (
+        <FormTalentoMusicalStep4
+          setStep={setStep}
+          musicData={musicData}
+          setMusicData={setMusicData}
+        />
+      )}
+      {step === 5 && (
+        <FormTalentoMusicalStep5
+          setStep={setStep}
+          formData={formData}
+          musicData={musicData}
           setUploadedData={setUploadedData}
         />
       )}
-      {step === 4 && <FormTalentoMusicalStep4 uploadedData={uploadedData} />}
-      {/* {step === 5 && <FormTalentoMusicalStep5 uploadedData={uploadedData} />} */}
+      {step === 6 && <FormTalentoMusicalStep6 uploadedData={uploadedData} />}
     </div>
   );
 }

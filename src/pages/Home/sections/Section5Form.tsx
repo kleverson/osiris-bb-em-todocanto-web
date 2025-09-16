@@ -68,7 +68,7 @@ export function Section5Form() {
         setStep(2);
       }
     } else {
-      setStep(5);
+      setStep(1);
     }
   }, [isAuthenticated, user]);
 

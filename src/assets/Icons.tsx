@@ -533,7 +533,7 @@ export function VetorTopAmarelo() {
     </svg>
   );
 }
-export function VetorBottomBranco() {
+export function VetorBottomBranco({ color = "#F4F4F6" }) {
   return (
     <svg
       width="100%"
@@ -544,7 +544,7 @@ export function VetorBottomBranco() {
     >
       <path
         d="M0 383.004V289.509C570.496 -107.823 1562.12 716.028 1920 0V383.004H0Z"
-        fill="#F4F4F6"
+        fill={color}
       />
     </svg>
   );

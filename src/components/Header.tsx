@@ -80,7 +80,7 @@ export function Header() {
               como funciona
             </button>
             <button
-              onClick={() => scrollToSection("como-participar")}
+              onClick={() => scrollToSection("jurados")}
               className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
             >
               jurados

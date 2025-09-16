@@ -11,8 +11,8 @@ export function Section7Faq() {
 
   return (
     <div id="duvidas" className="relative bg-amarelo-bb">
-      <div className="relative max-w-6xl mx-auto w-full px-4 grid md:grid-cols-2 md:gap-10 items-end">
-        <div className="text-azul-bb py-16">
+      <div className="relative max-w-6xl mx-auto w-full px-4 grid md:grid-cols-2 gap-10 items-center py-16">
+        <div className="text-azul-bb">
           <h2 className="text-3xl sm:text-5xl text-azul-bb font-bold border-b-2 border-rosa-600 pb-10 font-bb-titulos">
             Perguntas? <br />
             Temos a resposta.
@@ -75,8 +75,26 @@ export function Section7Faq() {
             ))}
           </div>
         </div>
-        <div>
-          <img src={Piano} alt="pessoa tocando piano" />
+        <div className="flex flex-col items-center">
+          <img
+            src={Piano}
+            alt="pessoa tocando piano"
+            className="max-w-[405px]"
+          />
+          <div className="bg-azul-bb p-8 text-white max-w-sm">
+            <h3 className="text-2xl font-bold">Ainda com dúvidas?</h3>
+            <p className="text-2xl font-light">A gente te ajuda!</p>
+            <div className="h-px bg-amarelo-bb w-full my-8" />
+            <p className="text-lg font-light">
+              Envie as suas perguntas, que lhe responderemos por e-mail.
+            </p>
+            <a
+              href="mailto:email@dominio.com.br"
+              className="text-amarelo-bb font-bold text-lg"
+            >
+              email@dominio.com.br
+            </a>
+          </div>
         </div>
       </div>
     </div>

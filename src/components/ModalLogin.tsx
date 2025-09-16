@@ -1,12 +1,18 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 interface ModalLoginProps {
   isOpen: boolean;
   onClose: () => void;
+  onLoginSuccess?: () => void;
 }
 
-export function ModalLogin({ isOpen, onClose }: ModalLoginProps) {
+export function ModalLogin({
+  isOpen,
+  onClose,
+  onLoginSuccess,
+}: ModalLoginProps) {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const { login, isLoading } = useAuth();
@@ -27,7 +33,12 @@ export function ModalLogin({ isOpen, onClose }: ModalLoginProps) {
 
       setUser("");
       setPassword("");
-      onClose();
+
+      if (onLoginSuccess) {
+        onLoginSuccess();
+      } else {
+        onClose();
+      }
     } catch (error) {
       console.error("Erro no login:", error);
     }
@@ -43,7 +54,7 @@ export function ModalLogin({ isOpen, onClose }: ModalLoginProps) {
 
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <>
       <div
         className="fixed inset-0 bg-black/50 z-[10000]"
@@ -162,6 +173,7 @@ export function ModalLogin({ isOpen, onClose }: ModalLoginProps) {
           </div>
         </div>
       </div>
-    </>
+    </>,
+    document.body
   );
 }

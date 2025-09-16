@@ -4,9 +4,9 @@ import {
   VetorTopEstaSemBanda,
 } from "../../../assets/Icons";
 import { ModalCadastrarBanda } from "../../../components/ModalCadastrarBanda";
+import { ModalLogin } from "../../../components/ModalLogin";
 import { useAuth } from "../../../contexts/AuthContext";
 import { classifiedService, type ClassifiedItem } from "../../../services/api";
-import { toast } from "react-toastify";
 import { useDebounce } from "../../../hooks/useDebounce";
 
 interface Musico {
@@ -28,6 +28,7 @@ export function Section6FormEstaSemBanda() {
   const [paginaAtual, setPaginaAtual] = useState(1);
   const itensPorPagina = 8;
   const [openModal, setOpenModal] = useState(false);
+  const [openLoginModal, setOpenLoginModal] = useState(false);
   const [musicos, setMusicos] = useState<Musico[]>([]);
   const [loading, setLoading] = useState(false);
   const [totalPaginas, setTotalPaginas] = useState(0);
@@ -112,6 +113,23 @@ export function Section6FormEstaSemBanda() {
   const handleModalClose = () => {
     setOpenModal(false);
     fetchClassifieds();
+  };
+
+  const handlePublicarClick = () => {
+    if (isAuthenticated) {
+      setOpenModal(true);
+    } else {
+      setOpenLoginModal(true);
+    }
+  };
+
+  const handleLoginSuccess = () => {
+    setOpenLoginModal(false);
+    setOpenModal(true);
+  };
+
+  const handleLoginCancel = () => {
+    setOpenLoginModal(false);
   };
 
   const handleMostrarTudo = () => {
@@ -245,13 +263,7 @@ export function Section6FormEstaSemBanda() {
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-5 justify-between items-center">
           <button
             type="button"
-            onClick={() => {
-              if (isAuthenticated) {
-                setOpenModal(true);
-              } else {
-                toast.warning("Faça login para publicar no mural");
-              }
-            }}
+            onClick={handlePublicarClick}
             className={`px-5 py-2 rounded-sm font-bold uppercase bg-amarelo-bb text-azul-bb cursor-pointer hover:scale-105 duration-300`}
           >
             publicar no mural
@@ -340,6 +352,13 @@ export function Section6FormEstaSemBanda() {
       </div>
       {openModal && (
         <ModalCadastrarBanda isOpen={openModal} onClose={handleModalClose} />
+      )}
+      {openLoginModal && (
+        <ModalLogin
+          isOpen={openLoginModal}
+          onClose={handleLoginCancel}
+          onLoginSuccess={handleLoginSuccess}
+        />
       )}
     </div>
   );

@@ -156,10 +156,10 @@ export function ModalCadastrarBanda({
               onSubmit={handleSubmit}
               className="grid grid-cols-2 gap-4 lg:border-l pl-10 border-azul-bb/60"
             >
-              <label className="flex flex-col gap-1">
+              <label className="flex flex-col gap-1 text-sm">
                 <span className="text-cinza-600">Cidade*</span>
                 <input
-                  className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb"
+                  className="bg-white px-4 py-3 rounded-t-md text-azul-bb border-b border-azul-bb"
                   type="text"
                   placeholder="Digite sua cidade"
                   value={formData.city}
@@ -167,10 +167,10 @@ export function ModalCadastrarBanda({
                   required
                 />
               </label>
-              <label className="flex flex-col gap-1">
+              <label className="flex flex-col gap-1 text-sm">
                 <span className="text-cinza-600">Estado*</span>
                 <select
-                  className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb"
+                  className="bg-white px-4 py-3 rounded-t-md text-azul-bb border-b border-azul-bb"
                   value={formData.state}
                   onChange={(e) => handleInputChange("state", e.target.value)}
                   required
@@ -183,12 +183,62 @@ export function ModalCadastrarBanda({
                   ))}
                 </select>
               </label>
-              <label className="col-span-2 flex flex-col gap-1">
+              <label className="col-span-2 flex flex-col gap-1 text-sm">
+                <span className="text-cinza-600">Selecione o que procura*</span>
+                <div className="flex flex-wrap gap-4">
+                  {classifiedInfo?.types.map((type) => (
+                    <label
+                      key={type}
+                      className="flex items-center gap-2 font-light cursor-pointer text-azul-bb"
+                    >
+                      <input
+                        type="checkbox"
+                        className="sr-only"
+                        checked={formData.type_item === type}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            handleInputChange("type_item", type);
+                          } else {
+                            handleInputChange("type_item", "");
+                          }
+                        }}
+                      />
+                      <div
+                        className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                          formData.type_item === type
+                            ? "border-azul-bb bg-azul-bb"
+                            : "border-cinza-300"
+                        }`}
+                      >
+                        {formData.type_item === type && (
+                          <svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 12 12"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M10 3L4.5 8.5L2 6"
+                              stroke="white"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        )}
+                      </div>
+                      <span className="font-medium">{type}</span>
+                    </label>
+                  ))}
+                </div>
+              </label>
+              <label className="col-span-2 flex flex-col gap-1 text-sm">
                 <span className="text-cinza-600">
-                  Nome/Título da publicação*
+                  Como gostaria de ser chamado(a)*
                 </span>
                 <input
-                  className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb"
+                  className="bg-white px-4 py-3 rounded-t-md text-azul-bb border-b border-azul-bb"
                   type="text"
                   placeholder="Digite seu nome ou nome da banda"
                   value={formData.title}
@@ -196,28 +246,10 @@ export function ModalCadastrarBanda({
                   required
                 />
               </label>
-              <label className="flex flex-col gap-1">
-                <span className="text-cinza-600">Categoria*</span>
-                <select
-                  className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb"
-                  value={formData.type_item}
-                  onChange={(e) =>
-                    handleInputChange("type_item", e.target.value)
-                  }
-                  required
-                >
-                  <option value="">Selecione</option>
-                  {classifiedInfo?.types.map((type) => (
-                    <option key={type} value={type}>
-                      {type}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="flex flex-col gap-1">
+              <label className="col-span-2 flex flex-col gap-1 text-sm">
                 <span className="text-cinza-600">Defina o estilo musical*</span>
                 <select
-                  className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb"
+                  className="bg-white px-4 py-3 rounded-t-md text-azul-bb border-b border-azul-bb"
                   value={formData.style}
                   onChange={(e) => handleInputChange("style", e.target.value)}
                   required
@@ -230,12 +262,12 @@ export function ModalCadastrarBanda({
                   ))}
                 </select>
               </label>
-              <label className="col-span-2 flex flex-col gap-1">
+              <label className="col-span-2 flex flex-col gap-1 text-sm">
                 <span className="text-cinza-600">
-                  Posição/Instrumento musical*
+                  Escolha o tipo de instrumento musical*
                 </span>
                 <select
-                  className="bg-white p-4 rounded-t-md text-azul-bb border-b border-azul-bb"
+                  className="bg-white px-4 py-3 rounded-t-md text-azul-bb border-b border-azul-bb"
                   value={formData.position}
                   onChange={(e) =>
                     handleInputChange("position", e.target.value)

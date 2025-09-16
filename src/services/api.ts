@@ -66,6 +66,7 @@ export interface UserData {
     user_id: number;
     updated_at: string | null;
     category: number;
+    registrations_participants?: string;
     song: string;
     file: string;
     picture: string;
@@ -117,6 +118,7 @@ export interface VideoUploadRequest {
   nickname: string;
   category: number;
   description: string;
+  registrations_participants?: string;
   file: File;
   thumb: File;
   picture: File;

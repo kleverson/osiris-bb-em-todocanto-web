@@ -18,6 +18,7 @@ export function Section5Form() {
     nickname: "",
     category: 0,
     description: "",
+    registrations_participants: "",
   });
 
   const [musicData, setMusicData] = useState({
@@ -32,6 +33,7 @@ export function Section5Form() {
       category: number;
       description: string;
       song: string;
+      registrations_participants?: string;
     };
     files?: {
       file?: File;
@@ -48,6 +50,8 @@ export function Section5Form() {
           nickname: user.already_video.nickname,
           category: user.already_video.category,
           description: user.already_video.description,
+          registrations_participants:
+            user.already_video.registrations_participants || "",
         });
         setMusicData({
           title: user.already_video.title,
@@ -60,6 +64,8 @@ export function Section5Form() {
             category: user.already_video.category,
             description: user.already_video.description,
             song: user.already_video.song,
+            registrations_participants:
+              user.already_video.registrations_participants,
           },
           files: {},
         });

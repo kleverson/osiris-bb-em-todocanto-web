@@ -91,7 +91,7 @@ export function FormTalentoMusicalStep1({
         <button
           type="submit"
           disabled={isLoading}
-          className={`px-7 py-3 font-bold text-white uppercase mt-10 rounded-sm transition ${
+          className={`px-7 py-3 font-bold text-white uppercase mt-10 rounded-sm transition w-fit ${
             isLoading
               ? "bg-gray-400 cursor-not-allowed"
               : "bg-azul-bb cursor-pointer hover:brightness-90"
@@ -217,7 +217,7 @@ export function FormTalentoMusicalStep2({
             onChange={(e) => handleNumericInput(e.target.value)}
             required
           />
-          <span>Exemplo: 4267</span>
+          <span className="text-azul-bb text-sm font-light">Exemplo: 4267</span>
         </label>
         <label className="flex flex-col gap-2">
           <span className="text-cinza-600 font-medium">Qual sua região?</span>
@@ -259,7 +259,7 @@ export function FormTalentoMusicalStep2({
           </div>
         )}
 
-        <div className="grid grid-cols-2 gap-10 mt-5">
+        <div className="grid grid-cols-2 gap-2 mt-5">
           <button
             type="button"
             onClick={() => setStep(1)}
@@ -294,11 +294,13 @@ export function FormTalentoMusicalStep3({
     nickname: string;
     category: number;
     description: string;
+    registrations_participants: string;
   };
   setFormData: (data: {
     nickname: string;
     category: number;
     description: string;
+    registrations_participants: string;
   }) => void;
 }) {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -308,6 +310,13 @@ export function FormTalentoMusicalStep3({
       try {
         const response = await categoryService.getCategories();
         setCategories(response);
+
+        if (response.length > 0 && formData.category === 0) {
+          setFormData({
+            ...formData,
+            category: response[0].id,
+          });
+        }
       } catch (error) {
         console.error("Erro ao carregar categorias:", error);
       }
@@ -358,30 +367,68 @@ export function FormTalentoMusicalStep3({
       >
         <label className="flex flex-col gap-2">
           <span className="text-cinza-600 font-medium">
-            Escolha a categoria
+            Selecione a categoria
           </span>
-          <select
-            className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition"
-            value={formData.category}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                category: parseInt(e.target.value),
-              })
-            }
-            required
-          >
-            <option value="">Selecione</option>
+          <div className="flex flex-wrap gap-3 sm:gap-4">
             {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
+              <label
+                key={category.id}
+                className="flex items-center gap-2 font-light cursor-pointer text-azul-bb"
+              >
+                <input
+                  type="checkbox"
+                  className="sr-only"
+                  checked={formData.category === category.id}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setFormData({
+                        ...formData,
+                        category: category.id,
+                        registrations_participants: "",
+                      });
+                    } else {
+                      setFormData({
+                        ...formData,
+                        category: 0,
+                      });
+                    }
+                  }}
+                />
+                <div
+                  className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                    formData.category === category.id
+                      ? "border-azul-bb bg-azul-bb"
+                      : "border-cinza-300"
+                  }`}
+                >
+                  {formData.category === category.id && (
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10 3L4.5 8.5L2 6"
+                        stroke="white"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  )}
+                </div>
+                <span className="font-medium">{category.name}</span>
+              </label>
             ))}
-          </select>
+          </div>
         </label>
         <label className="flex flex-col gap-2">
           <span className="text-cinza-600 font-medium">
-            Como gostaria de ser chamado(a)
+            {formData.category === 1
+              ? "Informe o nome da banda"
+              : "Como gostaria de ser chamado(a)?"}
           </span>
           <input
             type="text"
@@ -394,6 +441,29 @@ export function FormTalentoMusicalStep3({
             required
           />
         </label>
+        {formData.category === 1 && (
+          <label className="flex flex-col gap-2">
+            <span className="text-cinza-600 font-medium">
+              Informe as matrículas dos integrantes separadas por vírgulas
+            </span>
+            <input
+              type="text"
+              placeholder="Digite as matrículas"
+              className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition"
+              value={formData.registrations_participants}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  registrations_participants: e.target.value,
+                })
+              }
+              required
+            />
+            <span className="text-azul-bb font-light text-sm">
+              Exemplo: F000000, F000001...
+            </span>
+          </label>
+        )}
         <label className="flex flex-col gap-2">
           <span className="text-cinza-600 font-medium">
             Fale um pouco sobre você
@@ -408,12 +478,12 @@ export function FormTalentoMusicalStep3({
             }
             required
           />
-          <span className="text-sm text-azul-bb">
+          <span className="text-sm text-azul-bb font-light">
             Máximo de 400 caracteres.
           </span>
         </label>
 
-        <div className="grid grid-cols-2 gap-10 mt-5">
+        <div className="grid grid-cols-2 gap-2 mt-2">
           <button
             type="button"
             onClick={() => setStep(2)}
@@ -543,6 +613,7 @@ export function FormTalentoMusicalStep5({
     nickname: string;
     category: number;
     description: string;
+    registrations_participants?: string;
   };
   musicData: {
     title: string;
@@ -555,6 +626,7 @@ export function FormTalentoMusicalStep5({
       category: number;
       description: string;
       song: string;
+      registrations_participants?: string;
     };
     files: {
       file?: File;
@@ -592,6 +664,7 @@ export function FormTalentoMusicalStep5({
         nickname: formData.nickname,
         category: formData.category,
         description: formData.description,
+        registrations_participants: formData.registrations_participants,
         song: musicData.song,
         file: files.file!,
         thumb: files.thumb!,
@@ -810,11 +883,7 @@ export function FormTalentoMusicalStep5({
           </label>
         </div>
 
-        {error && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-            <p className="text-sm text-red-700">{error}</p>
-          </div>
-        )}
+        {error && <p className="text-sm text-red-600">{error}</p>}
 
         <div className="grid grid-cols-2 gap-5 mt-5">
           <button

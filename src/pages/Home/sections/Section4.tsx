@@ -7,7 +7,7 @@ export function Section4() {
         <VetorTopAmarelo />
       </div>
       <div className="absolute -bottom-2 w-full z-10">
-        <VetorBottomBranco color="#465EFF" />
+        <VetorBottomBranco /* color="#465EFF" */ />
       </div>
       <div className="relative max-w-7xl mx-auto w-full px-4 py-44">
         <div className="relative z-30 flex flex-col space-y-10">

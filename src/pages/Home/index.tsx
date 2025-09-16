@@ -7,7 +7,7 @@ import { Section3 } from "./sections/Section3";
 import { Section4 } from "./sections/Section4";
 import { Section5Form } from "./sections/Section5Form";
 import { Section7Faq } from "./sections/Section7Faq";
-import { Section4ConhecaJurados } from "./sections/Section4ConhecaJurados";
+// import { Section4ConhecaJurados } from "./sections/Section4ConhecaJurados";
 
 export function Home() {
   return (
@@ -22,7 +22,7 @@ export function Home() {
       </div>
       <Section3 />
       <Section4 />
-      <Section4ConhecaJurados />
+      {/* <Section4ConhecaJurados /> */}
       <Section5Form />
       <Section6FormEstaSemBanda />
       <Section7Faq />

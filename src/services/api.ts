@@ -75,7 +75,6 @@ export interface UserData {
 
 export interface ClassifiedItem {
   title: string;
-  email?: string;
   city: string;
   state: string;
   type_item: string;
@@ -83,6 +82,9 @@ export interface ClassifiedItem {
   style: string;
   category: string;
   active: boolean;
+  email?: string;
+  description: string;
+  registration: string;
 }
 
 export interface ClassifiedResponse {

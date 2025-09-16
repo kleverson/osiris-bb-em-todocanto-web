@@ -2,7 +2,7 @@ import { VetorBottomBranco, VetorTopAmarelo } from "../../../assets/Icons";
 
 export function Section4() {
   return (
-    <div id="como-participar" className="relative bg-rosa-600">
+    <div id="como-funciona" className="relative bg-rosa-600">
       <div className="absolute top-0 w-full z-10">
         <VetorTopAmarelo />
       </div>

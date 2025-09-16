@@ -74,6 +74,18 @@ export function Header() {
               prêmios
             </button>
             <button
+              onClick={() => scrollToSection("como-funciona")}
+              className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
+            >
+              como funciona
+            </button>
+            <button
+              onClick={() => scrollToSection("como-participar")}
+              className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
+            >
+              jurados
+            </button>
+            <button
               onClick={() => scrollToSection("esta-sem-banda")}
               className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
             >

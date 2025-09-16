@@ -102,9 +102,6 @@ export function Section3() {
           <p className="sm:text-2xl text-azul-bb font-light">
             Preparados para turbinar o talento?
           </p>
-          <button className="px-7 py-3 font-bold bg-azul-bb text-white uppercase rounded-sm hover:scale-105 duration-300 cursor-pointer">
-            confira o regulamento
-          </button>
         </div>
         <div className="z-20">
           <img src={Sanfoneiro} alt="Sanfoneiro" />

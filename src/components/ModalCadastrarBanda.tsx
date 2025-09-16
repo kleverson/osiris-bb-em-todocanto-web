@@ -33,6 +33,8 @@ export function ModalCadastrarBanda({
     style: "",
     category: "",
     active: true,
+    description: "",
+    registration: "",
   });
   const handleInputChange = (
     field: keyof ClassifiedItem,
@@ -68,6 +70,7 @@ export function ModalCadastrarBanda({
       !formData.city ||
       !formData.type_item ||
       !formData.position ||
+      !formData.registration ||
       !formData.style
     ) {
       toast.warning("Por favor, preencha todos os campos obrigatórios.");
@@ -85,13 +88,13 @@ export function ModalCadastrarBanda({
     }
   };
   return createPortal(
-    <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 sm:p-6">
       <div className="absolute inset-0 bg-black/50 " onClick={onClose}></div>
 
-      <div className="relative w-full max-w-[992px] pt-12">
+      <div className="relative w-full max-w-[992px] pt-8 sm:pt-12">
         <button
           onClick={onClose}
-          className="absolute cursor-pointer top-2 -right-8 z-10 flex items-center justify-center w-10 h-10 bg-amarelo-bb rounded-full shadow-lg"
+          className="absolute cursor-pointer top-0 -right-2 sm:top-2 sm:-right-8 z-10 flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 bg-amarelo-bb rounded-full shadow-lg"
           aria-label="Fechar modal"
         >
           <svg
@@ -108,10 +111,9 @@ export function ModalCadastrarBanda({
           </svg>
         </button>
         {concluido ? (
-          <div className="relative bg-cinza-200 rounded-lg shadow-2xl max-h-[582px] p-12 flex flex-col gap-10 items-center justify-center">
+          <div className="relative bg-cinza-200 rounded-lg shadow-2xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 md:p-12 flex flex-col gap-6 sm:gap-8 md:gap-10 items-center justify-center text-center">
             <svg
-              width="80"
-              height="80"
+              className="w-16 h-16 sm:w-20 sm:h-20"
               viewBox="0 0 80 80"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -130,34 +132,51 @@ export function ModalCadastrarBanda({
               />
             </svg>
 
-            <h2 className="text-5xl text-azul-bb font-bold">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-azul-bb font-bold">
               Cadastro concluído
             </h2>
-            <p className="text-2xl text-cinza-600">
+            <p className="text-lg sm:text-xl md:text-2xl text-cinza-600">
               Em breve a sua publicação estará disponível.
             </p>
-            <p className="text-2xl text-cinza-600">
-              Fique ligado: alguém pode mandar e-mail <br />
+            <p className="text-lg sm:text-xl md:text-2xl text-cinza-600">
+              Fique ligado: alguém pode mandar e-mail{" "}
+              <br className="hidden sm:block" />
               querendo se juntar à sua banda.
             </p>
           </div>
         ) : (
-          <div className="relative bg-cinza-200 rounded-lg shadow-2xl max-h-[582px] overflow-y-auto p-12 grid lg:grid-cols-2 gap-10 items-center">
-            <div className="space-y-6">
-              <h2 className="text-5xl text-azul-bb font-bold">
-                Está sem banda?
+          <div className="relative bg-cinza-200 rounded-lg shadow-2xl max-h-[90vh] overflow-y-auto p-6 sm:p-8 md:p-12 grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 items-center">
+            <div className="space-y-4 sm:space-y-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-azul-bb font-bold">
+                Monte a sua banda
               </h2>
-              <p className="text-2xl text-cinza-600">
+              <p className="text-lg sm:text-xl md:text-2xl text-cinza-600">
                 A gente te ajuda a encontrar quem está faltando.
               </p>
             </div>
             <form
               onSubmit={handleSubmit}
-              className="grid grid-cols-2 gap-4 lg:border-l pl-10 border-azul-bb/60"
+              className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 items-center gap-4 lg:border-l lg:pl-6 xl:pl-10 border-azul-bb/60 w-full"
             >
-              <label className="col-span-2 flex flex-col gap-1 text-sm">
-                <span className="text-cinza-600">Selecione o que procura*</span>
-                <div className="flex flex-wrap gap-4">
+              <label className="flex flex-col gap-1 text-sm">
+                <span className="text-cinza-600">Matrícula</span>
+                <input
+                  className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb text-sm sm:text-base"
+                  type="text"
+                  placeholder="Digite a sua matrícula"
+                  value={formData.registration}
+                  onChange={(e) =>
+                    handleInputChange("registration", e.target.value)
+                  }
+                  required
+                />
+                <span className="text-azul-bb text-xs font-light">
+                  Exemplo: F000000
+                </span>
+              </label>
+              <label className="flex flex-col gap-1 text-sm sm:col-span-2 lg:col-span-1">
+                <span className="text-cinza-600">Selecione o que procura</span>
+                <div className="flex flex-wrap gap-2 sm:gap-4">
                   {classifiedInfo?.types.map((type) => (
                     <label
                       key={type}
@@ -205,12 +224,12 @@ export function ModalCadastrarBanda({
                   ))}
                 </div>
               </label>
-              <label className="col-span-2 flex flex-col gap-1 text-sm">
+              <label className="flex flex-col gap-1 text-sm">
                 <span className="text-cinza-600">
-                  Como gostaria de ser chamado(a)*
+                  Informe seu nome ou nome da banda
                 </span>
                 <input
-                  className="bg-white px-4 py-3 rounded-t-md text-azul-bb border-b border-azul-bb"
+                  className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb text-sm sm:text-base"
                   type="text"
                   placeholder="Digite seu nome ou nome da banda"
                   value={formData.title}
@@ -218,10 +237,10 @@ export function ModalCadastrarBanda({
                   required
                 />
               </label>
-              <label className="col-span-2 flex flex-col gap-1 text-sm">
-                <span className="text-cinza-600">Qual sua região?*</span>
+              <label className="flex flex-col gap-1 text-sm">
+                <span className="text-cinza-600">Qual sua região?</span>
                 <select
-                  className="bg-white px-4 py-3 rounded-t-md text-azul-bb border-b border-azul-bb font-light"
+                  className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb font-light text-sm sm:text-base"
                   value={formData.city}
                   onChange={(e) => handleInputChange("city", e.target.value)}
                   required
@@ -236,10 +255,10 @@ export function ModalCadastrarBanda({
                   ))}
                 </select>
               </label>
-              <label className="col-span-2 flex flex-col gap-1 text-sm">
-                <span className="text-cinza-600">Defina o estilo musical*</span>
+              <label className="flex flex-col gap-1 text-sm">
+                <span className="text-cinza-600">Defina o estilo musical</span>
                 <select
-                  className="bg-white px-4 py-3 rounded-t-md text-azul-bb border-b border-azul-bb"
+                  className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb text-sm sm:text-base"
                   value={formData.style}
                   onChange={(e) => handleInputChange("style", e.target.value)}
                   required
@@ -252,12 +271,10 @@ export function ModalCadastrarBanda({
                   ))}
                 </select>
               </label>
-              <label className="col-span-2 flex flex-col gap-1 text-sm">
-                <span className="text-cinza-600">
-                  Escolha o tipo de instrumento musical*
-                </span>
+              <label className="flex flex-col gap-1 text-sm">
+                <span className="text-cinza-600">Instrumento musical</span>
                 <select
-                  className="bg-white px-4 py-3 rounded-t-md text-azul-bb border-b border-azul-bb"
+                  className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb text-sm sm:text-base"
                   value={formData.position}
                   onChange={(e) =>
                     handleInputChange("position", e.target.value)
@@ -272,10 +289,26 @@ export function ModalCadastrarBanda({
                   ))}
                 </select>
               </label>
+              <label className="sm:col-span-2 flex flex-col gap-1 text-sm">
+                <span className="text-cinza-600">Fale sobre o que procura</span>
+                <textarea
+                  className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb resize-none h-20 sm:h-24 text-sm sm:text-base"
+                  placeholder="Digite em poucas palavras sobre o que procura"
+                  value={formData.description}
+                  maxLength={200}
+                  onChange={(e) =>
+                    handleInputChange("description", e.target.value)
+                  }
+                  required
+                />
+                <span className="text-xs text-azul-bb font-light">
+                  Máximo de 200 caracteres.
+                </span>
+              </label>
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-fit px-6 uppercase text-white py-2 rounded-sm font-bold text-center cursor-pointer ${
+                className={`w-full sm:w-fit px-4 sm:px-6 uppercase text-white py-2 sm:py-2 rounded-sm font-bold text-center cursor-pointer text-sm sm:text-base ${
                   loading ? "bg-gray-400" : "bg-azul-bb hover:bg-azul-bb/90"
                 }`}
               >

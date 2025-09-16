@@ -17,7 +17,7 @@ export function Section6FormEstaSemBanda() {
   );
   const [inputValue, setInputValue] = useState("");
   const [paginaAtual, setPaginaAtual] = useState(1);
-  const itensPorPagina = 8;
+  const itensPorPagina = 6;
   const [openModal, setOpenModal] = useState(false);
   const [openLoginModal, setOpenLoginModal] = useState(false);
   const [musicos, setMusicos] = useState<ClassifiedItem[]>([]);
@@ -133,40 +133,41 @@ export function Section6FormEstaSemBanda() {
       <div className="relative max-w-7xl mx-auto w-full px-4 py-28 sm:pb-44 z-30">
         <div className="flex flex-col md:flex-row gap-5 justify-between md:items-end">
           <div className="flex flex-col gap-6">
-            <h2 className="text-5xl font-extrabold font-bb-titulos text-white md:text-azul-bb">
-              Está sem <br />
-              banda?
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-bb-titulos text-white md:text-azul-bb">
+              Monte a <br />
+              sua banda?
             </h2>
-            <p className="text-2xl text-white md:text-azul-bb font-light">
+            <p className="text-lg sm:text-xl lg:text-2xl text-white md:text-azul-bb font-light">
               A gente te ajuda a encontrar <br />
               quem está faltando.
             </p>
           </div>
           <div className="flex flex-col gap-4 w-full max-w-xl">
-            <div className="bg-white px-4 py-2 rounded-sm overflow-hidden flex gap-2 items-center max-w-2xl w-full">
+            <div className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-sm overflow-hidden flex gap-2 items-center w-full">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
+                width="18"
+                height="18"
                 fill="#7b7f8b"
                 viewBox="0 0 16 16"
+                className="flex-shrink-0"
               >
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
               </svg>
 
               <input
                 type="text"
-                className="w-full text-azul-bb focus:outline-none px-2"
+                className="w-full text-azul-bb focus:outline-none px-2 text-sm sm:text-base"
                 placeholder="Busque por artista solo, banda ou nome do funcionário"
                 value={inputValue}
                 onChange={(e) => handleInputChange(e.target.value)}
               />
             </div>
-            <div className="ml-auto">
-              <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:ml-auto">
+              <div className="flex gap-2 sm:gap-4 w-full sm:w-auto">
                 <button
                   onClick={() => handleFiltroChange("Todos")}
-                  className={`px-4 py-2 w-28 rounded-sm uppercase cursor-pointer font-bold ${
+                  className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 w-full sm:w-28 rounded-sm uppercase cursor-pointer font-bold text-sm sm:text-base ${
                     filtroAtivo === "Todos"
                       ? "bg-azul-bb text-white"
                       : "bg-amarelo-bb text-azul-bb"
@@ -176,7 +177,7 @@ export function Section6FormEstaSemBanda() {
                 </button>
                 <button
                   onClick={() => handleFiltroChange("Solo")}
-                  className={`px-4 py-2 w-28 rounded-sm uppercase cursor-pointer font-bold ${
+                  className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 w-full sm:w-28 rounded-sm uppercase cursor-pointer font-bold text-sm sm:text-base ${
                     filtroAtivo === "Solo"
                       ? "bg-azul-bb text-white"
                       : "bg-amarelo-bb text-azul-bb"
@@ -186,7 +187,7 @@ export function Section6FormEstaSemBanda() {
                 </button>
                 <button
                   onClick={() => handleFiltroChange("Banda")}
-                  className={`px-4 py-2 w-28 rounded-sm uppercase cursor-pointer font-bold ${
+                  className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 w-full sm:w-28 rounded-sm uppercase cursor-pointer font-bold text-sm sm:text-base ${
                     filtroAtivo === "Banda"
                       ? "bg-azul-bb text-white"
                       : "bg-amarelo-bb text-azul-bb"
@@ -200,64 +201,83 @@ export function Section6FormEstaSemBanda() {
         </div>
 
         {loading ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 py-20">
-            {Array.from({ length: 8 }).map((_, index) => (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 py-12 sm:py-16 md:py-20">
+            {Array.from({ length: 6 }).map((_, index) => (
               <div
                 key={index}
-                className="border border-dashed border-verde-500/30 rounded-3xl flex flex-col gap-4 p-6 text-xl animate-pulse"
+                className="border border-dashed border-verde-500/30 rounded-2xl sm:rounded-3xl flex flex-col gap-3 sm:gap-4 p-4 sm:p-6 text-lg sm:text-xl animate-pulse"
               >
-                <div className="h-6 bg-white/20 rounded-lg w-3/4"></div>
+                <div className="h-5 sm:h-6 bg-white/20 rounded-lg w-3/4"></div>
 
                 <div className="font-light flex flex-col gap-1 border-b border-verde-500/30 pb-2">
-                  <div className="h-5 bg-white/15 rounded w-16 px-5 py-1"></div>
-                  <div className="w-full bg-verde-500/50 h-8 px-5 py-1 rounded-3xl flex items-center">
-                    <div className="h-4 bg-azul-bb/30 rounded w-20"></div>
+                  <div className="h-4 sm:h-5 bg-white/15 rounded w-16 px-3 sm:px-5 py-1"></div>
+                  <div className="w-full bg-verde-500/50 h-6 sm:h-8 px-3 sm:px-5 py-1 rounded-2xl sm:rounded-3xl flex items-center">
+                    <div className="h-3 sm:h-4 bg-azul-bb/30 rounded w-20"></div>
                   </div>
-                  <div className="h-5 bg-white/15 rounded w-24 px-5 py-1"></div>
+                  <div className="h-4 sm:h-5 bg-white/15 rounded w-24 px-3 sm:px-5 py-1"></div>
                 </div>
 
-                <div className="font-light flex flex-col gap-2 text-lg">
-                  <div className="h-4 bg-white/15 rounded w-32"></div>
-                  <div className="h-4 bg-white/15 rounded w-28"></div>
-                  <div className="h-4 bg-white/15 rounded w-36"></div>
+                <div className="font-light flex flex-col gap-2 text-base sm:text-lg">
+                  <div className="h-3 sm:h-4 bg-white/15 rounded w-32"></div>
+                  <div className="h-3 sm:h-4 bg-white/15 rounded w-28"></div>
+                  <div className="h-3 sm:h-4 bg-white/15 rounded w-36"></div>
                 </div>
               </div>
             ))}
           </div>
         ) : musicosParaMostrar.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 py-12 sm:py-16 md:py-20">
             {musicosParaMostrar.map((musico, index) => (
               <div
                 key={`${musico.title}-${index}`}
-                className="border border-dashed border-verde-500 rounded-3xl flex flex-col gap-4 p-6 text-xl text-white"
+                className={`border border-dashed ${
+                  musico.type_item === "Músico"
+                    ? "border-verde-500"
+                    : "border-rosa-600"
+                } rounded-2xl sm:rounded-3xl flex flex-col gap-3 sm:gap-4 p-4 sm:p-6 text-lg sm:text-xl text-white`}
               >
-                <h3>{musico.title}</h3>
-                <div className="font-light flex flex-col gap-1 border-b border-verde-500 pb-2">
-                  <span className="px-5 py-1">
-                    {musico.type_item === "Músico" ? "Procuramos" : "Procuro"}
-                  </span>
-                  <span
-                    className={`w-full ${
-                      musico.type_item === "Músico"
-                        ? "bg-verde-500 text-azul-bb"
-                        : "bg-rosa-600 text-white"
-                    } px-5 py-1 rounded-3xl`}
+                <h3 className="text-lg sm:text-xl font-medium">
+                  {musico.title}
+                </h3>
+                <div
+                  className={`grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 border-y ${
+                    musico.type_item === "Músico"
+                      ? "border-verde-500"
+                      : "border-rosa-600"
+                  } py-2 sm:py-3`}
+                >
+                  <div className="font-light flex flex-col gap-1 sm:gap-2">
+                    <span className="px-3 sm:px-5 py-1 text-sm sm:text-base">
+                      {musico.type_item === "Músico" ? "Procuramos" : "Procuro"}
+                    </span>
+                    <span
+                      className={`w-full ${
+                        musico.type_item === "Músico"
+                          ? "bg-verde-500 text-azul-bb"
+                          : "bg-rosa-600 text-white"
+                      } px-3 sm:px-5 py-1 rounded-2xl sm:rounded-3xl text-sm sm:text-base font-medium`}
+                    >
+                      {musico.type_item}
+                    </span>
+                    <span className="w-full bg-verde-500 text-azul-bb px-3 sm:px-5 py-1 rounded-2xl sm:rounded-3xl text-sm sm:text-base font-medium">
+                      {musico.position}
+                    </span>
+                    <span className="px-3 sm:px-5 py-1 font-medium text-sm sm:text-base">
+                      {musico.style}
+                    </span>
+                  </div>
+                  <p
+                    className="text-white line-clamp-4 sm:line-clamp-6 text-sm sm:text-base leading-relaxed"
+                    title={musico.description}
                   >
-                    {musico.type_item}
-                  </span>
-                  <span className="w-full bg-verde-500 text-azul-bb px-5 py-1 rounded-3xl">
-                    {musico.position}
-                  </span>
-                  <span className="px-5 py-1 font-medium">{musico.style}</span>
+                    {musico.description}
+                  </p>
                 </div>
-                <div className="font-light flex flex-col text-lg">
-                  {musico.email && (
-                    <span className="truncate">{musico.email}</span>
-                  )}
+                <div className="font-light flex flex-col sm:flex-row gap-3 sm:gap-0 sm:justify-between sm:items-center text-sm sm:text-lg">
                   <a
                     target="_blank"
                     href={`mailto:${musico.email}`}
-                    className="flex gap-2 items-center"
+                    className="flex gap-2 items-center hover:text-amarelo-bb transition-colors"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -288,105 +308,111 @@ export function Section6FormEstaSemBanda() {
             ))}
           </div>
         ) : (
-          <div className="flex justify-center items-center py-20">
-            <div className="text-white text-center">
-              <h3 className="text-2xl font-bold mb-4">
+          <div className="flex justify-center items-center py-12 sm:py-16 md:py-20">
+            <div className="text-white text-center px-4">
+              <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">
                 Nenhum resultado encontrado
               </h3>
-              <p className="text-lg">
+              <p className="text-base sm:text-lg">
                 Tente ajustar os filtros ou fazer uma nova busca.
               </p>
             </div>
           </div>
         )}
 
-        <div className="flex flex-col sm:flex-row gap-2 sm:gap-5 justify-between items-center">
+        <div className="flex flex-col gap-4 sm:gap-6 lg:flex-row lg:gap-5 justify-between items-center">
           <button
             type="button"
             onClick={handlePublicarClick}
-            className={`px-5 py-2 rounded-sm font-bold uppercase bg-amarelo-bb text-azul-bb cursor-pointer hover:scale-105 duration-300`}
+            className={`w-full sm:w-auto px-4 sm:px-5 py-2 sm:py-3 rounded-sm font-bold uppercase bg-amarelo-bb text-azul-bb cursor-pointer hover:scale-105 duration-300 text-sm sm:text-base`}
           >
             publicar no mural
           </button>
-          {totalPaginas >= 1 && (
-            <button
-              onClick={handleMostrarTudo}
-              className={`text-xl text-amarelo-bb cursor-pointer`}
-            >
-              {mostrandoTodos ? "Mostrar menos" : "Mostrar tudo"}
-            </button>
-          )}
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-10 items-center text-white font-light sm:ml-auto">
-            <span>
-              {mostrandoTodos
-                ? `Mostrando todos os ${musicosFiltrados.length} itens`
-                : `Mostrando ${indiceInicio + 1}-${indiceFim} de ${
-                    musicosFiltrados.length
-                  } itens`}
-            </span>
-            {totalPaginas > 1 && !mostrandoTodos && (
-              <div className="flex gap-2 items-center font-normal">
-                <button
-                  onClick={() => setPaginaAtual(Math.max(1, paginaAtual - 1))}
-                  disabled={paginaAtual === 1}
-                  className={`${
-                    paginaAtual === 1
-                      ? "opacity-50 cursor-not-allowed"
-                      : "cursor-pointer"
-                  }`}
-                >
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16 7.0275L14.4777 5.5L8 12L14.4777 18.5L16 16.9725L11.0553 12L16 7.0275Z"
-                      fill="white"
-                    />
-                  </svg>
-                </button>
-                {paginasVisiveis.map((numeroPagina) => (
-                  <button
-                    key={numeroPagina}
-                    onClick={() => setPaginaAtual(numeroPagina)}
-                    className={`border rounded-sm w-8 h-8 flex items-center justify-center ${
-                      paginaAtual === numeroPagina
-                        ? "border-azul-bb bg-azul-bb text-white"
-                        : "border-white text-white hover:bg-white hover:text-azul-bb"
-                    } transition-colors cursor-pointer`}
-                  >
-                    {numeroPagina}
-                  </button>
-                ))}
-                <button
-                  onClick={() =>
-                    setPaginaAtual(Math.min(totalPaginas, paginaAtual + 1))
-                  }
-                  disabled={paginaAtual === totalPaginas}
-                  className={`${
-                    paginaAtual === totalPaginas
-                      ? "opacity-50 cursor-not-allowed"
-                      : "cursor-pointer"
-                  }`}
-                >
-                  <svg
-                    width="8"
-                    height="14"
-                    viewBox="0 0 8 14"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M1.52227 0.5L0 2.0275L4.94467 7L0 11.9725L1.52227 13.5L8 7L1.52227 0.5Z"
-                      fill="white"
-                    />
-                  </svg>
-                </button>
-              </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-10 items-center w-full lg:w-auto lg:ml-auto">
+            {totalPaginas >= 1 && (
+              <button
+                onClick={handleMostrarTudo}
+                className={`text-lg sm:text-xl text-amarelo-bb cursor-pointer hover:underline`}
+              >
+                {mostrandoTodos ? "Mostrar menos" : "Mostrar tudo"}
+              </button>
             )}
+
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 lg:gap-10 items-center text-white font-light">
+              <span className="text-sm sm:text-base text-center">
+                {mostrandoTodos
+                  ? `Mostrando todos os ${musicosFiltrados.length} itens`
+                  : `Mostrando ${indiceInicio + 1}-${indiceFim} de ${
+                      musicosFiltrados.length
+                    } itens`}
+              </span>
+              {totalPaginas > 1 && !mostrandoTodos && (
+                <div className="flex gap-1 sm:gap-2 items-center font-normal">
+                  <button
+                    onClick={() => setPaginaAtual(Math.max(1, paginaAtual - 1))}
+                    disabled={paginaAtual === 1}
+                    className={`p-1 ${
+                      paginaAtual === 1
+                        ? "opacity-50 cursor-not-allowed"
+                        : "cursor-pointer hover:bg-white/10 rounded"
+                    } transition-all`}
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-5 h-5 sm:w-6 sm:h-6"
+                    >
+                      <path
+                        d="M16 7.0275L14.4777 5.5L8 12L14.4777 18.5L16 16.9725L11.0553 12L16 7.0275Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </button>
+                  {paginasVisiveis.map((numeroPagina) => (
+                    <button
+                      key={numeroPagina}
+                      onClick={() => setPaginaAtual(numeroPagina)}
+                      className={`border rounded-sm w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs sm:text-sm ${
+                        paginaAtual === numeroPagina
+                          ? "border-azul-bb bg-azul-bb text-white"
+                          : "border-white text-white hover:bg-white hover:text-azul-bb"
+                      } transition-colors cursor-pointer`}
+                    >
+                      {numeroPagina}
+                    </button>
+                  ))}
+                  <button
+                    onClick={() =>
+                      setPaginaAtual(Math.min(totalPaginas, paginaAtual + 1))
+                    }
+                    disabled={paginaAtual === totalPaginas}
+                    className={`p-1 ${
+                      paginaAtual === totalPaginas
+                        ? "opacity-50 cursor-not-allowed"
+                        : "cursor-pointer hover:bg-white/10 rounded"
+                    } transition-all`}
+                  >
+                    <svg
+                      width="6"
+                      height="12"
+                      viewBox="0 0 8 14"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-4 h-4 sm:w-5 sm:h-5"
+                    >
+                      <path
+                        d="M1.52227 0.5L0 2.0275L4.94467 7L0 11.9725L1.52227 13.5L8 7L1.52227 0.5Z"
+                        fill="white"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

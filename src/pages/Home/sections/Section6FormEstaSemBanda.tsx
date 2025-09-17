@@ -33,7 +33,7 @@ export function Section6FormEstaSemBanda() {
       const response = await classifiedService.searchClassifieds({
         term: busca || undefined,
         page: mostrarTodos ? 1 : paginaAtual,
-        limit: mostrarTodos ? 1000 : itensPorPagina,
+        limit: mostrarTodos ? 100 : itensPorPagina,
       });
 
       setMusicos(response.data);

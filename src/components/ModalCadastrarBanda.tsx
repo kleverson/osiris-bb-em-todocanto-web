@@ -36,7 +36,7 @@ export function ModalCadastrarBanda({
     category: "",
     active: true,
     description: "",
-    registration: user?.acct || "",
+    registration: user?.sub || "",
   });
   const handleInputChange = (
     field: keyof ClassifiedItem,
@@ -167,7 +167,7 @@ export function ModalCadastrarBanda({
                   type="text"
                   readOnly
                   placeholder="Digite a sua matrícula"
-                  value={user?.acct}
+                  value={user?.sub}
                   required
                 />
                 <span className="text-azul-bb text-xs font-light">

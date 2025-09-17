@@ -9,7 +9,7 @@ export function Section4() {
       <div className="absolute -bottom-2 w-full z-10">
         <VetorBottomBranco /* color="#465EFF" */ />
       </div>
-      <div className="relative max-w-7xl mx-auto w-full px-4 py-44">
+      <div className="relative max-w-7xl mx-auto w-full px-4 py-44 md:py-64">
         <div className="relative z-30 flex flex-col space-y-10">
           <h2 className="text-3xl sm:text-5xl text-amarelo-bb sm:text-center font-black font-bb-titulos">
             Veja como vai funcionar

@@ -79,12 +79,12 @@ export function Header() {
             >
               como funciona
             </button>
-            <button
+            {/* <button
               onClick={() => scrollToSection("jurados")}
               className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
             >
               jurados
-            </button>
+            </button> */}
             <button
               onClick={() => scrollToSection("esta-sem-banda")}
               className="hover:text-amarelo-bb cursor-pointer duration-300 uppercase font-bold text-sm whitespace-nowrap"
@@ -269,6 +269,14 @@ export function Header() {
                   className="block w-full text-left py-3 px-4 hover:bg-azul-500 hover:text-amarelo-bb transition-colors uppercase font-bold text-sm rounded-sm"
                 >
                   Prêmios
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => handleMobileNavigation("como-funciona")}
+                  className="block w-full text-left py-3 px-4 hover:bg-azul-500 hover:text-amarelo-bb transition-colors uppercase font-bold text-sm rounded-sm"
+                >
+                  Como Funciona
                 </button>
               </li>
               <li>

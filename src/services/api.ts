@@ -183,12 +183,10 @@ export const videoService = {
     formData.append("nickname", data.nickname);
     formData.append("category", data.category.toString());
     formData.append("description", data.description);
-    if (data.registrations_participants) {
-      formData.append(
-        "registrations_participants",
-        data.registrations_participants
-      );
-    }
+    formData.append(
+      "registrations_participants",
+      data.registrations_participants || "Sem participantes"
+    );
     formData.append("song", data.song);
     formData.append("file", data.file);
     formData.append("thumb", data.thumb);

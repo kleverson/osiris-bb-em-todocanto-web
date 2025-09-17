@@ -57,7 +57,7 @@ export function Section6FormEstaSemBanda() {
   const musicosFiltrados = useMemo(() => {
     return musicos.filter((musico) => {
       const passaFiltroTipo =
-        filtroAtivo === "Todos" || musico.type_item === filtroAtivo;
+        filtroAtivo === "Todos" || musico.category === filtroAtivo;
       return passaFiltroTipo;
     });
   }, [musicos, filtroAtivo]);
@@ -231,7 +231,7 @@ export function Section6FormEstaSemBanda() {
               <div
                 key={`${musico.title}-${index}`}
                 className={`border border-dashed ${
-                  musico.type_item === "Músico"
+                  musico.category === "Músico"
                     ? "border-verde-500"
                     : "border-rosa-600"
                 } rounded-2xl sm:rounded-3xl flex flex-col gap-3 sm:gap-4 p-4 sm:p-6 text-lg sm:text-xl text-white`}
@@ -241,23 +241,23 @@ export function Section6FormEstaSemBanda() {
                 </h3>
                 <div
                   className={`grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 border-y ${
-                    musico.type_item === "Músico"
+                    musico.category === "Músico"
                       ? "border-verde-500"
                       : "border-rosa-600"
                   } py-2 sm:py-3`}
                 >
                   <div className="font-light flex flex-col gap-1 sm:gap-2">
                     <span className="px-3 sm:px-5 py-1 text-sm sm:text-base">
-                      {musico.type_item === "Músico" ? "Procuramos" : "Procuro"}
+                      {musico.category === "Músico" ? "Procuramos" : "Procuro"}
                     </span>
                     <span
                       className={`w-full ${
-                        musico.type_item === "Músico"
+                        musico.category === "Músico"
                           ? "bg-verde-500 text-azul-bb"
                           : "bg-rosa-600 text-white"
                       } px-3 sm:px-5 py-1 rounded-2xl sm:rounded-3xl text-sm sm:text-base font-medium`}
                     >
-                      {musico.type_item}
+                      {musico.category}
                     </span>
                     <span className="w-full bg-verde-500 text-azul-bb px-3 sm:px-5 py-1 rounded-2xl sm:rounded-3xl text-sm sm:text-base font-medium">
                       {musico.position}

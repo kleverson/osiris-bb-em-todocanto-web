@@ -192,7 +192,7 @@ export const videoService = {
     formData.append("thumb", data.thumb);
     formData.append("picture", data.picture);
 
-    const response = await api.post("/video", formData, {
+    const response = await api.post("/video/", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

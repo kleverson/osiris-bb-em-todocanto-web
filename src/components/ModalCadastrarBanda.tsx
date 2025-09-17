@@ -7,6 +7,7 @@ import {
 } from "../services/api";
 import { estadosBrasil } from "../mock/ModalCadastrarBandaMock";
 import { toast } from "react-toastify";
+import { useAuth } from "../contexts/AuthContext";
 
 interface ModalCadastrarBandaProps {
   isOpen: boolean;
@@ -24,6 +25,7 @@ export function ModalCadastrarBanda({
   const [classifiedInfo, setClassifiedInfo] = useState<ClassifiedInfo | null>(
     null
   );
+  const { user } = useAuth();
   const [formData, setFormData] = useState<ClassifiedItem>({
     title: "",
     city: "",
@@ -34,7 +36,7 @@ export function ModalCadastrarBanda({
     category: "",
     active: true,
     description: "",
-    registration: "",
+    registration: user?.acct || "",
   });
   const handleInputChange = (
     field: keyof ClassifiedItem,
@@ -67,10 +69,9 @@ export function ModalCadastrarBanda({
 
     if (
       !formData.title ||
-      !formData.city ||
+      !formData.state ||
       !formData.type_item ||
       !formData.position ||
-      !formData.registration ||
       !formData.style
     ) {
       toast.warning("Por favor, preencha todos os campos obrigatórios.");
@@ -79,6 +80,7 @@ export function ModalCadastrarBanda({
 
     try {
       setLoading(true);
+
       await classifiedService.createClassified(formData);
       setConcluido(true);
     } catch (error) {
@@ -161,13 +163,11 @@ export function ModalCadastrarBanda({
               <label className="flex flex-col gap-1 text-sm">
                 <span className="text-cinza-600">Matrícula</span>
                 <input
-                  className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb text-sm sm:text-base"
+                  className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb text-sm sm:text-base uppercase"
                   type="text"
+                  readOnly
                   placeholder="Digite a sua matrícula"
-                  value={formData.registration}
-                  onChange={(e) =>
-                    handleInputChange("registration", e.target.value)
-                  }
+                  value={user?.acct}
                   required
                 />
                 <span className="text-azul-bb text-xs font-light">
@@ -241,15 +241,15 @@ export function ModalCadastrarBanda({
                 <span className="text-cinza-600">Qual sua região?</span>
                 <select
                   className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb font-light text-sm sm:text-base"
-                  value={formData.city}
-                  onChange={(e) => handleInputChange("city", e.target.value)}
+                  value={formData.state}
+                  onChange={(e) => handleInputChange("state", e.target.value)}
                   required
                 >
                   <option value="">
                     Selecione o local em que está lotado atualmente
                   </option>
                   {estadosBrasil.map((estado) => (
-                    <option key={estado.value} value={estado.value}>
+                    <option key={estado.value} value={estado.label}>
                       {estado.label}
                     </option>
                   ))}

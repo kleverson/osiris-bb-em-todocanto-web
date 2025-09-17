@@ -302,7 +302,7 @@ export function ModalCadastrarBanda({
                   required
                 />
                 <span className="text-xs text-azul-bb font-light">
-                  Máximo de 200 caracteres.
+                  {formData.description.length}/200 caracteres
                 </span>
               </label>
               <button

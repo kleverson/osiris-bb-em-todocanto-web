@@ -557,7 +557,7 @@ export function FormTalentoMusicalStep3({
             required
           />
           <span className="text-sm text-azul-bb font-light">
-            Máximo de 400 caracteres.
+            {formData.description.length}/400 caracteres
           </span>
         </label>
 

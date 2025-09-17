@@ -71,9 +71,31 @@ export function Section5Form() {
         });
         setStep(6);
       } else {
+        setFormData({
+          nickname: "",
+          category: 0,
+          description: "",
+          registrations_participants: "",
+        });
+        setMusicData({
+          title: "",
+          song: "",
+        });
+        setUploadedData({});
         setStep(2);
       }
     } else {
+      setFormData({
+        nickname: "",
+        category: 0,
+        description: "",
+        registrations_participants: "",
+      });
+      setMusicData({
+        title: "",
+        song: "",
+      });
+      setUploadedData({});
       setStep(1);
     }
   }, [isAuthenticated, user]);

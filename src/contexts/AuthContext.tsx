@@ -11,6 +11,7 @@ interface AuthContextData {
   isLoading: boolean;
   login: (credentials: LoginRequest) => Promise<void>;
   logout: () => void;
+  updateUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -66,6 +67,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
     toast.success("Logout realizado com sucesso!");
   }
 
+  async function updateUser() {
+    try {
+      const userData = await authService.getUserData();
+      localStorage.setItem("@bb-em-todocanto:user", JSON.stringify(userData));
+      setUser(userData);
+    } catch (error) {
+      console.error("Erro ao atualizar dados do usuário:", error);
+    }
+  }
+
   const isAuthenticated = !!user;
 
   return (
@@ -76,6 +87,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         isLoading,
         login,
         logout,
+        updateUser,
       }}
     >
       {children}

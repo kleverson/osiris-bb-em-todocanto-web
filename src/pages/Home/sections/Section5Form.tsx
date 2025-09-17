@@ -80,7 +80,14 @@ export function Section5Form() {
 
   return (
     <div id="inscreva-se" className="relative bg-cinza-200 z-10">
-      {step === 1 && <FormTalentoMusicalStep1 setStep={setStep} />}
+      {step === 1 && (
+        <FormTalentoMusicalStep1
+          setStep={setStep}
+          setFormData={setFormData}
+          setMusicData={setMusicData}
+          setUploadedData={setUploadedData}
+        />
+      )}
       {step === 2 && <FormTalentoMusicalStep2 setStep={setStep} />}
       {step === 3 && (
         <FormTalentoMusicalStep3

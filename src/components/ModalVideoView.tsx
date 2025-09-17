@@ -152,21 +152,14 @@ export function ModalVideoView({
                   ? alreadyVideoData.title
                   : apresentacaoSelecionada?.local}
               </p>
-              <div className="text-white font-light">
-                {isFromForm
-                  ? `Música: ${videoData.formData?.song}`
-                  : isFromAlreadyVideo
-                  ? `Música: ${alreadyVideoData.song}`
-                  : apresentacaoSelecionada?.genero}
-              </div>
             </div>
           </div>
           <div>
             <p className="text-white font-light max-h-[400px] overflow-y-auto whitespace-pre-line">
               {isFromForm
-                ? videoData.formData?.description
+                ? videoData.formData?.song
                 : isFromAlreadyVideo
-                ? alreadyVideoData.description
+                ? alreadyVideoData.song
                 : `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
               enim ad minim veniam, quis nostrud exercitation ullamco laboris

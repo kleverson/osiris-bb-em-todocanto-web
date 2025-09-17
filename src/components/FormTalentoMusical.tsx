@@ -13,29 +13,104 @@ import { ModalVideoView } from "./ModalVideoView";
 
 export function FormTalentoMusicalStep1({
   setStep,
+  setFormData,
+  setMusicData,
+  setUploadedData,
 }: {
   setStep: (step: number) => void;
+  setFormData?: (data: {
+    nickname: string;
+    category: number;
+    description: string;
+    registrations_participants: string;
+  }) => void;
+  setMusicData?: (data: { title: string; song: string }) => void;
+  setUploadedData?: (data: {
+    formData?: {
+      title: string;
+      nickname: string;
+      category: number;
+      description: string;
+      song: string;
+      registrations_participants?: string;
+    };
+    files?: {
+      file?: File;
+      thumb?: File;
+      picture?: File;
+    };
+  }) => void;
 }) {
   const { login, isLoading } = useAuth();
-  const [formData, setFormData] = useState({
+  const [loginFormData, setLoginFormData] = useState({
     user: "",
     password: "",
   });
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.user || !formData.password) {
+    if (!loginFormData.user || !loginFormData.password) {
       toast.warning("Por favor, preencha todos os campos.");
       return;
     }
 
     try {
       await login({
-        user: formData.user,
-        password: formData.password,
+        user: loginFormData.user,
+        password: loginFormData.password,
         is_admin: false,
       });
-      setStep(2);
+
+      // Aguarda um pouco para garantir que o contexto foi atualizado
+      setTimeout(() => {
+        // Busca os dados atualizados do localStorage após o login
+        const userData = localStorage.getItem("@bb-em-todocanto:user");
+        if (userData) {
+          const parsedUser = JSON.parse(userData);
+          if (parsedUser?.already_video) {
+            // Preenche os dados do formulário com as informações do vídeo existente
+            if (setFormData) {
+              setFormData({
+                nickname: parsedUser.already_video.nickname,
+                category: parsedUser.already_video.category,
+                description: parsedUser.already_video.description,
+                registrations_participants:
+                  parsedUser.already_video.registrations_participants || "",
+              });
+            }
+
+            if (setMusicData) {
+              setMusicData({
+                title: parsedUser.already_video.title,
+                song: parsedUser.already_video.song,
+              });
+            }
+
+            if (setUploadedData) {
+              setUploadedData({
+                formData: {
+                  title: parsedUser.already_video.title,
+                  nickname: parsedUser.already_video.nickname,
+                  category: parsedUser.already_video.category,
+                  description: parsedUser.already_video.description,
+                  song: parsedUser.already_video.song,
+                  registrations_participants:
+                    parsedUser.already_video.registrations_participants,
+                },
+                files: {},
+              });
+            }
+
+            // Se o usuário já tem vídeo, vai direto para o step 6
+            setStep(6);
+          } else {
+            // Se não tem vídeo, vai para o step 2
+            setStep(2);
+          }
+        } else {
+          setStep(2);
+        }
+      }, 100);
     } catch (error) {
       toast.error("Erro ao fazer login. Verifique suas credenciais.");
     }
@@ -62,9 +137,9 @@ export function FormTalentoMusicalStep1({
             type="text"
             placeholder="Digite a sua matrícula"
             className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition"
-            value={formData.user}
+            value={loginFormData.user}
             onChange={(e) =>
-              setFormData((prev) => ({ ...prev, user: e.target.value }))
+              setLoginFormData((prev) => ({ ...prev, user: e.target.value }))
             }
             required
           />
@@ -78,9 +153,12 @@ export function FormTalentoMusicalStep1({
             type="password"
             placeholder="********"
             className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition"
-            value={formData.password}
+            value={loginFormData.password}
             onChange={(e) =>
-              setFormData((prev) => ({ ...prev, password: e.target.value }))
+              setLoginFormData((prev) => ({
+                ...prev,
+                password: e.target.value,
+              }))
             }
             required
           />
@@ -635,6 +713,7 @@ export function FormTalentoMusicalStep5({
     };
   }) => void;
 }) {
+  const { updateUser } = useAuth();
   const [files, setFiles] = useState<{
     file?: File;
     thumb?: File;
@@ -673,6 +752,8 @@ export function FormTalentoMusicalStep5({
 
       await videoService.uploadVideo(videoData);
 
+      await updateUser();
+
       setUploadedData({
         formData: {
           title: musicData.title,
@@ -686,10 +767,18 @@ export function FormTalentoMusicalStep5({
 
       setStep(6);
     } catch (error: any) {
-      const errorMessage =
-        error.response?.data?.message ||
-        error.message ||
+      let errorMessage =
         "Erro inesperado ao enviar vídeo. Tente novamente em alguns instantes.";
+
+      if (error.response?.data?.detail === "400: User already send video") {
+        errorMessage =
+          "Você já enviou um vídeo anteriormente. Não é possível enviar um novo vídeo.";
+      } else if (error.response?.data?.message) {
+        errorMessage = error.response.data.message;
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+
       setError(errorMessage);
       toast.error("Erro ao enviar vídeo. Verifique a mensagem abaixo.");
     } finally {
@@ -883,7 +972,7 @@ export function FormTalentoMusicalStep5({
           </label>
         </div>
 
-        {error && <p className="text-sm text-red-600">{error}</p>}
+        {error && <p className="text-sm text-red-500">{error}</p>}
 
         <div className="grid grid-cols-2 gap-5 mt-5">
           <button

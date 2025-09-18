@@ -125,6 +125,18 @@ export interface VideoUploadRequest {
   song: string;
 }
 
+export interface VideoUpdateRequest {
+  title: string;
+  nickname: string;
+  category: number;
+  description: string;
+  registrations_participants?: string;
+  file?: File;
+  thumb?: File;
+  picture?: File;
+  song: string;
+}
+
 export interface Category {
   id: number;
   name: string;
@@ -193,6 +205,36 @@ export const videoService = {
     formData.append("picture", data.picture);
 
     const response = await api.post("/video/", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  },
+
+  async updateVideo(data: VideoUpdateRequest): Promise<any> {
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("nickname", data.nickname);
+    formData.append("category", data.category.toString());
+    formData.append("description", data.description);
+    formData.append(
+      "registrations_participants",
+      data.registrations_participants || "Sem participantes"
+    );
+    formData.append("song", data.song);
+
+    if (data.file) {
+      formData.append("file", data.file);
+    }
+    if (data.thumb) {
+      formData.append("thumb", data.thumb);
+    }
+    if (data.picture) {
+      formData.append("picture", data.picture);
+    }
+
+    const response = await api.put("/video/", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

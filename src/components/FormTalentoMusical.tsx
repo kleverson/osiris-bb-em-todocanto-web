@@ -7,6 +7,7 @@ import {
   type Category,
   type CompleteRegisterRequest,
   type VideoUploadRequest,
+  type VideoUpdateRequest,
 } from "../services/api";
 import { toast } from "react-toastify";
 import { ModalVideoView } from "./ModalVideoView";
@@ -61,14 +62,11 @@ export function FormTalentoMusicalStep1({
         is_admin: false,
       });
 
-      // Aguarda um pouco para garantir que o contexto foi atualizado
       setTimeout(() => {
-        // Busca os dados atualizados do localStorage após o login
         const userData = localStorage.getItem("@bb-em-todocanto:user");
         if (userData) {
           const parsedUser = JSON.parse(userData);
           if (parsedUser?.already_video) {
-            // Preenche os dados do formulário com as informações do vídeo existente
             if (setFormData) {
               setFormData({
                 nickname: parsedUser.already_video.nickname,
@@ -101,10 +99,8 @@ export function FormTalentoMusicalStep1({
               });
             }
 
-            // Se o usuário já tem vídeo, vai direto para o step 6
             setStep(6);
           } else {
-            // Se não tem vídeo, vai para o step 2
             setStep(2);
           }
         } else {
@@ -684,6 +680,7 @@ export function FormTalentoMusicalStep5({
   formData,
   musicData,
   setUploadedData,
+  isEditing = false,
 }: {
   setStep: (step: number) => void;
   formData: {
@@ -711,6 +708,7 @@ export function FormTalentoMusicalStep5({
       picture?: File;
     };
   }) => void;
+  isEditing?: boolean;
 }) {
   const { updateUser } = useAuth();
   const [files, setFiles] = useState<{
@@ -729,7 +727,7 @@ export function FormTalentoMusicalStep5({
     e.preventDefault();
     setError("");
 
-    if (!files.file || !files.thumb || !files.picture) {
+    if (!isEditing && (!files.file || !files.thumb || !files.picture)) {
       toast.warning("Por favor, faça upload de todos os arquivos.");
       setError("Por favor, faça upload de todos os arquivos.");
       return;
@@ -737,19 +735,36 @@ export function FormTalentoMusicalStep5({
 
     try {
       setLoading(true);
-      const videoData: VideoUploadRequest = {
-        title: musicData.title,
-        nickname: formData.nickname,
-        category: formData.category,
-        description: formData.description,
-        registrations_participants: formData.registrations_participants,
-        song: musicData.song,
-        file: files.file!,
-        thumb: files.thumb!,
-        picture: files.picture!,
-      };
 
-      await videoService.uploadVideo(videoData);
+      if (isEditing) {
+        const videoData: VideoUpdateRequest = {
+          title: musicData.title,
+          nickname: formData.nickname,
+          category: formData.category,
+          description: formData.description,
+          registrations_participants: formData.registrations_participants,
+          song: musicData.song,
+          ...(files.file && { file: files.file }),
+          ...(files.thumb && { thumb: files.thumb }),
+          ...(files.picture && { picture: files.picture }),
+        };
+
+        await videoService.updateVideo(videoData);
+      } else {
+        const videoData: VideoUploadRequest = {
+          title: musicData.title,
+          nickname: formData.nickname,
+          category: formData.category,
+          description: formData.description,
+          registrations_participants: formData.registrations_participants,
+          song: musicData.song,
+          file: files.file!,
+          thumb: files.thumb!,
+          picture: files.picture!,
+        };
+
+        await videoService.uploadVideo(videoData);
+      }
 
       await updateUser();
 
@@ -803,10 +818,14 @@ export function FormTalentoMusicalStep5({
           <span className="text-azul-bb">Uploads</span>
         </div>
         <h2 className="text-3xl lg:text-5xl text-azul-bb font-bold font-bb-titulos">
-          Dê o tom da sua apresentação
+          {isEditing
+            ? "Editar sua apresentação"
+            : "Dê o tom da sua apresentação"}
         </h2>
         <p className="text-xl text-cinza-600">
-          Complete o seu perfil com mais algumas informações
+          {isEditing
+            ? "Atualize os arquivos que desejar. Deixe em branco para manter os arquivos atuais."
+            : "Complete o seu perfil com mais algumas informações"}
         </p>
       </div>
       <form
@@ -815,12 +834,14 @@ export function FormTalentoMusicalStep5({
       >
         <div className="space-y-4">
           <h3 className="text-cinza-600 text-xl font-extrabold">
-            Faça upload do seu vídeo de apresentação
+            {isEditing
+              ? "Atualizar vídeo de apresentação (opcional)"
+              : "Faça upload do seu vídeo de apresentação"}
           </h3>
           <p className="text-cinza-600 font-light">
-            Capriche no vídeo. Escolha o melhor ângulo para registrar o melhor
-            da sua música. Um vídeo bem gravado com som bem captado valoriza
-            ainda mais o seu talento.
+            {isEditing
+              ? "Deixe em branco se não quiser alterar o vídeo atual."
+              : "Capriche no vídeo. Escolha o melhor ângulo para registrar o melhor da sua música. Um vídeo bem gravado com som bem captado valoriza ainda mais o seu talento."}
           </p>
           <label className="bg-white p-8 flex flex-col items-center justify-center gap-4 text-center text-azul-bb cursor-pointer">
             <span>
@@ -868,11 +889,14 @@ export function FormTalentoMusicalStep5({
         </div>
         <div className="space-y-4">
           <h3 className="text-cinza-600 text-xl font-extrabold">
-            Faça upload da foto de capa do vídeo
+            {isEditing
+              ? "Atualizar foto de capa do vídeo (opcional)"
+              : "Faça upload da foto de capa do vídeo"}
           </h3>
           <p className="text-cinza-600 font-light">
-            Para melhorar o destaque do seu vídeo, envie uma foto para chamar a
-            atenção de quem vai votar
+            {isEditing
+              ? "Deixe em branco se não quiser alterar a foto de capa atual."
+              : "Para melhorar o destaque do seu vídeo, envie uma foto para chamar a atenção de quem vai votar"}
           </p>
           <label className="bg-white p-8 flex flex-col items-center justify-center gap-4 text-center text-azul-bb cursor-pointer">
             <span>
@@ -920,11 +944,14 @@ export function FormTalentoMusicalStep5({
         </div>
         <div className="space-y-4">
           <h3 className="text-cinza-600 text-xl font-extrabold">
-            Faça upload da sua melhor foto
+            {isEditing
+              ? "Atualizar sua foto (opcional)"
+              : "Faça upload da sua melhor foto"}
           </h3>
           <p className="text-cinza-600 font-light">
-            Hora de impressionar o público! Escolha o melhor angulo e envie a
-            sua foto que será usada como destaque no seu vídeo
+            {isEditing
+              ? "Deixe em branco se não quiser alterar sua foto atual."
+              : "Hora de impressionar o público! Escolha o melhor angulo e envie a sua foto que será usada como destaque no seu vídeo"}
           </p>
           <label className="bg-white p-8 flex flex-col items-center justify-center gap-4 text-center text-azul-bb cursor-pointer">
             <span>
@@ -990,7 +1017,13 @@ export function FormTalentoMusicalStep5({
                 : "bg-azul-bb cursor-pointer hover:brightness-90"
             }`}
           >
-            {loading ? "Enviando..." : "FINALIZAR"}
+            {loading
+              ? isEditing
+                ? "Atualizando..."
+                : "Enviando..."
+              : isEditing
+              ? "ATUALIZAR"
+              : "FINALIZAR"}
           </button>
         </div>
       </form>
@@ -1000,6 +1033,7 @@ export function FormTalentoMusicalStep5({
 
 export function FormTalentoMusicalStep6({
   uploadedData,
+  onEdit,
 }: {
   uploadedData: {
     formData?: {
@@ -1015,12 +1049,19 @@ export function FormTalentoMusicalStep6({
       picture?: File;
     };
   };
+  onEdit?: () => void;
 }) {
   const { user } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
+  };
+
+  const handleEdit = () => {
+    if (onEdit) {
+      onEdit();
+    }
   };
 
   return (
@@ -1038,12 +1079,22 @@ export function FormTalentoMusicalStep6({
             torcida e torcer pela vaga na grande final do{" "}
             <strong>BB em todo canto.</strong>
           </p>
-          <button
-            onClick={handleOpenModal}
-            className="px-7 py-3 font-bold bg-azul-bb text-white uppercase w-fit rounded-sm cursor-pointer hover:scale-105 duration-300 text-base"
-          >
-            Ver vídeo
-          </button>
+          <div className="flex flex-wrap gap-3">
+            <button
+              onClick={handleOpenModal}
+              className="px-7 py-3 font-bold bg-azul-bb text-white uppercase w-fit rounded-sm cursor-pointer hover:scale-105 duration-300 text-base"
+            >
+              Ver vídeo
+            </button>
+            {user?.already_video && onEdit && (
+              <button
+                onClick={handleEdit}
+                className="px-7 py-3 font-bold border-2 border-azul-bb text-azul-bb uppercase w-fit rounded-sm cursor-pointer hover:scale-105 duration-300 text-base"
+              >
+                Editar inscrição
+              </button>
+            )}
+          </div>
           <p className="text-cinza-600 font-bold">Boa sorte!</p>
         </div>
       </div>

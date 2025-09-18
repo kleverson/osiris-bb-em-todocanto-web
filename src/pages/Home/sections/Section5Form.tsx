@@ -12,8 +12,8 @@ import {
 export function Section5Form() {
   const { isAuthenticated, user } = useAuth();
   const [step, setStep] = useState(1);
+  const [isEditing, setIsEditing] = useState(false);
 
-  // Estados para os dados do formulário separados por step
   const [formData, setFormData] = useState({
     nickname: "",
     category: 0,
@@ -42,10 +42,27 @@ export function Section5Form() {
     };
   }>({});
 
+  const handleEdit = () => {
+    if (user?.already_video) {
+      setFormData({
+        nickname: user.already_video.nickname,
+        category: user.already_video.category,
+        description: user.already_video.description,
+        registrations_participants:
+          user.already_video.registrations_participants || "",
+      });
+      setMusicData({
+        title: user.already_video.title,
+        song: user.already_video.song.replace(/<br\s*\/?>/gi, "\n"),
+      });
+      setIsEditing(true);
+      setStep(3);
+    }
+  };
+
   useEffect(() => {
     if (isAuthenticated) {
-      if (user?.already_video) {
-        // Se usuário já tem vídeo, preenche os dados e vai para step final
+      if (user?.already_video && !isEditing) {
         setFormData({
           nickname: user.already_video.nickname,
           category: user.already_video.category,
@@ -55,7 +72,7 @@ export function Section5Form() {
         });
         setMusicData({
           title: user.already_video.title,
-          song: user.already_video.song,
+          song: user.already_video.song.replace(/<br\s*\/?>/gi, "\n"),
         });
         setUploadedData({
           formData: {
@@ -63,14 +80,14 @@ export function Section5Form() {
             nickname: user.already_video.nickname,
             category: user.already_video.category,
             description: user.already_video.description,
-            song: user.already_video.song,
+            song: user.already_video.song.replace(/<br\s*\/?>/gi, "\n"),
             registrations_participants:
               user.already_video.registrations_participants,
           },
           files: {},
         });
         setStep(6);
-      } else {
+      } else if (!user?.already_video) {
         setFormData({
           nickname: "",
           category: 0,
@@ -82,6 +99,7 @@ export function Section5Form() {
           song: "",
         });
         setUploadedData({});
+        setIsEditing(false);
         setStep(2);
       }
     } else {
@@ -96,9 +114,34 @@ export function Section5Form() {
         song: "",
       });
       setUploadedData({});
+      setIsEditing(false);
       setStep(1);
     }
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated, user, isEditing]);
+
+  const handleEditComplete = (data: {
+    formData: {
+      title: string;
+      nickname: string;
+      category: number;
+      description: string;
+      song: string;
+      registrations_participants?: string;
+    };
+    files: {
+      file?: File;
+      thumb?: File;
+      picture?: File;
+    };
+  }) => {
+    setUploadedData(data);
+    setIsEditing(false);
+    setStep(6);
+  };
+
+  const customSetUploadedData = isEditing
+    ? handleEditComplete
+    : setUploadedData;
 
   return (
     <div id="inscreva-se" className="relative bg-cinza-200 z-10">
@@ -130,10 +173,16 @@ export function Section5Form() {
           setStep={setStep}
           formData={formData}
           musicData={musicData}
-          setUploadedData={setUploadedData}
+          setUploadedData={customSetUploadedData}
+          isEditing={isEditing}
         />
       )}
-      {step === 6 && <FormTalentoMusicalStep6 uploadedData={uploadedData} />}
+      {step === 6 && (
+        <FormTalentoMusicalStep6
+          uploadedData={uploadedData}
+          onEdit={handleEdit}
+        />
+      )}
     </div>
   );
 }

@@ -156,25 +156,15 @@ export function ModalVideoView({
           </div>
           <div>
             <p className="text-white font-light max-h-[400px] overflow-y-auto whitespace-pre-line">
-              {isFromForm
-                ? videoData.formData?.song
-                : isFromAlreadyVideo
-                ? alreadyVideoData.song
-                : `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in volusequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-              Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque
-              faucibus ex sapien vitae pellentesque sem placerat. In id cursus
-              mi pretium tellus duis convallis. Tempus leo eu aenean sed diam
-              urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum
-              egestas. Iaculis massa nisl malesuada lacinia integer nunc
-              posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad
-              litora torquent per conubia nostra inceptos himenaeos.`}
+              {(() => {
+                let songText = "";
+                if (isFromForm) {
+                  songText = videoData.formData?.song || "";
+                } else if (isFromAlreadyVideo) {
+                  songText = alreadyVideoData.song || "";
+                }
+                return songText.replace(/<br\s*\/?>/gi, "\n");
+              })()}
             </p>
           </div>
         </div>

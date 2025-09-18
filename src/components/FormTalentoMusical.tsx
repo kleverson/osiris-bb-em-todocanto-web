@@ -651,7 +651,6 @@ export function FormTalentoMusicalStep4({
           <span className="text-cinza-600 font-medium">Escreva a letra</span>
           <textarea
             placeholder="Escreva a letra da sua música caso possua"
-            maxLength={400}
             className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition resize-none h-32"
             value={musicData.song}
             onChange={(e) =>

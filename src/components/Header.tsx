@@ -310,7 +310,10 @@ export function Header() {
 
       <ModalLogin
         isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
+        onClose={() => {
+          setIsLoginModalOpen(false);
+          scrollToSection("inscreva-se");
+        }}
       />
     </>
   );

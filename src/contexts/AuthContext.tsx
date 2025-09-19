@@ -25,12 +25,24 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("@bb-em-todocanto:user");
-    const token = localStorage.getItem("@bb-em-todocanto:token");
+    const initializeAuth = async () => {
+      const token = localStorage.getItem("@bb-em-todocanto:token");
 
-    if (storedUser && token) {
-      setUser(JSON.parse(storedUser));
-    }
+      if (token) {
+        try {
+          const userData = await authService.getUserData();
+          localStorage.setItem(
+            "@bb-em-todocanto:user",
+            JSON.stringify(userData)
+          );
+          setUser(userData);
+        } catch (error: any) {
+          console.log("Token expirado, realizando logout automático");
+        }
+      }
+    };
+
+    initializeAuth();
   }, []);
 
   async function login(credentials: LoginRequest) {
@@ -60,11 +72,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  function logout() {
+  function logout(showToast: boolean = true) {
     localStorage.removeItem("@bb-em-todocanto:token");
     localStorage.removeItem("@bb-em-todocanto:user");
     setUser(null);
-    toast.success("Logout realizado com sucesso!");
+
+    if (showToast) {
+      toast.success("Logout realizado com sucesso!");
+    }
   }
 
   async function updateUser() {
@@ -72,8 +87,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const userData = await authService.getUserData();
       localStorage.setItem("@bb-em-todocanto:user", JSON.stringify(userData));
       setUser(userData);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erro ao atualizar dados do usuário:", error);
+
+      if (error.response?.status === 401) {
+        console.log(
+          "Token expirado durante atualização, realizando logout automático"
+        );
+        logout(false);
+      }
     }
   }
 

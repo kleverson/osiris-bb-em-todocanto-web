@@ -185,6 +185,7 @@ export function FormTalentoMusicalStep2({
   const { user } = useAuth();
   const [formData, setFormData] = useState<CompleteRegisterRequest>({
     name: "",
+    email: "",
     prefix: 0,
     region: "",
   });
@@ -203,6 +204,7 @@ export function FormTalentoMusicalStep2({
     if (user) {
       setFormData({
         name: user?.preferred_username ?? user?.name ?? "",
+        email: user?.email ?? "",
         prefix: 0,
         region: "",
       });
@@ -275,6 +277,19 @@ export function FormTalentoMusicalStep2({
             value={formData.name}
             onChange={(e) =>
               setFormData((prev) => ({ ...prev, name: e.target.value }))
+            }
+            required
+          />
+        </label>
+        <label className="flex flex-col gap-2">
+          <span className="text-cinza-600 font-medium">E-mail</span>
+          <input
+            type="email"
+            placeholder="Digite o seu e-mail"
+            className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition"
+            value={formData.email}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, email: e.target.value }))
             }
             required
           />

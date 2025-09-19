@@ -9,7 +9,6 @@ const api = axios.create({
   },
 });
 
-// Interceptor para adicionar o token de autorização
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("@bb-em-todocanto:token");
   if (token) {
@@ -18,12 +17,10 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Interceptor para lidar com respostas de erro
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Token expirado ou inválido
       localStorage.removeItem("@bb-em-todocanto:token");
       localStorage.removeItem("@bb-em-todocanto:user");
       window.location.reload();
@@ -48,6 +45,7 @@ export interface UserData {
   family_name: string;
   locale: string;
   name: string;
+  registry: string;
   uid: string;
   acct: string;
   upn: string;
@@ -109,6 +107,7 @@ export interface ClassifiedInfo {
 
 export interface CompleteRegisterRequest {
   name: string;
+  email: string;
   prefix: number;
   region: string;
 }

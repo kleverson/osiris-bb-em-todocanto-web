@@ -123,7 +123,7 @@ export function Header() {
                       fill="#FCFC30"
                     />
                   </svg>
-                  {user?.preferred_username || user?.name}
+                  {user?.name ?? user?.registry}
                 </span>
                 <button
                   onClick={logout}
@@ -218,7 +218,7 @@ export function Header() {
                   </svg>
                   <div>
                     <p className="font-bold text-lg">
-                      {user?.preferred_username || user?.name}
+                      {user?.name ?? user?.registry}
                     </p>
                     <p className="text-sm text-gray-300">Usuário logado</p>
                   </div>

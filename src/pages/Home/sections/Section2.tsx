@@ -2,11 +2,11 @@ import Baterista from "../../../assets/images/mobile/baterista.png";
 
 export function Section2() {
   return (
-    <div
-      id="como-participar"
-      className="flex justify-center items-center pb-96 pt-40 md:py-40 md:pb-[340px]"
-    >
-      <div className="max-w-7xl mx-auto w-full px-4 grid grid-cols-1 lg:grid-cols-2 items-center gap-8 z-10">
+    <div className="flex justify-center items-center pb-96 pt-40 md:py-40 md:pb-[340px]">
+      <div
+        className="max-w-7xl mx-auto w-full px-4 grid grid-cols-1 lg:grid-cols-2 items-center gap-8 z-10"
+        id="como-participar"
+      >
         <div className="hidden lg:block"></div>
         <div className="space-y-6">
           <h2 className="text-3xl lg:text-5xl text-amarelo-bb font-bb-titulos font-extrabold">

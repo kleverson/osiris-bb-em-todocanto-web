@@ -38,6 +38,10 @@ export function ModalCadastrarBanda({
     description: "",
     registration: user?.sub || "",
   });
+  const [customStyle, setCustomStyle] = useState("");
+  const [customPosition, setCustomPosition] = useState("");
+  const [showCustomStyle, setShowCustomStyle] = useState(false);
+  const [showCustomPosition, setShowCustomPosition] = useState(false);
   const handleInputChange = (
     field: keyof ClassifiedItem,
     value: string | boolean
@@ -158,138 +162,199 @@ export function ModalCadastrarBanda({
             </div>
             <form
               onSubmit={handleSubmit}
-              className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 items-center gap-4 lg:border-l lg:pl-6 xl:pl-10 border-azul-bb/60 w-full"
+              className="lg:col-span-2 space-y-4 lg:border-l lg:pl-6 xl:pl-10 border-azul-bb/60 w-full"
             >
-              <label className="flex flex-col gap-1 text-sm">
-                <span className="text-cinza-600">Matrícula</span>
-                <input
-                  className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb text-sm sm:text-base uppercase"
-                  type="text"
-                  readOnly
-                  placeholder="Digite a sua matrícula"
-                  value={user?.registry}
-                  required
-                />
-                <span className="text-azul-bb text-xs font-light">
-                  Exemplo: F000000
-                </span>
-              </label>
-              <label className="flex flex-col gap-1 text-sm sm:col-span-2 lg:col-span-1">
-                <span className="text-cinza-600">Selecione o que procura</span>
-                <div className="flex flex-wrap gap-2 sm:gap-4">
-                  {classifiedInfo?.types.map((type) => (
-                    <label
-                      key={type}
-                      className="flex items-center gap-2 font-light cursor-pointer text-azul-bb"
-                    >
-                      <input
-                        type="checkbox"
-                        className="sr-only"
-                        checked={formData.type_item === type}
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            handleInputChange("type_item", type);
-                          } else {
-                            handleInputChange("type_item", "");
-                          }
-                        }}
-                      />
-                      <div
-                        className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                          formData.type_item === type
-                            ? "border-azul-bb bg-azul-bb"
-                            : "border-cinza-300"
-                        }`}
+              {/* Primeira linha - Matrícula e Tipo */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+                <label className="flex flex-col gap-1 text-sm">
+                  <span className="text-cinza-600">Matrícula</span>
+                  <input
+                    className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb text-sm sm:text-base uppercase"
+                    type="text"
+                    readOnly
+                    placeholder="Digite a sua matrícula"
+                    value={user?.registry}
+                    required
+                  />
+                  <span className="text-azul-bb text-xs font-light">
+                    Exemplo: F000000
+                  </span>
+                </label>
+                <label className="flex flex-col gap-1 text-sm">
+                  <span className="text-cinza-600">
+                    Selecione o que procura
+                  </span>
+                  <div className="flex flex-wrap gap-2 sm:gap-3">
+                    {classifiedInfo?.types.map((type) => (
+                      <label
+                        key={type}
+                        className="flex items-center gap-2 font-light cursor-pointer text-azul-bb"
                       >
-                        {formData.type_item === type && (
-                          <svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 12 12"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M10 3L4.5 8.5L2 6"
-                              stroke="white"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        )}
-                      </div>
-                      <span className="font-medium">{type}</span>
-                    </label>
-                  ))}
-                </div>
-              </label>
-              <label className="flex flex-col gap-1 text-sm">
-                <span className="text-cinza-600">
-                  Informe seu nome ou nome da banda
-                </span>
-                <input
-                  className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb text-sm sm:text-base"
-                  type="text"
-                  placeholder="Digite seu nome ou nome da banda"
-                  value={formData.title}
-                  onChange={(e) => handleInputChange("title", e.target.value)}
-                  required
-                />
-              </label>
-              <label className="flex flex-col gap-1 text-sm">
-                <span className="text-cinza-600">Qual sua região?</span>
-                <select
-                  className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb font-light text-sm sm:text-base"
-                  value={formData.state}
-                  onChange={(e) => handleInputChange("state", e.target.value)}
-                  required
-                >
-                  <option value="">
-                    Selecione o local em que está lotado atualmente
-                  </option>
-                  {estadosBrasil.map((estado) => (
-                    <option key={estado.value} value={estado.label}>
-                      {estado.label}
+                        <input
+                          type="checkbox"
+                          className="sr-only"
+                          checked={formData.type_item === type}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              handleInputChange("type_item", type);
+                            } else {
+                              handleInputChange("type_item", "");
+                            }
+                          }}
+                        />
+                        <div
+                          className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                            formData.type_item === type
+                              ? "border-azul-bb bg-azul-bb"
+                              : "border-cinza-300"
+                          }`}
+                        >
+                          {formData.type_item === type && (
+                            <svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 12 12"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M10 3L4.5 8.5L2 6"
+                                stroke="white"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                              />
+                            </svg>
+                          )}
+                        </div>
+                        <span className="font-medium">{type}</span>
+                      </label>
+                    ))}
+                  </div>
+                </label>
+              </div>
+
+              {/* Segunda linha - Nome e Região */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <label className="flex flex-col gap-1 text-sm">
+                  <span className="text-cinza-600">
+                    Informe seu nome ou nome da banda
+                  </span>
+                  <input
+                    className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb text-sm sm:text-base"
+                    type="text"
+                    placeholder="Digite seu nome ou nome da banda"
+                    value={formData.title}
+                    onChange={(e) => handleInputChange("title", e.target.value)}
+                    required
+                  />
+                </label>
+                <label className="flex flex-col gap-1 text-sm">
+                  <span className="text-cinza-600">Qual sua região?</span>
+                  <select
+                    className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb font-light text-sm sm:text-base"
+                    value={formData.state}
+                    onChange={(e) => handleInputChange("state", e.target.value)}
+                    required
+                  >
+                    <option value="">
+                      Selecione o local em que está lotado atualmente
                     </option>
-                  ))}
-                </select>
-              </label>
+                    {estadosBrasil.map((estado) => (
+                      <option key={estado.value} value={estado.label}>
+                        {estado.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+
+              {/* Terceira linha - Estilo e Instrumento */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+                <label className="flex flex-col gap-1 text-sm">
+                  <span className="text-cinza-600">
+                    Defina o estilo musical
+                  </span>
+                  <select
+                    className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb text-sm sm:text-base"
+                    value={showCustomStyle ? "outro" : formData.style}
+                    onChange={(e) => {
+                      if (e.target.value === "outro") {
+                        setShowCustomStyle(true);
+                        setFormData((prev) => ({ ...prev, style: "" }));
+                      } else {
+                        setShowCustomStyle(false);
+                        setCustomStyle("");
+                        handleInputChange("style", e.target.value);
+                      }
+                    }}
+                    required
+                  >
+                    <option value="">Selecione</option>
+                    {classifiedInfo?.styles.map((style) => (
+                      <option key={style} value={style}>
+                        {style}
+                      </option>
+                    ))}
+                    <option value="outro">Outro</option>
+                  </select>
+                  {showCustomStyle && (
+                    <input
+                      type="text"
+                      className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb text-sm sm:text-base mt-2"
+                      placeholder="Digite o estilo musical"
+                      value={customStyle}
+                      onChange={(e) => {
+                        setCustomStyle(e.target.value);
+                        handleInputChange("style", e.target.value);
+                      }}
+                      required
+                    />
+                  )}
+                </label>
+                <label className="flex flex-col gap-1 text-sm">
+                  <span className="text-cinza-600">Instrumento musical</span>
+                  <select
+                    className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb text-sm sm:text-base"
+                    value={showCustomPosition ? "outro" : formData.position}
+                    onChange={(e) => {
+                      if (e.target.value === "outro") {
+                        setShowCustomPosition(true);
+                        setFormData((prev) => ({ ...prev, position: "" }));
+                      } else {
+                        setShowCustomPosition(false);
+                        setCustomPosition("");
+                        handleInputChange("position", e.target.value);
+                      }
+                    }}
+                    required
+                  >
+                    <option value="">Selecione</option>
+                    {classifiedInfo?.instruments.map((instrument) => (
+                      <option key={instrument} value={instrument}>
+                        {instrument}
+                      </option>
+                    ))}
+                    <option value="outro">Outro</option>
+                  </select>
+                  {showCustomPosition && (
+                    <input
+                      type="text"
+                      className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb text-sm sm:text-base mt-2"
+                      placeholder="Digite o instrumento"
+                      value={customPosition}
+                      onChange={(e) => {
+                        setCustomPosition(e.target.value);
+                        handleInputChange("position", e.target.value);
+                      }}
+                      required
+                    />
+                  )}
+                </label>
+              </div>
+
+              {/* Quarta linha - Descrição */}
               <label className="flex flex-col gap-1 text-sm">
-                <span className="text-cinza-600">Defina o estilo musical</span>
-                <select
-                  className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb text-sm sm:text-base"
-                  value={formData.style}
-                  onChange={(e) => handleInputChange("style", e.target.value)}
-                  required
-                >
-                  <option value="">Selecione</option>
-                  {classifiedInfo?.styles.map((style) => (
-                    <option key={style} value={style}>
-                      {style}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="flex flex-col gap-1 text-sm">
-                <span className="text-cinza-600">Instrumento musical</span>
-                <select
-                  className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb text-sm sm:text-base"
-                  value={formData.position}
-                  onChange={(e) =>
-                    handleInputChange("position", e.target.value)
-                  }
-                  required
-                >
-                  <option value="">Selecione</option>
-                  {classifiedInfo?.instruments.map((instrument) => (
-                    <option key={instrument} value={instrument}>
-                      {instrument}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="sm:col-span-2 flex flex-col gap-1 text-sm">
                 <span className="text-cinza-600">Fale sobre o que procura</span>
                 <textarea
                   className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-t-md text-azul-bb border-b border-azul-bb resize-none h-20 sm:h-24 text-sm sm:text-base"
@@ -305,15 +370,19 @@ export function ModalCadastrarBanda({
                   {formData.description.length}/200 caracteres
                 </span>
               </label>
-              <button
-                type="submit"
-                disabled={loading}
-                className={`w-full sm:w-fit px-4 sm:px-6 uppercase text-white py-2 sm:py-2 rounded-sm font-bold text-center cursor-pointer text-sm sm:text-base ${
-                  loading ? "bg-gray-400" : "bg-azul-bb hover:bg-azul-bb/90"
-                }`}
-              >
-                {loading ? "Enviando..." : "Enviar"}
-              </button>
+
+              {/* Botão de envio */}
+              <div className="flex justify-start pt-2">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className={`w-full sm:w-auto px-6 sm:px-8 uppercase text-white py-2 sm:py-3 rounded-sm font-bold text-center cursor-pointer text-sm sm:text-base ${
+                    loading ? "bg-gray-400" : "bg-azul-bb hover:bg-azul-bb/90"
+                  }`}
+                >
+                  {loading ? "Enviando..." : "Enviar"}
+                </button>
+              </div>
             </form>
           </div>
         )}

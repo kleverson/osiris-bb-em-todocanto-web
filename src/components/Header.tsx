@@ -110,7 +110,7 @@ export function Header() {
           <div className="hidden lg:flex">
             {isAuthenticated ? (
               <>
-                <span className="px-6 h-14 cursor-pointer duration-300 uppercase font-bold text-sm bg-rosa-600 hover:bg-rosa-700 flex gap-2.5 items-center justify-center">
+                <span className="px-6 h-14 duration-300 uppercase font-bold text-sm bg-rosa-600 hover:bg-rosa-700 flex gap-2.5 items-center justify-center">
                   <svg
                     width="24"
                     height="24"
@@ -172,7 +172,7 @@ export function Header() {
         ></div>
       )}
       <div
-        className={`fixed top-0 right-0 h-full w-80 bg-azul-bb text-white transform transition-transform duration-300 ease-in-out z-50 lg:hidden ${
+        className={`fixed top-0 right-0 h-full w-full bg-azul-bb text-white transform transition-transform duration-300 ease-in-out z-50 lg:hidden ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >

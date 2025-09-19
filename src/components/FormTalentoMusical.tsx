@@ -11,6 +11,11 @@ import {
 } from "../services/api";
 import { toast } from "react-toastify";
 import { ModalVideoView } from "./ModalVideoView";
+import {
+  formatRegistrations,
+  validateRegistrations,
+  getValidRegistrationsCount,
+} from "../utils/registrationMask";
 
 export function FormTalentoMusicalStep1({
   setStep,
@@ -394,6 +399,16 @@ export function FormTalentoMusicalStep3({
 }) {
   const [categories, setCategories] = useState<Category[]>([]);
 
+  const handleRegistrationsChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const formatted = formatRegistrations(e.target.value);
+    setFormData({
+      ...formData,
+      registrations_participants: formatted,
+    });
+  };
+
   useEffect(() => {
     const loadCategories = async () => {
       try {
@@ -419,6 +434,22 @@ export function FormTalentoMusicalStep3({
     if (!formData.nickname || !formData.category || !formData.description) {
       toast.warning("Por favor, preencha todos os campos.");
       return;
+    }
+
+    if (formData.category === 1) {
+      if (!formData.registrations_participants.trim()) {
+        toast.warning(
+          "Por favor, informe as matrículas dos integrantes da banda."
+        );
+        return;
+      }
+
+      if (!validateRegistrations(formData.registrations_participants)) {
+        toast.warning(
+          "Por favor, verifique o formato das matrículas. Cada matrícula deve ter F + 7 números (ex: F0000000)."
+        );
+        return;
+      }
     }
 
     setStep(4);
@@ -537,20 +568,38 @@ export function FormTalentoMusicalStep3({
             </span>
             <input
               type="text"
-              placeholder="Digite as matrículas"
-              className="bg-white p-3 text-azul-bb border-b-2 border-azul-bb outline-none focus:border-roxo-600 transition"
+              placeholder="Digite as matrículas (ex: F0000000)"
+              className={`bg-white p-3 text-azul-bb border-b-2 outline-none transition ${
+                formData.registrations_participants &&
+                !validateRegistrations(formData.registrations_participants)
+                  ? "border-red-500 focus:border-red-600"
+                  : "border-azul-bb focus:border-roxo-600"
+              }`}
               value={formData.registrations_participants}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  registrations_participants: e.target.value,
-                })
-              }
+              onChange={handleRegistrationsChange}
               required
             />
-            <span className="text-azul-bb font-light text-sm">
-              Exemplo: F000000, F000001...
-            </span>
+            <div className="flex flex-col gap-1">
+              <span className="text-azul-bb font-light text-xs">
+                Ex: F0000000, F0000001 <br />
+                {formData.registrations_participants && (
+                  <span className="ml-2 font-medium">
+                    •{" "}
+                    {getValidRegistrationsCount(
+                      formData.registrations_participants
+                    )}{" "}
+                    matrícula(s) válida(s)
+                  </span>
+                )}
+              </span>
+              {formData.registrations_participants &&
+                !validateRegistrations(formData.registrations_participants) && (
+                  <span className="text-red-500 font-light text-xs">
+                    ⚠️ Algumas matrículas estão incompletas. Cada matrícula deve
+                    ter F + 7 números.
+                  </span>
+                )}
+            </div>
           </label>
         )}
         <label className="flex flex-col gap-2">
@@ -606,7 +655,7 @@ export function FormTalentoMusicalStep4({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!musicData.title || !musicData.song) {
+    if (!musicData.title) {
       toast.warning("Por favor, preencha todos os campos.");
       return;
     }
@@ -667,7 +716,6 @@ export function FormTalentoMusicalStep4({
             onChange={(e) =>
               setMusicData({ ...musicData, song: e.target.value })
             }
-            required
           />
         </label>
 

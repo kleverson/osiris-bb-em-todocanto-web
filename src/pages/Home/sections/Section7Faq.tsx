@@ -27,7 +27,7 @@ export function Section7Faq() {
                 className="bg-white rounded-lg overflow-hidden transition-all duration-300 ease-in-out"
               >
                 <div
-                  className="flex justify-between items-center p-6 text-lg cursor-pointer hover:bg-gray-50 transition-colors duration-200"
+                  className="flex justify-between items-center p-6 sm:text-lg cursor-pointer hover:bg-gray-50 transition-colors duration-200"
                   onClick={() => toggleFAQ(index)}
                 >
                   <p>{item.question}</p>
@@ -79,7 +79,7 @@ export function Section7Faq() {
           <img
             src={Piano}
             alt="pessoa tocando piano"
-            className="max-w-[405px]"
+            className="max-w-[405px] w-full"
           />
           <div className="bg-azul-bb p-8 text-white max-w-sm">
             <h3 className="text-2xl font-bold">Ainda com dúvidas?</h3>

@@ -130,20 +130,20 @@ export function Section6FormEstaSemBanda() {
       <div className="absolute bottom-0 w-full z-10">
         <VetorBottomEstaSemBanda />
       </div>
-      <div className="relative max-w-7xl mx-auto w-full px-4 py-28 sm:pb-44 z-30">
-        <div className="flex flex-col md:flex-row gap-5 justify-between md:items-end">
-          <div className="flex flex-col gap-6">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-bb-titulos text-white md:text-azul-bb">
+      <div className="relative max-w-7xl mx-auto w-full px-4 py-24 sm:pb-44 z-30">
+        <div className="flex flex-col lg:flex-row gap-5 justify-between lg:items-end">
+          <div className="flex flex-col gap-2">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-bb-titulos text-white lg:text-azul-bb">
               Monte a <br />
               sua banda?
             </h2>
-            <p className="text-lg sm:text-xl lg:text-2xl text-white md:text-azul-bb font-light">
+            <p className="text-lg sm:text-xl text-white lg:text-azul-bb font-light">
               A gente te ajuda a encontrar <br />
               quem está faltando.
             </p>
           </div>
           <div className="flex flex-col gap-4 w-full max-w-xl">
-            <div className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-sm overflow-hidden flex gap-2 items-center w-full">
+            <div className="bg-white px-3 sm:px-4 py-2 sm:py-3 rounded-sm overflow-hidden flex gap-2 items-center w-full shadow">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
@@ -299,7 +299,7 @@ export function Section6FormEstaSemBanda() {
           </div>
         )}
 
-        <div className="flex flex-col gap-4 sm:gap-6 lg:flex-row lg:gap-5 justify-between items-center">
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-10 items-center justify-end w-full lg:w-auto lg:ml-auto">
           <button
             type="button"
             onClick={handlePublicarClick}
@@ -307,91 +307,88 @@ export function Section6FormEstaSemBanda() {
           >
             publicar no mural
           </button>
+          {totalPaginas >= 1 && (
+            <button
+              onClick={handleMostrarTudo}
+              className={`text-lg sm:text-xl text-amarelo-bb cursor-pointer hover:underline`}
+            >
+              {mostrandoTodos ? "Mostrar menos" : "Mostrar tudo"}
+            </button>
+          )}
 
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-10 items-center w-full lg:w-auto lg:ml-auto">
-            {totalPaginas >= 1 && (
-              <button
-                onClick={handleMostrarTudo}
-                className={`text-lg sm:text-xl text-amarelo-bb cursor-pointer hover:underline`}
-              >
-                {mostrandoTodos ? "Mostrar menos" : "Mostrar tudo"}
-              </button>
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 lg:gap-10 items-center text-white font-light">
+            <span className="text-sm sm:text-base text-center">
+              {mostrandoTodos
+                ? `Mostrando todos os ${musicosFiltrados.length} itens`
+                : `Mostrando ${indiceInicio + 1}-${indiceFim} de ${
+                    musicosFiltrados.length
+                  } itens`}
+            </span>
+            {totalPaginas > 1 && !mostrandoTodos && (
+              <div className="flex gap-1 sm:gap-2 items-center font-normal">
+                <button
+                  onClick={() => setPaginaAtual(Math.max(1, paginaAtual - 1))}
+                  disabled={paginaAtual === 1}
+                  className={`p-1 ${
+                    paginaAtual === 1
+                      ? "opacity-50 cursor-not-allowed"
+                      : "cursor-pointer hover:bg-white/10 rounded"
+                  } transition-all`}
+                >
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 sm:w-6 sm:h-6"
+                  >
+                    <path
+                      d="M16 7.0275L14.4777 5.5L8 12L14.4777 18.5L16 16.9725L11.0553 12L16 7.0275Z"
+                      fill="white"
+                    />
+                  </svg>
+                </button>
+                {paginasVisiveis.map((numeroPagina) => (
+                  <button
+                    key={numeroPagina}
+                    onClick={() => setPaginaAtual(numeroPagina)}
+                    className={`border rounded-sm w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs sm:text-sm ${
+                      paginaAtual === numeroPagina
+                        ? "border-azul-bb bg-azul-bb text-white"
+                        : "border-white text-white hover:bg-white hover:text-azul-bb"
+                    } transition-colors cursor-pointer`}
+                  >
+                    {numeroPagina}
+                  </button>
+                ))}
+                <button
+                  onClick={() =>
+                    setPaginaAtual(Math.min(totalPaginas, paginaAtual + 1))
+                  }
+                  disabled={paginaAtual === totalPaginas}
+                  className={`p-1 ${
+                    paginaAtual === totalPaginas
+                      ? "opacity-50 cursor-not-allowed"
+                      : "cursor-pointer hover:bg-white/10 rounded"
+                  } transition-all`}
+                >
+                  <svg
+                    width="6"
+                    height="12"
+                    viewBox="0 0 8 14"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-4 h-4 sm:w-5 sm:h-5"
+                  >
+                    <path
+                      d="M1.52227 0.5L0 2.0275L4.94467 7L0 11.9725L1.52227 13.5L8 7L1.52227 0.5Z"
+                      fill="white"
+                    />
+                  </svg>
+                </button>
+              </div>
             )}
-
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 lg:gap-10 items-center text-white font-light">
-              <span className="text-sm sm:text-base text-center">
-                {mostrandoTodos
-                  ? `Mostrando todos os ${musicosFiltrados.length} itens`
-                  : `Mostrando ${indiceInicio + 1}-${indiceFim} de ${
-                      musicosFiltrados.length
-                    } itens`}
-              </span>
-              {totalPaginas > 1 && !mostrandoTodos && (
-                <div className="flex gap-1 sm:gap-2 items-center font-normal">
-                  <button
-                    onClick={() => setPaginaAtual(Math.max(1, paginaAtual - 1))}
-                    disabled={paginaAtual === 1}
-                    className={`p-1 ${
-                      paginaAtual === 1
-                        ? "opacity-50 cursor-not-allowed"
-                        : "cursor-pointer hover:bg-white/10 rounded"
-                    } transition-all`}
-                  >
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-5 h-5 sm:w-6 sm:h-6"
-                    >
-                      <path
-                        d="M16 7.0275L14.4777 5.5L8 12L14.4777 18.5L16 16.9725L11.0553 12L16 7.0275Z"
-                        fill="white"
-                      />
-                    </svg>
-                  </button>
-                  {paginasVisiveis.map((numeroPagina) => (
-                    <button
-                      key={numeroPagina}
-                      onClick={() => setPaginaAtual(numeroPagina)}
-                      className={`border rounded-sm w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center text-xs sm:text-sm ${
-                        paginaAtual === numeroPagina
-                          ? "border-azul-bb bg-azul-bb text-white"
-                          : "border-white text-white hover:bg-white hover:text-azul-bb"
-                      } transition-colors cursor-pointer`}
-                    >
-                      {numeroPagina}
-                    </button>
-                  ))}
-                  <button
-                    onClick={() =>
-                      setPaginaAtual(Math.min(totalPaginas, paginaAtual + 1))
-                    }
-                    disabled={paginaAtual === totalPaginas}
-                    className={`p-1 ${
-                      paginaAtual === totalPaginas
-                        ? "opacity-50 cursor-not-allowed"
-                        : "cursor-pointer hover:bg-white/10 rounded"
-                    } transition-all`}
-                  >
-                    <svg
-                      width="6"
-                      height="12"
-                      viewBox="0 0 8 14"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="w-4 h-4 sm:w-5 sm:h-5"
-                    >
-                      <path
-                        d="M1.52227 0.5L0 2.0275L4.94467 7L0 11.9725L1.52227 13.5L8 7L1.52227 0.5Z"
-                        fill="white"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              )}
-            </div>
           </div>
         </div>
       </div>

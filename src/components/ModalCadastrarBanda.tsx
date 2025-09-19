@@ -167,7 +167,7 @@ export function ModalCadastrarBanda({
                   type="text"
                   readOnly
                   placeholder="Digite a sua matrícula"
-                  value={user?.sub}
+                  value={user?.registry}
                   required
                 />
                 <span className="text-azul-bb text-xs font-light">

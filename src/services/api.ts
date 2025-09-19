@@ -2,7 +2,7 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL:
-    import.meta.env.VITE_API_URL?.replace("/docs", "") ||
+    import.meta.env.VITE_API_URL ||
     "https://bb-em-todocanto-api-bafbd63d79c6.herokuapp.com",
   headers: {
     "Content-Type": "application/json",
